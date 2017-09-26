@@ -5,6 +5,14 @@ export default {
   tabSelected: Colors.tabSelectedDark,
   tabBackground: Colors.tabBackgroundDark,
   tabBackgroundSelected: Colors.tabBackgroundSelectedDark,
+
+  loaderColor: Colors.loaderColorDark,
+
+  canvas: Colors.canvasDark,
+  cardBackground: Colors.cardBackgroundDark,
+  labelText: Colors.labelTextDark,
+  value: Colors.valueTextDark,
+
   tabBar: '#fefefe',
   errorBackground: 'red',
   errorText: '#fff',

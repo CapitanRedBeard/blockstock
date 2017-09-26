@@ -31,14 +31,10 @@ export default TabNavigator(
             iconName = 'area-chart';
             break;
           case 'Links':
-            iconName = Platform.OS === 'ios'
-              ? `ios-link${focused ? '' : '-outline'}`
-              : 'md-link';
+            iconName = 'pie-chart';
             break;
           case 'Settings':
-            iconName = Platform.OS === 'ios'
-              ? `ios-options${focused ? '' : '-outline'}`
-              : 'md-options';
+            iconName = 'cog';
         }
         return (
           <FontAwesome

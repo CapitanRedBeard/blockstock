@@ -9,37 +9,39 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
+import { connect } from "react-redux"
 
-import { StackedAreaChart } from '../components/Charts/StackedAreaChart';
+import DarkTheme from '../constants/DarkTheme';
+
+import { fetchTickers } from '../actions/market';
+import LabelText from '../components/LabelText';
+import TickerCard from '../components/TickerCard';
+import Loader from '../components/Loader';
 import { ThumbnailLineChart } from '../components/Charts/ThumbnailLineChart';
 
-export default class MarketScreen extends React.Component {
+class MarketScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
+  componentWillMount() {
+    console.log("Fetching tickers componentWillMount")
+    this.props.fetchTickers()
+  }
+
   render() {
+    const { tickers } = this.props.market
+    console.log("MarketScreen Props: ", tickers)
+
     return (
       <View style={styles.container}>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
-          <StackedAreaChart/>
-          <ThumbnailLineChart/>
-          <ThumbnailLineChart/>
-          <ThumbnailLineChart/>
-          <ThumbnailLineChart/>
-
+          <LabelText>Cryptos</LabelText>
+          {
+            tickers.length ? tickers.map((t,i) => <TickerCard key={i} ticker={t}/>) : <Loader/>
+          }
         </ScrollView>
       </View>
     );
@@ -49,32 +51,20 @@ export default class MarketScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
+    padding: 10,
+    backgroundColor: DarkTheme.canvas,
   },
   contentContainer: {
     paddingTop: 30,
   },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
 });
+
+
+export default connect(
+  state => ({
+    market: state.market
+  }),
+  {
+    fetchTickers
+  }
+)(MarketScreen)
