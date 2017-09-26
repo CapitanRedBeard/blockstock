@@ -1,18 +1,18 @@
 import React from 'react';
-import { Platform } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Platform, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 
-import Colors from '../constants/Colors';
+import DarkTheme from '../constants/DarkTheme';
 
-import HomeScreen from '../screens/HomeScreen';
+import MarketScreen from '../screens/MarketScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 export default TabNavigator(
   {
-    Home: {
-      screen: HomeScreen,
+    Market: {
+      screen: MarketScreen,
     },
     Links: {
       screen: LinksScreen,
@@ -27,10 +27,8 @@ export default TabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
-          case 'Home':
-            iconName = Platform.OS === 'ios'
-              ? `ios-information-circle${focused ? '' : '-outline'}`
-              : 'md-information-circle';
+          case 'Market':
+            iconName = 'area-chart';
             break;
           case 'Links':
             iconName = Platform.OS === 'ios'
@@ -43,11 +41,11 @@ export default TabNavigator(
               : 'md-options';
         }
         return (
-          <Ionicons
+          <FontAwesome
             name={iconName}
             size={28}
-            style={{ marginBottom: -3 }}
-            color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+            style={styles.icon}
+            color={focused ? DarkTheme.tabSelected : DarkTheme.tabDefault}
           />
         );
       },
@@ -56,5 +54,22 @@ export default TabNavigator(
     tabBarPosition: 'bottom',
     animationEnabled: false,
     swipeEnabled: false,
+    tabBarOptions: {
+      activeTintColor: DarkTheme.tabSelected,
+      inactiveTintColor: DarkTheme.tabDefault,
+      activeBackgroundColor: DarkTheme.tabBackgroundSelected,
+      labelStyle: {
+        fontSize: 12,
+      },
+      style: {
+        backgroundColor: DarkTheme.tabBackground,
+      },
+    }
   }
 );
+
+const styles = StyleSheet.create({
+  icon: {
+    marginBottom: -3
+  }
+})
