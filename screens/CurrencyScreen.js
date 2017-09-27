@@ -4,10 +4,10 @@ import { ScrollView, StyleSheet } from 'react-native';
 import DarkTheme from "../constants/DarkTheme"
 
 export default class LinksScreen extends React.Component {
-  static navigationOptions = {
-    headerTitle: 'Settings',
-    ...DarkTheme.navigationOptions
-  };
+  static navigationOptions = ({ screenProps }) => ({
+      headerTitle: screenProps.name,
+      ...DarkTheme.navigationOptions
+  });
 
   render() {
     return (

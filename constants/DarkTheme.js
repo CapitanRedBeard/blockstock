@@ -22,4 +22,11 @@ export default {
   warningText: '#666804',
   noticeBackground: Colors.tintColor,
   noticeText: '#fff',
+
+  navigationOptions: {
+    headerStyle: {
+      backgroundColor: Colors.tabBackgroundDark,
+    },
+    headerTintColor: Colors.valueTextDark
+  }
 };

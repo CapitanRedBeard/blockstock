@@ -6,30 +6,39 @@ import { getInTheBlackOrRedColor } from '../constants/Colors'
 
 import BaseText from '../components/BaseText'
 
-export default function TickerCard(props) {
-  const { ticker } = props
+export default class TickerCard extends React.PureComponent {
+  _onPress = () => {
+    const { onPressItem, ticker } = this.props
+    console.log("_onPress")
 
-  const percentColor = getInTheBlackOrRedColor(ticker.percent_change_24h)
+    onPressItem(ticker);
+  };
 
-  return (
-    <TouchableOpacity style={styles.touchableWrapper}>
-      <View style={styles.container}>
-        <BaseText style={styles.rank}>{ticker.rank}</BaseText>
-        <View key="NameContainer" style={styles.nameContainer}>
-          <BaseText style={styles.name}>{ticker.name}</BaseText>
-          <BaseText style={styles.ticker}>{ticker.symbol}</BaseText>
-        </View>
-        <View key="ValueContainer" style={styles.valueContainer}>
-          <BaseText style={styles.price}>
-            ${ticker.price_usd}
-          </BaseText>
-          <BaseText style={[styles.change, {color: percentColor}]}>
-            {ticker.percent_change_24h}%
-          </BaseText>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
+  render() {
+     const { ticker } = this.props
+
+     const percentColor = getInTheBlackOrRedColor(ticker.percent_change_24h)
+
+     return (
+       <TouchableOpacity style={styles.touchableWrapper} onPress={this._onPress}>
+         <View style={styles.container}>
+           <BaseText style={styles.rank}>{ticker.rank}</BaseText>
+           <View key="NameContainer" style={styles.nameContainer}>
+             <BaseText style={styles.name}>{ticker.name}</BaseText>
+             <BaseText style={styles.ticker}>{ticker.symbol}</BaseText>
+           </View>
+           <View key="ValueContainer" style={styles.valueContainer}>
+             <BaseText style={styles.price}>
+               ${ticker.price_usd}
+             </BaseText>
+             <BaseText style={[styles.change, {color: percentColor}]}>
+               {ticker.percent_change_24h}%
+             </BaseText>
+           </View>
+         </View>
+       </TouchableOpacity>
+     );
+  }
 }
 
 const styles = StyleSheet.create({

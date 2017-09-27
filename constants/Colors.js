@@ -1,4 +1,4 @@
-const tintColor = '#64E08A';
+const tintColor = '#05FB97';
 const alertColor = '#EF853E';
 
 const Colors = {

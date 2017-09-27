@@ -26,14 +26,13 @@ class MarketScreen extends React.Component {
   };
 
   componentWillMount() {
-    console.log("Fetching tickers componentWillMount")
     this.props.fetchTickers()
   }
 
   _keyExtractor = (item, index) => item.id;
 
   _renderItem = ({item}) => (
-    <TickerCard ticker={item}/>
+    <TickerCard ticker={item} onPressItem={this.onPressItem}/>
   );
 
   _renderHeader = () => {
@@ -42,6 +41,12 @@ class MarketScreen extends React.Component {
 
   _onRefresh = () => {
     this.props.fetchTickers()
+  }
+
+  onPressItem = ticker => {
+    console.log("onPressItem")
+    const { navigate } = this.props.navigation;
+    navigate('Currency', ticker)
   }
 
   render() {

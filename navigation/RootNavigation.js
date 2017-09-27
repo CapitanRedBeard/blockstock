@@ -3,11 +3,15 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
+import CurrencyScreen from '../screens/CurrencyScreen';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
   {
     Main: {
+      screen: MainTabNavigator,
+    },
+    Currency: {
       screen: MainTabNavigator,
     },
   },

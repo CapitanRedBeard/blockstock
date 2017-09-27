@@ -6,7 +6,7 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import DarkTheme from '../constants/DarkTheme';
 
 import MarketScreen from '../screens/MarketScreen';
-import LinksScreen from '../screens/LinksScreen';
+import PortfolioScreen from '../screens/PortfolioScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 export default TabNavigator(
@@ -14,8 +14,8 @@ export default TabNavigator(
     Market: {
       screen: MarketScreen,
     },
-    Links: {
-      screen: LinksScreen,
+    Portfolio: {
+      screen: PortfolioScreen,
     },
     Settings: {
       screen: SettingsScreen,
@@ -30,7 +30,7 @@ export default TabNavigator(
           case 'Market':
             iconName = 'area-chart';
             break;
-          case 'Links':
+          case 'Portfolio':
             iconName = 'pie-chart';
             break;
           case 'Settings':
