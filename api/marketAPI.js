@@ -19,7 +19,6 @@ export async function fetchGlobalMarketData() {
 export async function fetchTickerData() {
 
   const response = await fetch('https://api.coinmarketcap.com/v1/ticker/?limit=100')
-  console.log("fetchTickerData actions", response)
 
   if(response.status === RESPONSE_STATUS.OK) {
     return response.json()

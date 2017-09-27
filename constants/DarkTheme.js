@@ -1,6 +1,7 @@
 import Colors from "./Colors"
 
 export default {
+  statusBarStyle: "light-content",
   tabDefault: Colors.tabDefaultDark,
   tabSelected: Colors.tabSelectedDark,
   tabBackground: Colors.tabBackgroundDark,
@@ -11,7 +12,8 @@ export default {
   canvas: Colors.canvasDark,
   cardBackground: Colors.cardBackgroundDark,
   labelText: Colors.labelTextDark,
-  value: Colors.valueTextDark,
+  valueText: Colors.valueTextDark,
+
 
   tabBar: '#fefefe',
   errorBackground: 'red',

@@ -1,7 +1,7 @@
 const tintColor = '#64E08A';
 const alertColor = '#EF853E';
 
-export default {
+const Colors = {
   tintColor,
   tabDefaultDark: '#D9D9D9',
   tabSelectedDark: tintColor,
@@ -26,3 +26,9 @@ export default {
   noticeBackground: tintColor,
   noticeText: '#fff',
 };
+
+export function getInTheBlackOrRedColor(val) {
+  return val < 0 ? Colors.inTheRedColor : Colors.inTheBlackColor
+}
+
+export default Colors

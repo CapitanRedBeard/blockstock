@@ -10,7 +10,6 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  console.log("Reducer: ", action)
   switch (action.type) {
     case ActionTypes.GET_TICKERS:
       const tickers = {tickers: action.tickers}

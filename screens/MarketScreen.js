@@ -31,14 +31,13 @@ class MarketScreen extends React.Component {
 
   render() {
     const { tickers } = this.props.market
-    console.log("MarketScreen Props: ", tickers)
 
     return (
       <View style={styles.container}>
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
-          <LabelText>Cryptos</LabelText>
+          <LabelText>Cryptocurrencies</LabelText>
           {
             tickers.length ? tickers.map((t,i) => <TickerCard key={i} ticker={t}/>) : <Loader/>
           }
@@ -51,7 +50,7 @@ class MarketScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    paddingHorizontal: 10,
     backgroundColor: DarkTheme.canvas,
   },
   contentContainer: {

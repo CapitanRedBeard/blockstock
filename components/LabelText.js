@@ -1,9 +1,11 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import BaseText from './BaseText'
 import DarkTheme from '../constants/DarkTheme'
+
 export default function LabelText(props) {
   return (
-    <Text
+    <BaseText
       {...props}
       style={[styles.text, props.style]}
     />
