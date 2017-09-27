@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { connect } from "react-redux"
@@ -29,19 +30,39 @@ class MarketScreen extends React.Component {
     this.props.fetchTickers()
   }
 
+  _keyExtractor = (item, index) => item.id;
+
+  _renderItem = ({item}) => (
+    <TickerCard ticker={item}/>
+  );
+
+  _renderHeader = () => {
+    return <LabelText style={styles.label}>Cryptocurrencies</LabelText>
+  }
+
+  _onRefresh = () => {
+    this.props.fetchTickers()
+  }
+
   render() {
     const { tickers } = this.props.market
 
     return (
       <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}>
-          <LabelText>Cryptocurrencies</LabelText>
-          {
-            tickers.length ? tickers.map((t,i) => <TickerCard key={i} ticker={t}/>) : <Loader/>
-          }
-        </ScrollView>
+        {
+          tickers.length ?
+          <FlatList
+            style={{flex: 1, flexGrow: 1}}
+            ListHeaderComponent={this._renderHeader}
+            data={tickers}
+            keyExtractor={this._keyExtractor}
+            renderItem={this._renderItem}
+            initialNumToRender={20}
+            onRefresh={this._onRefresh}
+            refreshing={false}
+          /> :
+          <Loader/>
+        }
       </View>
     );
   }
@@ -49,12 +70,19 @@ class MarketScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 30,
     flex: 1,
-    paddingHorizontal: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
     backgroundColor: DarkTheme.canvas,
   },
   contentContainer: {
     paddingTop: 30,
+  },
+  label: {
+    marginBottom: 10,
   },
 });
 

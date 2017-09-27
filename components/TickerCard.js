@@ -12,7 +12,7 @@ export default function TickerCard(props) {
   const percentColor = getInTheBlackOrRedColor(ticker.percent_change_24h)
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity style={styles.touchableWrapper}>
       <View style={styles.container}>
         <BaseText style={styles.rank}>{ticker.rank}</BaseText>
         <View key="NameContainer" style={styles.nameContainer}>
@@ -33,6 +33,10 @@ export default function TickerCard(props) {
 }
 
 const styles = StyleSheet.create({
+  touchableWrapper: {
+    flex: 1,
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
     padding: 20,
