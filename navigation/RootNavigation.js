@@ -12,7 +12,7 @@ const RootStackNavigator = StackNavigator(
       screen: MainTabNavigator,
     },
     Currency: {
-      screen: MainTabNavigator,
+      screen: CurrencyScreen,
     },
   },
   {

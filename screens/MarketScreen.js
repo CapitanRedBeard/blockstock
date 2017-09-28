@@ -22,7 +22,8 @@ import { ThumbnailLineChart } from '../components/Charts/ThumbnailLineChart';
 
 class MarketScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    headerTitle: 'Market',
+    ...DarkTheme.navigationOptions
   };
 
   componentWillMount() {
@@ -36,7 +37,7 @@ class MarketScreen extends React.Component {
   );
 
   _renderHeader = () => {
-    return <LabelText style={styles.label}>Cryptocurrencies</LabelText>
+    return <LabelText style={styles.label}>All Cryptocurrencies</LabelText>
   }
 
   _onRefresh = () => {
@@ -44,9 +45,8 @@ class MarketScreen extends React.Component {
   }
 
   onPressItem = ticker => {
-    console.log("onPressItem")
     const { navigate } = this.props.navigation;
-    navigate('Currency', ticker)
+    navigate('Currency', { ...ticker})
   }
 
   render() {
@@ -75,7 +75,6 @@ class MarketScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 30,
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
@@ -83,10 +82,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: DarkTheme.canvas,
   },
-  contentContainer: {
-    paddingTop: 30,
-  },
   label: {
+    paddingTop: 10,
     marginBottom: 10,
   },
 });
