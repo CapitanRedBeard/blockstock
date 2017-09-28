@@ -18,7 +18,6 @@ import { fetchTickers } from '../actions/market';
 import LabelText from '../components/LabelText';
 import TickerCard from '../components/TickerCard';
 import Loader from '../components/Loader';
-import { ThumbnailLineChart } from '../components/Charts/ThumbnailLineChart';
 
 class MarketScreen extends React.Component {
   static navigationOptions = {

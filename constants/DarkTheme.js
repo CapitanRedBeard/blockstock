@@ -14,6 +14,8 @@ export default {
   labelText: Colors.labelTextDark,
   valueText: Colors.valueTextDark,
 
+  chartLine: Colors.labelTextDark,
+  chartGrid: Colors.labelTextDark,
 
   tabBar: '#fefefe',
   errorBackground: 'red',

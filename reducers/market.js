@@ -6,7 +6,8 @@ import { ActionTypes } from "../constants/Types"
 
 const initialState = {
   global: null,
-  tickers: []
+  tickers: [],
+  chartData: {}
 }
 
 export default (state = initialState, action) => {
@@ -14,6 +15,12 @@ export default (state = initialState, action) => {
     case ActionTypes.GET_TICKERS:
       const tickers = {tickers: action.tickers}
       return {...state, ...tickers}
+    case ActionTypes.GET_CHART_DATA:
+      const chartData = {
+        ...state.chartData,
+      }
+      chartData[action.coinName] = action.chartData
+      return {...state, chartData: chartData}
     default:
       return state
   }

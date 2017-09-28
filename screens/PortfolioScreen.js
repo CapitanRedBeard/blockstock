@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet } from 'react-native';
 
 import DarkTheme from "../constants/DarkTheme"
 
-export default class LinksScreen extends React.Component {
+export default class PortfolioScreen extends React.Component {
   static navigationOptions = {
     headerTitle: 'Portfolio',
     ...DarkTheme.navigationOptions

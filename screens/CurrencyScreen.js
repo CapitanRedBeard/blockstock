@@ -1,27 +1,38 @@
 import React from 'react';
+import { connect } from "react-redux"
+
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
 import DarkTheme from "../constants/DarkTheme"
 import { getInTheBlackOrRedColor } from '../constants/Colors'
 import { formatMoney } from '../helpers'
-
+import { fetchChart } from '../actions/market'
 import BaseText from '../components/BaseText'
 import CurrencyHeader from '../components/CurrencyHeader'
+import LineChart from '../components/Charts/LineChart';
 
-export default class LinksScreen extends React.Component {
+class CurrencyScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: CurrencyHeader(navigation.state.params),
     ...DarkTheme.navigationOptions
   })
 
+  componentWillMount() {
+    const { params } = this.props.navigation.state
+    params && this.props.fetchChart(params.name)
+  }
+
   render() {
     const { params } = this.props.navigation.state
-
     const percentColor = getInTheBlackOrRedColor(params.percent_change_24h)
 
     return (
       <ScrollView
         style={styles.container} contentContainerStyle={styles.containerContent}>
+        <LineChart
+          lineColor={DarkTheme.chartLine} gridColor={DarkTheme.chartGrid}
+          data={this.props.chartData[params.name]}
+        />
         <View key="ValueContainer" style={styles.valueContainer}>
           <BaseText style={styles.price}>
             {formatMoney(params.price_usd)}
@@ -76,7 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
-    marginBottom: 20,
+    marginVertical: 20,
   },
   price: {
     fontSize: 30,
@@ -105,3 +116,13 @@ const styles = StyleSheet.create({
     color: DarkTheme.valueText,
   }
 });
+
+
+export default connect(
+  state => ({
+    chartData: state.market.chartData
+  }),
+  {
+    fetchChart
+  }
+)(CurrencyScreen)
