@@ -59,7 +59,9 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 200,
     width: width,
-    backgroundColor: 'transparent'
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: 'transparent',
   },
   graphContainer: {
     flex: 1,

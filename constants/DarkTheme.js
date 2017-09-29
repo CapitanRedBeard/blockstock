@@ -27,7 +27,7 @@ export default {
 
   navigationOptions: {
     headerStyle: {
-      backgroundColor: Colors.tabBackgroundDark,
+      backgroundColor: Colors.canvasDark,
     },
     headerTintColor: Colors.valueTextDark
   }

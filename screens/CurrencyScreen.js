@@ -5,11 +5,13 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
 import DarkTheme from "../constants/DarkTheme"
 import { getInTheBlackOrRedColor } from '../constants/Colors'
+import { TimeFrames } from '../constants/Types'
 import { formatMoney } from '../helpers'
 import { fetchChart } from '../actions/market'
 import BaseText from '../components/BaseText'
 import CurrencyHeader from '../components/CurrencyHeader'
 import LineChart from '../components/Charts/LineChart';
+import TimeFrameSwitch from '../components/TimeFrameSwitch';
 
 class CurrencyScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -17,22 +19,41 @@ class CurrencyScreen extends React.Component {
     ...DarkTheme.navigationOptions
   })
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedTimeFrame: 0
+    }
+  }
+
+  selectTimeFrame = (value) => {
+    const { params } = this.props.navigation.state
+    params && this.props.fetchChart(params.name, TimeFrames[value].label)
+    this.setState({selectedTimeFrame: value})
+  }
+
   componentWillMount() {
     const { params } = this.props.navigation.state
-    params && this.props.fetchChart(params.name)
+    params && this.props.fetchChart(params.name, TimeFrames[this.state.selectedTimeFrame].label)
   }
 
   render() {
     const { params } = this.props.navigation.state
     const percentColor = getInTheBlackOrRedColor(params.percent_change_24h)
 
+    const scopedChartData = this.props.chartData[params.name] && this.props.chartData[params.name][TimeFrames[this.state.selectedTimeFrame].label]
+
+
     return (
       <ScrollView
         style={styles.container} contentContainerStyle={styles.containerContent}>
         <LineChart
           lineColor={DarkTheme.chartLine} gridColor={DarkTheme.chartGrid}
-          data={this.props.chartData[params.name]}
+          data={scopedChartData}
         />
+
+        <TimeFrameSwitch selected={this.state.selectedTimeFrame} onPress={this.selectTimeFrame}/>
+
         <View key="ValueContainer" style={styles.valueContainer}>
           <BaseText style={styles.price}>
             {formatMoney(params.price_usd)}

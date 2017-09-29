@@ -1,3 +1,5 @@
+import { getTimeStampFrame } from '../helpers'
+
 const RESPONSE_STATUS = {
   OK: 200
 }
@@ -26,9 +28,8 @@ export async function fetchTickerData() {
   return []
 }
 
-export async function fetchChartData(coinName) {
-
-  const response = await fetch(`https://graphs.coinmarketcap.com/currencies/${coinName}`)
+export async function fetchChartData(coinName, timeFrame) {
+  const response = await fetch(`https://graphs.coinmarketcap.com/currencies/${coinName}/${getTimeStampFrame(timeFrame)}`)
   console.log("FetchChart Data: ", response)
   if(response.status === RESPONSE_STATUS.OK) {
     return response.json()

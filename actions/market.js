@@ -12,20 +12,20 @@ function storeTickers(tickers): Action {
     }
 }
 
-function updateChartData(coinName, chartData): Action {
-  console.log("updateChartData", chartData)
+function updateChartData(coinName, timeFrame, chartData): Action {
   return {
       type: ActionTypes.GET_CHART_DATA,
       coinName: coinName,
+      timeFrame: timeFrame,
       chartData: chartData
     }
 }
 
 
-export function fetchChart(coinName) {
+export function fetchChart(coinName, timeFrame) {
 
   return async (dispatch) => {
-    return dispatch(updateChartData(coinName, await fetchChartData(coinName)))
+    return dispatch(updateChartData(coinName, timeFrame, await fetchChartData(coinName, timeFrame)))
   };
 }
 

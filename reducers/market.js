@@ -19,7 +19,10 @@ export default (state = initialState, action) => {
       const chartData = {
         ...state.chartData,
       }
-      chartData[action.coinName] = action.chartData
+      if(!chartData[action.coinName]) {
+        chartData[action.coinName] = {}
+      }
+      chartData[action.coinName][action.timeFrame] = action.chartData
       return {...state, chartData: chartData}
     default:
       return state
