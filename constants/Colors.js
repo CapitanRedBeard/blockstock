@@ -28,7 +28,11 @@ const Colors = {
 };
 
 export function getInTheBlackOrRedColor(val) {
-  return val < 0 ? Colors.inTheRedColor : Colors.inTheBlackColor
+  if(val < 0) {
+    return Colors.inTheRedColor
+  } else if (val > 0) {
+    return Colors.inTheBlackColor
+  }
 }
 
 export default Colors

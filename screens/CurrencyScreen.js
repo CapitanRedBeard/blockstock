@@ -6,7 +6,7 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import DarkTheme from "../constants/DarkTheme"
 import { getInTheBlackOrRedColor } from '../constants/Colors'
 import { TimeFrames } from '../constants/Types'
-import { formatMoney } from '../helpers'
+import { formatMoney, formatSupply, getLowHighPrice, getChange } from '../helpers'
 import { fetchChart } from '../actions/market'
 import BaseText from '../components/BaseText'
 import CurrencyHeader from '../components/CurrencyHeader'
@@ -39,28 +39,50 @@ class CurrencyScreen extends React.Component {
 
   render() {
     const { params } = this.props.navigation.state
-    const percentColor = getInTheBlackOrRedColor(params.percent_change_24h)
 
     const scopedChartData = this.props.chartData[params.name] && this.props.chartData[params.name][TimeFrames[this.state.selectedTimeFrame].label]
-
+    const change = getChange(scopedChartData && scopedChartData.price_usd)
+    const currentPrice = formatMoney(params.price_usd)
+    const {lowPrice, highPrice} = getLowHighPrice(scopedChartData && scopedChartData.price_usd)
+    const percentColor = getInTheBlackOrRedColor(change)
 
     return (
       <ScrollView
         style={styles.container} contentContainerStyle={styles.containerContent}>
         <LineChart
           lineColor={DarkTheme.chartLine} gridColor={DarkTheme.chartGrid}
-          data={scopedChartData}
+          data={scopedChartData }
         />
 
         <TimeFrameSwitch selected={this.state.selectedTimeFrame} onPress={this.selectTimeFrame}/>
 
         <View key="ValueContainer" style={styles.valueContainer}>
           <BaseText style={styles.price}>
-            {formatMoney(params.price_usd)}
+            {currentPrice}
           </BaseText>
-          <BaseText style={[styles.change, {color: percentColor}]}>
-            {params.percent_change_24h}%
+          <BaseText style={[styles.change, percentColor ? {color: percentColor} : null]}>
+            {change ? change + "%" : "-"}
           </BaseText>
+        </View>
+
+
+        <View key="HighLowContainer" style={styles.highLowContainer}>
+          <View>
+            <BaseText style={styles.highLowLabel}>
+              {"LOW"}
+            </BaseText>
+            <BaseText style={styles.highLowValue}>
+              {lowPrice ? formatMoney(lowPrice) : "-"}
+            </BaseText>
+          </View>
+          <View>
+            <BaseText style={styles.highLowLabel}>
+              {"HIGH"}
+            </BaseText>
+            <BaseText style={styles.highLowValue}>
+              {highPrice ? formatMoney(highPrice) : "-"}
+            </BaseText>
+          </View>
         </View>
 
         <View key="MarketCapContainer" style={styles.statsContainer}>
@@ -86,7 +108,7 @@ class CurrencyScreen extends React.Component {
             {"AVAILABLE SUPPLY"}
           </BaseText>
           <BaseText style={styles.statValue}>
-            {`${params.available_supply} ${params.symbol}`}
+            {formatSupply(params.available_supply, params.available_supply)}
           </BaseText>
         </View>
       </ScrollView>
@@ -116,6 +138,30 @@ const styles = StyleSheet.create({
   },
   change: {
     fontSize: 22,
+    color: DarkTheme.labelText,
+  },
+  highLowContainer: {
+    flex: 1,
+    flexDirection: "row",
+    marginBottom: 20,
+    width: 250,
+    justifyContent: "space-between"
+  },
+  highLowLabel: {
+    fontSize: 16,
+    textAlign: "center",
+    width: 100,
+    // textAlign: "right",
+    // paddingRight: 20,
+    color: DarkTheme.labelText,
+  },
+  highLowValue: {
+    fontSize: 16,
+    textAlign: "center",
+
+    // textAlign: "left",
+    // flexGrow: 1,
+    color: DarkTheme.valueText,
   },
   statsContainer: {
     flex: 1,
@@ -124,14 +170,14 @@ const styles = StyleSheet.create({
     width: 300,
   },
   statLabel: {
-    fontSize: 12,
+    fontSize: 14,
     width: 150,
     textAlign: "right",
     paddingRight: 20,
     color: DarkTheme.labelText,
   },
   statValue: {
-    fontSize: 12,
+    fontSize: 14,
     textAlign: "left",
     flexGrow: 1,
     color: DarkTheme.valueText,

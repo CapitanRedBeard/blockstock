@@ -9,7 +9,6 @@ import BaseText from '../components/BaseText'
 export default class TickerCard extends React.PureComponent {
   _onPress = () => {
     const { onPressItem, ticker } = this.props
-    console.log("_onPress")
 
     onPressItem(ticker);
   };
