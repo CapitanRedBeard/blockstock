@@ -1,14 +1,16 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import { FontAwesome } from '@expo/vector-icons';
 import { Provider } from 'react-redux'
+import { persistStore } from 'redux-persist'
 
 import DarkTheme from './constants/DarkTheme'
 import configureStore from './configureStore'
 import RootNavigation from './navigation/RootNavigation';
 
 const store = configureStore()
+persistStore(store, {storage: AsyncStorage})
 
 export default class App extends React.Component {
   state = {

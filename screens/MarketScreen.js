@@ -87,8 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: DarkTheme.canvas,
   },
   label: {
-    paddingTop: 10,
-    marginBottom: 10,
+    paddingVertical: 10,
   },
 });
 
