@@ -12,10 +12,12 @@ import BaseText from '../components/BaseText'
 import CurrencyHeader from '../components/CurrencyHeader'
 import LineChart from '../components/Charts/LineChart';
 import TimeFrameSwitch from '../components/TimeFrameSwitch';
+import FavoriteButton from '../components/FavoriteButton';
 
 class CurrencyScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: CurrencyHeader(navigation.state.params),
+    headerRight: <FavoriteButton symbol={navigation.state.params.symbol}/>,
     ...DarkTheme.navigationOptions
   })
 

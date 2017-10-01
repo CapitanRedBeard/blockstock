@@ -7,7 +7,8 @@ import { ActionTypes } from "../constants/Types"
 const initialState = {
   global: null,
   tickers: [],
-  chartData: {}
+  chartData: {},
+  favorites: {}
 }
 
 export default (state = initialState, action) => {
@@ -24,6 +25,10 @@ export default (state = initialState, action) => {
       }
       chartData[action.coinName][action.timeFrame] = action.chartData
       return {...state, chartData: chartData}
+    case ActionTypes.TOGGLE_FAVORITE:
+      const toggledFavoites = {...state.favorites}
+      toggledFavoites[action.symbol] = !Boolean(toggledFavoites[action.symbol])
+      return {...state, favorites: toggledFavoites}
     default:
       return state
   }

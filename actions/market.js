@@ -35,3 +35,10 @@ export function fetchTickers() {
     return dispatch(storeTickers(await fetchTickerData()))
   };
 }
+
+export function favoriteCurrency(symbol): Action {
+  return {
+      type: ActionTypes.TOGGLE_FAVORITE,
+      symbol: symbol,
+    }
+}

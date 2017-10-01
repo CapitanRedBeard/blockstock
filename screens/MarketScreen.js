@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  FlatList
+  SectionList
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { connect } from "react-redux"
@@ -35,8 +35,8 @@ class MarketScreen extends React.Component {
     <TickerCard ticker={item} onPressItem={this.onPressItem}/>
   );
 
-  _renderHeader = () => {
-    return <LabelText style={styles.label}>All Cryptocurrencies</LabelText>
+  _renderSectionHeader = ({section}) => {
+    return <LabelText style={styles.label}>{section.title}</LabelText>
   }
 
   _onRefresh = () => {
@@ -49,23 +49,29 @@ class MarketScreen extends React.Component {
   }
 
   render() {
-    const { tickers } = this.props.market
+    const { tickers, favorites } = this.props.market
+
+    const favoriteTickers = tickers.filter(ticker => Boolean(favorites[ticker.symbol]))
+    const otherTickers = tickers.filter(ticker => !Boolean(favorites[ticker.symbol]))
+    const sections = []
+    if(favoriteTickers.length) {
+      sections.push({title: `Favorite Currencies`,  data: favoriteTickers})
+    }
+    sections.push({title: `Other Currencies`,  data: otherTickers})
 
     return (
       <View style={styles.container}>
         {
           tickers.length ?
-          <FlatList
-            style={{flex: 1, flexGrow: 1}}
-            ListHeaderComponent={this._renderHeader}
-            data={tickers}
+          <SectionList
+            sections={sections}
             keyExtractor={this._keyExtractor}
+            renderSectionHeader={this._renderSectionHeader}
             renderItem={this._renderItem}
             initialNumToRender={20}
             onRefresh={this._onRefresh}
             refreshing={false}
-          /> :
-          <Loader/>
+          /> : <Loader/>
         }
       </View>
     );
@@ -75,7 +81,6 @@ class MarketScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,

@@ -3,7 +3,7 @@
     "name": "blockstock",
     "description": "No description",
     "slug": "blockstock",
-    "privacy": "public",
+    "privacy": "unlisted",
     "sdkVersion": "21.0.0",
     "version": "1.0.0",
     "orientation": "portrait",

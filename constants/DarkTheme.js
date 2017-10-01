@@ -17,6 +17,9 @@ export default {
   chartLine: Colors.labelTextDark,
   chartGrid: Colors.labelTextDark,
 
+  favorited: Colors.favorited,
+  notFavorited: Colors.labelTextDark,
+
   tabBar: '#fefefe',
   errorBackground: 'red',
   errorText: '#fff',
