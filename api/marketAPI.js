@@ -30,8 +30,8 @@ export async function fetchTickerData() {
 
 export async function fetchChartData(coinName, timeFrame) {
   const timeStampFrame = getTimeStampFrame(timeFrame)
-
-  const response = await fetch(`https://graphs.coinmarketcap.com/currencies/${coinName}/${timeStampFrame}`)
+  const correctCoinName = coinName.replace(' ', '-')
+  const response = await fetch(`https://graphs.coinmarketcap.com/currencies/${correctCoinName}/${timeStampFrame}`)
 
   if(response.status === RESPONSE_STATUS.OK) {
     return response.json()

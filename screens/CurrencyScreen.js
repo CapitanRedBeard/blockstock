@@ -110,7 +110,7 @@ class CurrencyScreen extends React.Component {
             {"AVAILABLE SUPPLY"}
           </BaseText>
           <BaseText style={styles.statValue}>
-            {formatSupply(params.available_supply, params.available_supply)}
+            {formatSupply(params.available_supply, params.symbol)}
           </BaseText>
         </View>
       </ScrollView>
