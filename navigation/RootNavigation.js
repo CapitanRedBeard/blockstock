@@ -4,6 +4,7 @@ import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 import CurrencyScreen from '../screens/CurrencyScreen';
+import AddAssetModal from '../screens/AddAssetModal';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
@@ -24,6 +25,17 @@ const RootStackNavigator = StackNavigator(
   }
 );
 
+const MainModalNavigator = StackNavigator(
+  {
+    Root: { screen: RootStackNavigator },
+    AddAssetModal: { screen: AddAssetModal },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  },
+);
+
 export default class RootNavigator extends React.Component {
   componentDidMount() {
     this._notificationSubscription = this._registerForPushNotifications();
@@ -34,7 +46,7 @@ export default class RootNavigator extends React.Component {
   }
 
   render() {
-    return <RootStackNavigator />;
+    return <MainModalNavigator />;
   }
 
   _registerForPushNotifications() {
