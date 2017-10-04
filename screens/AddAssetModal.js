@@ -13,6 +13,10 @@ import { modifyCurrency } from '../actions/portfolio'
 import BaseText from '../components/BaseText'
 
 class AddAssetModal extends React.Component {
+  static navigationOptions = {
+    header: null
+  }
+  
   render() {
     console.log("This,props", this.props.navigation)
     return (
@@ -50,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cancelContainer: {
-    justifyContent: "absolute",
+    position: "absolute",
     top: 0,
     left: 0,
   },
