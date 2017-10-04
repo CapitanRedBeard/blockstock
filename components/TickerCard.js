@@ -19,23 +19,25 @@ export default class TickerCard extends React.PureComponent {
      const percentColor = getInTheBlackOrRedColor(ticker.percent_change_24h)
 
      return (
-       <TouchableOpacity style={styles.touchableWrapper} onPress={this._onPress}>
-         <View style={styles.container}>
-           <BaseText style={styles.rank}>{ticker.rank}</BaseText>
-           <View key="NameContainer" style={styles.nameContainer}>
-             <BaseText style={styles.name}>{ticker.name}</BaseText>
-             <BaseText style={styles.ticker}>{ticker.symbol}</BaseText>
+       <View style={styles.touchableWrapper} >
+         <TouchableOpacity style={styles.touchableWrapper} onPress={this._onPress}>
+           <View style={styles.container}>
+             <BaseText style={styles.rank}>{ticker.rank}</BaseText>
+             <View key="NameContainer" style={styles.nameContainer}>
+               <BaseText style={styles.name}>{ticker.name}</BaseText>
+               <BaseText style={styles.ticker}>{ticker.symbol}</BaseText>
+             </View>
+             <View key="ValueContainer" style={styles.valueContainer}>
+               <BaseText style={styles.price}>
+                 ${ticker.price_usd}
+               </BaseText>
+               <BaseText style={[styles.change, {color: percentColor}]}>
+                 {ticker.percent_change_24h}%
+               </BaseText>
+             </View>
            </View>
-           <View key="ValueContainer" style={styles.valueContainer}>
-             <BaseText style={styles.price}>
-               ${ticker.price_usd}
-             </BaseText>
-             <BaseText style={[styles.change, {color: percentColor}]}>
-               {ticker.percent_change_24h}%
-             </BaseText>
-           </View>
-         </View>
-       </TouchableOpacity>
+         </TouchableOpacity>
+       </View>
      );
   }
 }

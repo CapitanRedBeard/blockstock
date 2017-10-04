@@ -81,13 +81,14 @@ class MarketScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexGrow: 1,
     justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 20,
+    alignItems: "stretch",
     backgroundColor: DarkTheme.canvas,
   },
   label: {
     paddingVertical: 10,
+    paddingHorizontal: 20,
   },
 });
 
