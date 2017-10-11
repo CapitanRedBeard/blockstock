@@ -13,10 +13,15 @@ import { modifyCurrency } from '../actions/portfolio'
 import BaseText from '../components/BaseText'
 
 class AddAssetModal extends React.Component {
-  static navigationOptions = {
-    header: null
-  }
-  
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: 'Add Asset',
+    headerStyle: {
+      backgroundColor: "red",
+    },
+    headerTintColor: "red"
+  })
+
+
   render() {
     console.log("This,props", this.props.navigation)
     return (
