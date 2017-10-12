@@ -17,7 +17,7 @@ export default class TickerSearchList extends React.Component {
   };
 
   _renderListItem = ({item}) => {
-    const { portfolio, onSelect } = this.props
+    const { portfolioAssets, onSelect } = this.props
 
     return (
       <TouchableOpacity
@@ -34,7 +34,7 @@ export default class TickerSearchList extends React.Component {
           </View>
           <View key="IconContainer" style={styles.listItemIconContainer}>
             {
-              portfolio[item.symbol] ?
+              portfolioAssets[item.symbol] ?
               <Ionicons
                 name="ios-arrow-forward"
                 size={20}
@@ -57,7 +57,8 @@ export default class TickerSearchList extends React.Component {
   _keyExtractor = (item, index) => item.id;
 
   render() {
-    const {filterList, portfolio} = this.props
+    const {filterList, portfolioAssets} = this.props
+    console.log("New portfolioAssets: ", portfolioAssets)
     const data = filterList(this.state.inputValue)
     return (
       <View style={styles.container}>
@@ -79,7 +80,7 @@ export default class TickerSearchList extends React.Component {
         </View>
         <View style={styles.listContainer}>
           <FlatList
-            extraData={portfolio}
+            extraData={portfolioAssets}
             keyExtractor={this._keyExtractor}
             data={data}
             renderItem={this._renderListItem}

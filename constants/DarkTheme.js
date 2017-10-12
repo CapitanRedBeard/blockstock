@@ -20,6 +20,8 @@ export default {
   favorited: Colors.favorited,
   notFavorited: Colors.labelTextDark,
 
+  portfolioCardGradient: [Colors.portfolioCardGradient],
+
   tabBar: '#fefefe',
   errorBackground: 'red',
   errorText: '#fff',

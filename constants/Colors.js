@@ -15,6 +15,8 @@ const Colors = {
   labelTextDark: '#527B92',
   valueTextDark: '#F9F9FA',
 
+  portfolioCardGradient: ['#9c44f9', '#726ef8', '#4fcef9'],
+
   inTheBlackColor: tintColor,
   inTheRedColor: '#FC4157',
 
