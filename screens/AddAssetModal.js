@@ -47,7 +47,10 @@ class AddAssetModal extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <TickerSearchList filterList={this.filterList} onSelect={this.onSelect}/>
+        <TickerSearchList
+          filterList={this.filterList}
+          onSelect={this.onSelect}
+          portfolio={this.props.portfolio}/>
       </View>
     );
   }
@@ -63,7 +66,8 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => ({
-    tickers: state.market.tickers
+    tickers: state.market.tickers,
+    portfolio: state.portfolio
   }),
   {
     addAsset

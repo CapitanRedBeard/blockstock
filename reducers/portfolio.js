@@ -13,7 +13,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.ADD_ASSET:
-      const newPortfolio = {...portfolio}
+      const newPortfolio = {...state}
       if(!newPortfolio[action.symbol]) {
         newPortfolio[action.symbol] = {}
       }

@@ -17,12 +17,12 @@ export default class TickerSearchList extends React.Component {
   };
 
   _renderListItem = ({item}) => {
-    let added = false
-    if(item.symbol === this.props.portfolio) {
-      added = true
-    }
+    const { portfolio, onSelect } = this.props
+
     return (
-      <TouchableOpacity style={styles.listItem} onPress={this.props.onSelect}>
+      <TouchableOpacity
+        style={styles.listItem}
+        onPress={() => onSelect(item.symbol)}>
         <View style={styles.listItemContainer}>
           <View key="NameContainer" style={styles.listItemNameContainer}>
             <BaseText style={styles.listItemName}>
@@ -34,7 +34,7 @@ export default class TickerSearchList extends React.Component {
           </View>
           <View key="IconContainer" style={styles.listItemIconContainer}>
             {
-              added ?
+              portfolio[item.symbol] ?
               <Ionicons
                 name="ios-arrow-forward"
                 size={20}
@@ -57,7 +57,7 @@ export default class TickerSearchList extends React.Component {
   _keyExtractor = (item, index) => item.id;
 
   render() {
-    const {onSelect, filterList} = this.props
+    const {filterList, portfolio} = this.props
     const data = filterList(this.state.inputValue)
     return (
       <View style={styles.container}>
@@ -79,6 +79,7 @@ export default class TickerSearchList extends React.Component {
         </View>
         <View style={styles.listContainer}>
           <FlatList
+            extraData={portfolio}
             keyExtractor={this._keyExtractor}
             data={data}
             renderItem={this._renderListItem}
