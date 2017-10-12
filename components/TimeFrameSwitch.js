@@ -6,7 +6,6 @@ import Colors from '../constants/Colors'
 import { TimeFrames } from '../constants/Types'
 
 export default function TimeFrameSwitch({selected , onPress}) {
-  console.log("TimeFrames", selected)
   return (
     <View style={styles.container} >
       {

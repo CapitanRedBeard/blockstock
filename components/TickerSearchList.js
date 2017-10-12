@@ -8,9 +8,15 @@ import DarkTheme from '../constants/DarkTheme';
 import BaseText from './BaseText';
 
 export default class TickerSearchList extends React.Component {
+  state = {
+    inputValue: ""
+  };
+
+  _handleTextChange = inputValue => {
+    this.setState({ inputValue });
+  };
 
   _renderListItem = ({item}) => {
-    console.log("An Item looks like", item)
     let added = false
     if(item.symbol === this.props.portfolio) {
       added = true
@@ -31,13 +37,13 @@ export default class TickerSearchList extends React.Component {
               added ?
               <Ionicons
                 name="ios-arrow-forward"
-                size={12}
+                size={20}
                 style={styles.itemIcon}
                 color={DarkTheme.valueText}
               /> :
               <Ionicons
                 name="ios-add"
-                size={12}
+                size={20}
                 style={styles.itemIcon}
                 color={DarkTheme.valueText}
               />
@@ -48,15 +54,11 @@ export default class TickerSearchList extends React.Component {
     )
   }
 
-  _filterList = (text) => {
-
-  }
-
   _keyExtractor = (item, index) => item.id;
 
   render() {
-    const {onSelect, tickers} = this.props
-    console.log("Tickers", tickers)
+    const {onSelect, filterList} = this.props
+    const data = filterList(this.state.inputValue)
     return (
       <View style={styles.container}>
         <View style={styles.searchContainer}>
@@ -67,7 +69,8 @@ export default class TickerSearchList extends React.Component {
             color={DarkTheme.valueText}
           />
           <TextInput
-            onChangeText={this._filterList}
+            value={this.state.inputValue}
+            onChangeText={this._handleTextChange}
             style={styles.searchBar}
             placeholder="Enter Ticker..."
             selectionColor={DarkTheme.valueText}
@@ -77,7 +80,7 @@ export default class TickerSearchList extends React.Component {
         <View style={styles.listContainer}>
           <FlatList
             keyExtractor={this._keyExtractor}
-            data={tickers}
+            data={data}
             renderItem={this._renderListItem}
             initialNumToRender={20}
           />
@@ -136,6 +139,7 @@ const styles = StyleSheet.create({
     top: 16,
     left: 17,
     zIndex: 5,
+    backgroundColor: "transparent",
   },
   searchBar: {
     paddingLeft: 26,

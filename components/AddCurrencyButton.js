@@ -14,7 +14,6 @@ export default class AddCurrencyButton extends React.Component {
   }
 
   render() {
-    console.log("Add Currency Button Props", this.props)
     return (
       <TouchableHighlight
         key="AddCurrencyContainer"

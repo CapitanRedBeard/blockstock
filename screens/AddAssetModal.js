@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux"
-
+import Fuse from 'fuse.js'
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 
 import DarkTheme from "../constants/DarkTheme"
@@ -22,11 +22,32 @@ class AddAssetModal extends React.Component {
     this.props.addAsset(symbol)
   }
 
+  filterList = (text) => {
+    const {tickers} = this.props
+    const options = {
+      shouldSort: true,
+      threshold: 0.6,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: [
+        "symbol",
+        "name"
+      ]
+    };
+
+    if(!text) {
+      return tickers
+    }
+    var fuse = new Fuse(tickers, options); // "list" is the item array
+    return fuse.search(text);
+  }
+
   render() {
-    console.log("This,props", this.props)
     return (
       <View style={styles.container}>
-        <TickerSearchList tickers={this.props.tickers} onSelect={this.onSelect}/>
+        <TickerSearchList filterList={this.filterList} onSelect={this.onSelect}/>
       </View>
     );
   }
