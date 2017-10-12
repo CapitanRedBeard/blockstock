@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { Provider } from 'react-redux'
 import { persistStore } from 'redux-persist'
 
@@ -49,6 +50,7 @@ export default class App extends React.Component {
       Font.loadAsync([
         // This is the font that we are using for our tab bar
         FontAwesome.font,
+        Ionicons.font,
         // We include SpaceMono because we use it in HomeScreen.js. Feel free
         // to remove this if you are not using it in your app
         { 'DINPro': require('./assets/fonts/DINPro-Regular.ttf') },

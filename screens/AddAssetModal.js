@@ -8,41 +8,25 @@ import { getInTheBlackOrRedColor } from '../constants/Colors'
 import { TimeFrames } from '../constants/Types'
 import { formatMoney, formatSupply, getLowHighPrice, getChange } from '../helpers'
 
-import { modifyCurrency } from '../actions/portfolio'
+import { addAsset } from '../actions/portfolio'
 
 import BaseText from '../components/BaseText'
 import TickerSearchList from '../components/TickerSearchList'
 
 class AddAssetModal extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = () => ({
     headerTitle: 'Add Asset',
-    headerStyle: {
-      backgroundColor: "red",
-    },
-    headerTintColor: "red"
   })
 
+  onSelect = (symbol) => {
+    this.props.addAsset(symbol)
+  }
 
   render() {
-    console.log("This,props", this.props.navigation)
+    console.log("This,props", this.props)
     return (
       <View style={styles.container}>
-        <View stlye={styles.headerContainer}>
-          <TouchableOpacity
-            style={styles.cancelContainer}
-            onPress={() => this.props.navigation.goBack()}
-          >
-            <View>
-              <BaseText style={styles.canelText}>
-                Cancel
-              </BaseText>
-            </View>
-          </TouchableOpacity>
-          <BaseText style={styles.headerText}>
-            Add Asset
-          </BaseText>
-          <TickerSearchList/>
-        </View>
+        <TickerSearchList tickers={this.props.tickers} onSelect={this.onSelect}/>
       </View>
     );
   }
@@ -51,29 +35,8 @@ class AddAssetModal extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
-    paddingTop: 15,
     backgroundColor: DarkTheme.canvas,
   },
-  headerContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  cancelContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-  },
-  canelText: {
-    color: DarkTheme.valueText,
-    fontSize: 14,
-  },
-  headerText: {
-    color: DarkTheme.valueText,
-    fontSize: 18,
-    textAlign: "center",
-  }
 });
 
 
@@ -82,6 +45,6 @@ export default connect(
     tickers: state.market.tickers
   }),
   {
-    modifyCurrency
+    addAsset
   }
 )(AddAssetModal)
