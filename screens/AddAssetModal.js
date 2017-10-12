@@ -11,6 +11,7 @@ import { formatMoney, formatSupply, getLowHighPrice, getChange } from '../helper
 import { modifyCurrency } from '../actions/portfolio'
 
 import BaseText from '../components/BaseText'
+import TickerSearchList from '../components/TickerSearchList'
 
 class AddAssetModal extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -40,6 +41,7 @@ class AddAssetModal extends React.Component {
           <BaseText style={styles.headerText}>
             Add Asset
           </BaseText>
+          <TickerSearchList/>
         </View>
       </View>
     );

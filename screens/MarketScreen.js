@@ -7,7 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  SectionList
+  SectionList,
+  RefreshControl
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { connect } from "react-redux"
@@ -48,6 +49,16 @@ class MarketScreen extends React.Component {
     navigate('Currency', { ...ticker})
   }
 
+  _refreshControl = () => {
+    return <RefreshControl
+            onRefresh={this._onRefresh}
+            refreshing={false}
+            title="Refresh Market"
+            tintColor={DarkTheme.valueText}
+            titleColor={DarkTheme.valueText}
+          />
+  }
+
   render() {
     const { tickers, favorites } = this.props.market
 
@@ -69,8 +80,15 @@ class MarketScreen extends React.Component {
             renderSectionHeader={this._renderSectionHeader}
             renderItem={this._renderItem}
             initialNumToRender={20}
-            onRefresh={this._onRefresh}
-            refreshing={false}
+            refreshControl={
+              <RefreshControl
+                onRefresh={this._onRefresh}
+                refreshing={false}
+                title="Refresh Market"
+                tintColor={DarkTheme.loaderColor}
+                titleColor={DarkTheme.loaderColor}
+              />
+            }
           /> : <Loader/>
         }
       </View>
