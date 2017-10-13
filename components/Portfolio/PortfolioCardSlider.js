@@ -95,19 +95,24 @@ export default class PortfolioCardSlider extends PureComponent {
 
   render() {
     return (
-      <TabViewAnimated
-        style={this.props.style}
-        navigationState={this.state}
-        renderPager={this._renderPager}
-        renderScene={this._renderScene}
-        onIndexChange={this._handleIndexChange}
-        initialLayout={initialLayout}
-      />
+      <View style={styles.container}>
+        <TabViewAnimated
+          navigationState={this.state}
+          renderPager={this._renderPager}
+          renderScene={this._renderScene}
+          onIndexChange={this._handleIndexChange}
+          initialLayout={initialLayout}
+        />
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    height: 200,
+    marginBottom: 20,
+  },
   page: {
     alignItems: 'center',
     justifyContent: 'center',

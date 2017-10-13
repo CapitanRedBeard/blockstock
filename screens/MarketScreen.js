@@ -49,16 +49,6 @@ class MarketScreen extends React.Component {
     navigate('Currency', { ...ticker})
   }
 
-  _refreshControl = () => {
-    return <RefreshControl
-            onRefresh={this._onRefresh}
-            refreshing={false}
-            title="Refresh Market"
-            tintColor={DarkTheme.valueText}
-            titleColor={DarkTheme.valueText}
-          />
-  }
-
   render() {
     const { tickers, favorites } = this.props.market
 

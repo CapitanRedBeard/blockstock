@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, FlatList, RefreshControl } from 'react-native';
 import { LinearGradient } from 'expo';
 
 import DarkTheme from '../../constants/DarkTheme'
@@ -12,21 +12,34 @@ export default class PortfolioCard extends React.PureComponent {
   _keyExtractor = (item, index) => index;
 
   _renderListItem = ({item}) => {
-    console.log("Items", item)
+    const tickerData = this.props.tickers.find(t => t.symbol === item.symbol)
+    const percentColor = getInTheBlackOrRedColor(tickerData.percent_change_24h)
 
     return (
       <View style={styles.touchableWrapper} >
         <TouchableOpacity style={styles.touchableWrapper} onPress={this._onPress}>
           <View style={styles.listItemRowContainer}>
+            <BaseText style={styles.rank}>{tickerData.rank}</BaseText>
             <View key="NameContainer" style={styles.nameContainer}>
-              <BaseText style={styles.ticker}>{item.symbol}</BaseText>
+              <BaseText style={styles.name}>{tickerData.name}</BaseText>
+              <BaseText style={styles.ticker}>{tickerData.symbol}</BaseText>
             </View>
             <View key="ValueContainer" style={styles.valueContainer}>
+              <BaseText style={styles.price}>
+                ${tickerData.price_usd}
+              </BaseText>
+              <BaseText style={[styles.change, {color: percentColor}]}>
+                {tickerData.percent_change_24h}%
+              </BaseText>
             </View>
           </View>
         </TouchableOpacity>
       </View>
     )
+  }
+
+  _onRefresh = () => {
+    this.props.fetchTickers()
   }
 
   render() {
@@ -44,14 +57,25 @@ export default class PortfolioCard extends React.PureComponent {
             extraData={tickers}
             renderItem={this._renderListItem}
             initialNumToRender={20}
+            refreshControl={
+              <RefreshControl
+                onRefresh={this._onRefresh}
+                refreshing={false}
+                title="Refreshing Assets"
+                tintColor={DarkTheme.loaderColor}
+                titleColor={DarkTheme.loaderColor}
+              />
+            }
           /> :
           <View style={styles.noDataContainer}>
-            <BaseText style={styles.noDataMessage}>
-              {"Add an asset to start this portfolio"}
-            </BaseText>
-            <AddAssetButton
-              colors={portfolio.gradient}
-              navigate={navigate} />
+            <View style={styles.noDataWrapper}>
+              <BaseText style={styles.noDataMessage}>
+                {"Add an asset to start this portfolio"}
+              </BaseText>
+              <AddAssetButton
+                colors={portfolio.gradient}
+                navigate={navigate} />
+            </View>
           </View>
         }
       </View>
@@ -62,13 +86,19 @@ export default class PortfolioCard extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    alignItems: "center",
-    justifyContent: "flex-start"
+    flexGrow: 1,
+    justifyContent: "center",
+    alignItems: "stretch",
   },
   noDataContainer: {
     marginTop: 20,
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  noDataWrapper: {
     width: 200,
+    justifyContent: "center",
     alignItems: "center",
   },
   noDataMessage: {

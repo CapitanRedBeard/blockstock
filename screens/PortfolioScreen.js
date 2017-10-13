@@ -9,6 +9,7 @@ import PortfolioCardSlider from '../components/Portfolio/PortfolioCardSlider'
 import PortfolioTickerList from '../components/Portfolio/PortfolioTickerList'
 
 import { switchPortfolio } from '../actions/portfolio';
+import { fetchTickers } from '../actions/market';
 
 class PortfolioScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -31,6 +32,7 @@ class PortfolioScreen extends React.Component {
           navigate={navigation.navigate}
           portfolio={selectedPortfolio}
           tickers={tickers}
+          fetchTickers={fetchTickers}
         />
       </View>
     );
@@ -56,6 +58,7 @@ export default connect(
     tickers: state.market.tickers
   }),
   {
-    switchPortfolio
+    switchPortfolio,
+    fetchTickers
   }
 )(PortfolioScreen)
