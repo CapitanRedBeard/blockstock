@@ -14,6 +14,8 @@ export default {
   labelText: Colors.labelTextDark,
   valueText: Colors.valueTextDark,
 
+  buttonColor: Colors.tintColor,
+
   chartLine: Colors.labelTextDark,
   chartGrid: Colors.labelTextDark,
 

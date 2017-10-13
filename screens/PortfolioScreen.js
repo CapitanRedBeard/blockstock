@@ -18,7 +18,7 @@ class PortfolioScreen extends React.Component {
   })
 
   render() {
-    const { portfolioData, switchPortfolio, navigation } = this.props
+    const { portfolioData, switchPortfolio, navigation, tickers } = this.props
     const selectedPortfolio = portfolioData.portfolios[portfolioData.selectedIndex]
 
     return (
@@ -30,6 +30,7 @@ class PortfolioScreen extends React.Component {
         <PortfolioTickerList
           navigate={navigation.navigate}
           portfolio={selectedPortfolio}
+          tickers={tickers}
         />
       </View>
     );
@@ -51,7 +52,8 @@ const styles = StyleSheet.create({
 
 export default connect(
   state => ({
-    portfolioData: state.portfolio
+    portfolioData: state.portfolio,
+    tickers: state.market.tickers
   }),
   {
     switchPortfolio

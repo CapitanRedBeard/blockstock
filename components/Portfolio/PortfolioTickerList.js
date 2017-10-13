@@ -9,26 +9,19 @@ import BaseText from '../../components/BaseText'
 import AddAssetButton from './AddAssetButton'
 
 export default class PortfolioCard extends React.PureComponent {
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item, index) => index;
 
   _renderListItem = ({item}) => {
+    console.log("Items", item)
 
     return (
       <View style={styles.touchableWrapper} >
         <TouchableOpacity style={styles.touchableWrapper} onPress={this._onPress}>
           <View style={styles.listItemRowContainer}>
-            <BaseText style={styles.rank}>{ticker.rank}</BaseText>
             <View key="NameContainer" style={styles.nameContainer}>
-              <BaseText style={styles.name}>{ticker.name}</BaseText>
-              <BaseText style={styles.ticker}>{ticker.symbol}</BaseText>
+              <BaseText style={styles.ticker}>{item.symbol}</BaseText>
             </View>
             <View key="ValueContainer" style={styles.valueContainer}>
-              <BaseText style={styles.price}>
-                ${ticker.price_usd}
-              </BaseText>
-              <BaseText style={[styles.change, {color: percentColor}]}>
-                {ticker.percent_change_24h}%
-              </BaseText>
             </View>
           </View>
         </TouchableOpacity>
@@ -37,7 +30,9 @@ export default class PortfolioCard extends React.PureComponent {
   }
 
   render() {
-    const { portfolio, navigate } = this.props
+    console.log("List props", this.props)
+
+    const { portfolio, navigate, tickers } = this.props
     const assetsExist = Boolean(Object.keys(portfolio.assets).length)
     return (
       <View style={styles.container}>
@@ -46,6 +41,7 @@ export default class PortfolioCard extends React.PureComponent {
           <FlatList
             keyExtractor={this._keyExtractor}
             data={portfolio.assets}
+            extraData={tickers}
             renderItem={this._renderListItem}
             initialNumToRender={20}
           /> :
@@ -71,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start"
   },
   noDataContainer: {
-    marginTop: 150,
+    marginTop: 20,
     width: 200,
     alignItems: "center",
   },

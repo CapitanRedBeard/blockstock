@@ -4,8 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 import { connect } from "react-redux"
 
-import DarkTheme from '../constants/DarkTheme';
-import BaseText from './BaseText';
+import DarkTheme from '../../constants/DarkTheme';
+import BaseText from '../BaseText';
 
 export default class TickerSearchList extends React.Component {
   state = {
@@ -18,7 +18,7 @@ export default class TickerSearchList extends React.Component {
 
   _renderListItem = ({item}) => {
     const { portfolioAssets, onSelect } = this.props
-
+    const assetExists = Boolean(portfolioAssets.find(a => a.symbol === item.symbol))
     return (
       <TouchableOpacity
         style={styles.listItem}
@@ -34,7 +34,7 @@ export default class TickerSearchList extends React.Component {
           </View>
           <View key="IconContainer" style={styles.listItemIconContainer}>
             {
-              portfolioAssets[item.symbol] ?
+              assetExists ?
               <Ionicons
                 name="ios-arrow-forward"
                 size={20}

@@ -14,7 +14,7 @@ export default class AddCurrencyButton extends React.Component {
     const { navigate, colors } = this.props
     return (
       <View
-        style={[styles.container, {borderColor: colors[0]}]}
+        style={styles.container}
       >
         <TouchableOpacity
           key="AddCurrencyContainer"
@@ -34,7 +34,8 @@ export default class AddCurrencyButton extends React.Component {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
-    borderWidth: 1,
+    borderWidth: 2,
+    borderColor: DarkTheme.buttonColor,
     backgroundColor: "transparent",
     borderRadius: 25,
     width: 150,
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     fontSize: 18,
-    color: DarkTheme.valueText,
+    color: DarkTheme.buttonColor,
     textAlign: "center"
   },
 })

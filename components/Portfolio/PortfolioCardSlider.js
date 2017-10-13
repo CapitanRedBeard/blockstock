@@ -24,7 +24,6 @@ export default class PortfolioCardSlider extends PureComponent {
   constructor(props) {
     super(props)
     const { selectedIndex, portfolios } = props.portfolioData
-    console.log("PortfolioData", props.portfolioData)
 
     this.state = {
       index: selectedIndex,
@@ -76,16 +75,13 @@ export default class PortfolioCardSlider extends PureComponent {
   };
 
   _handleIndexChange = index => {
+    this.props.switchPortfolio(index)
     this.setState({
       index,
     });
-    this.props.switchPortfolio(index)
   };
 
   _renderScene = props => {
-    console.log("Props", props)
-    // <View style={[styles.album, {backgroundColor: "red"}]}/>
-
     return (
       <Animated.View style={[styles.page, this._buildCoverFlowStyle(props)]}>
         <PortfolioCard portfolio={props.route} index={props.index}/>

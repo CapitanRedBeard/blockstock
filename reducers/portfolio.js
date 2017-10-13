@@ -16,31 +16,31 @@ const initialState = {
   portfolios: [
     {
       name: "Portfolio One",
-      assets: {},
+      assets: [],
       gradient: COLOR_PROFILES[0],
       key: "0"
     },
     {
       name: "Portfolio Two",
-      assets: {},
+      assets: [],
       gradient: COLOR_PROFILES[1],
       key: "1"
     },
     {
       name: "Portfolio Three",
-      assets: {},
+      assets: [],
       gradient: COLOR_PROFILES[2],
       key: "2"
     },
     {
       name: "Portfolio Four",
-      assets: {},
+      assets: [],
       gradient: COLOR_PROFILES[3],
       key: "3"
     },
     {
       name: "Portfolio Five",
-      assets: {},
+      assets: [],
       gradient: COLOR_PROFILES[4],
       key: "4"
     }
@@ -50,18 +50,27 @@ const initialState = {
 
 const newPortfolio = {
   name: "Untitled",
-  assets: {},
+  assets: [],
   key: "0"
+}
+
+function createNewAsset(symbol, cost, assetPrice) {
+  return {
+    symbol,
+    cost,
+    assetPrice,
+  }
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.ADD_ASSET:
       const newState = JSON.parse(JSON.stringify(state))
-
       const updatePortfolio = newState.portfolios[state.selectedIndex]
-      if(!updatePortfolio.assets[action.symbol]) {
-        updatePortfolio.assets[action.symbol] = {}
+      const assetAlreadyExists = Boolean(updatePortfolio.assets.find(a => a.symbol === action.symbol))
+
+      if(!assetAlreadyExists) {
+        updatePortfolio.assets.push(createNewAsset(action.symbol))
       }
       newState.portfolios[state.selectedIndex] = updatePortfolio
       // if(action.cost) {
