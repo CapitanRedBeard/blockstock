@@ -2,28 +2,21 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo';
 
-import DarkTheme from '../constants/DarkTheme'
-import { getInTheBlackOrRedColor } from '../constants/Colors'
+import DarkTheme from '../../constants/DarkTheme'
+import { getInTheBlackOrRedColor } from '../../constants/Colors'
 
-import BaseText from '../components/BaseText'
+import BaseText from '../../components/BaseText'
 
 const cardWidth = Dimensions.get('window').width - 50;
-const COLOR_PROFILES = [
-  ['#FF4E50', '#F9D423'],
-  ['#93F9B9', '#1D976C'],
-  ['#C04848', '#480048'],
-  ['#5f2c82', '#49a09d'],
-  ['#283048', '#859398']
-]
 
 export default class PortfolioCard extends React.PureComponent {
   render() {
      const { portfolio, index } = this.props
-
+     console.log("Portfolio, ", portfolio)
      return (
        <LinearGradient
           style={styles.touchableWrapper}
-          colors={COLOR_PROFILES[index % COLOR_PROFILES.length]}
+          colors={portfolio.gradient}
         >
          <View style={styles.container}>
            <BaseText style={styles.portfolioName}>{portfolio.name}</BaseText>

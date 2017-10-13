@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableHighlight, StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from "react-redux"
 
 import { FontAwesome } from '@expo/vector-icons';
@@ -19,7 +19,7 @@ class FavoriteButton extends React.Component {
     const iconName = favorited ? "heart" : "heart-o"
 
     return (
-      <TouchableHighlight
+      <TouchableOpacity
         key="FavoriteContainer"
         style={styles.favoriteContainer}
         onPress={() => this.props.favoriteCurrency(symbol)}
@@ -30,7 +30,7 @@ class FavoriteButton extends React.Component {
           style={styles.icon}
           color={favorited ? DarkTheme.favorited : DarkTheme.notFavorited}
         />
-      </TouchableHighlight>
+      </TouchableOpacity>
     )
   }
 }

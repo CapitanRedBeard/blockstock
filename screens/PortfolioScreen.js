@@ -4,24 +4,32 @@ import { connect } from "react-redux"
 
 import DarkTheme from "../constants/DarkTheme"
 import BaseText from '../components/BaseText'
-import AddCurrencyButton from '../components/AddCurrencyButton'
-import PortfolioCardSlider from '../components/PortfolioCardSlider'
+import AddAssetHeaderButton from '../components/Portfolio/AddAssetHeaderButton'
+import PortfolioCardSlider from '../components/Portfolio/PortfolioCardSlider'
+import PortfolioTickerList from '../components/Portfolio/PortfolioTickerList'
 
 import { switchPortfolio } from '../actions/portfolio';
 
 class PortfolioScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Portfolio',
-    headerRight: <AddCurrencyButton navigate={navigation.navigate}/>,
+    headerRight: <AddAssetHeaderButton navigate={navigation.navigate}/>,
     ...DarkTheme.navigationOptions
   })
 
   render() {
+    const { portfolioData, switchPortfolio, navigation } = this.props
+    const selectedPortfolio = portfolioData.portfolios[portfolioData.selectedIndex]
+
     return (
       <View style={styles.container}>
         <PortfolioCardSlider
-          portfolioData={this.props.portfolioData}
-          switchPortfolio={this.props.switchPortfolio}
+          portfolioData={portfolioData}
+          switchPortfolio={switchPortfolio}
+        />
+        <PortfolioTickerList
+          navigate={navigation.navigate}
+          portfolio={selectedPortfolio}
         />
       </View>
     );

@@ -1,21 +1,17 @@
 import React from 'react';
-import { TouchableHighlight, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import { connect } from "react-redux"
 
 import { FontAwesome } from '@expo/vector-icons';
 
-import DarkTheme from '../constants/DarkTheme'
-import BaseText from '../components/BaseText'
-import { modifyCurrency } from '../actions/portfolio'
+import DarkTheme from '../../constants/DarkTheme'
+import BaseText from '../../components/BaseText'
+import { modifyCurrency } from '../../actions/portfolio'
 
 export default class AddCurrencyButton extends React.Component {
-  navigateToAddScreen() {
-
-  }
-
   render() {
     return (
-      <TouchableHighlight
+      <TouchableOpacity
         key="AddCurrencyContainer"
         onPress={() => this.props.navigate('AddAssetModal')}
       >
@@ -24,7 +20,7 @@ export default class AddCurrencyButton extends React.Component {
             Add
           </BaseText>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     )
   }
 }
