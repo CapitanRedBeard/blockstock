@@ -7,25 +7,27 @@ import { getInTheBlackOrRedColor } from '../constants/Colors'
 
 import BaseText from '../components/BaseText'
 
-const cardWidth = Dimensions.get('window').width - 50
+const cardWidth = Dimensions.get('window').width - 50;
+const COLOR_PROFILES = [
+  ['#FF4E50', '#F9D423'],
+  ['#93F9B9', '#1D976C'],
+  ['#C04848', '#480048'],
+  ['#5f2c82', '#49a09d'],
+  ['#283048', '#859398']
+]
 
 export default class PortfolioCard extends React.PureComponent {
-  _onPress = () => {
-  };
-
   render() {
-     const { currentPortfolio } = this.props
+     const { portfolio, index } = this.props
 
      return (
        <LinearGradient
           style={styles.touchableWrapper}
-          colors={['#9c44f9', '#726ef8', '#4fcef9']}
+          colors={COLOR_PROFILES[index % COLOR_PROFILES.length]}
         >
-         <TouchableOpacity style={styles.touchableWrapper} onPress={this._onPress}>
-           <View style={styles.container}>
-             <BaseText style={styles.portfolioName}>{currentPortfolio.name}</BaseText>
-           </View>
-         </TouchableOpacity>
+         <View style={styles.container}>
+           <BaseText style={styles.portfolioName}>{portfolio.name}</BaseText>
+         </View>
        </LinearGradient>
      );
   }
@@ -33,10 +35,17 @@ export default class PortfolioCard extends React.PureComponent {
 
 const styles = StyleSheet.create({
   touchableWrapper: {
-    flex: 1,
-    alignSelf: "center",
-    width: 300,
-    height: 200
+    backgroundColor: '#000',
+    width: cardWidth,
+    height: 200,
+    elevation: 12,
+    borderRadius: 3,
+    shadowColor: '#000000',
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
+    shadowOffset: {
+      height: 8,
+    },
   },
   container: {
     flex: 1,

@@ -1,11 +1,13 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from "react-redux"
 
 import DarkTheme from "../constants/DarkTheme"
 import BaseText from '../components/BaseText'
 import AddCurrencyButton from '../components/AddCurrencyButton'
-import PortfolioCard from '../components/PortfolioCard'
+import PortfolioCardSlider from '../components/PortfolioCardSlider'
+
+import { switchPortfolio } from '../actions/portfolio';
 
 class PortfolioScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
@@ -15,11 +17,13 @@ class PortfolioScreen extends React.Component {
   })
 
   render() {
-    const {portfolios, currentPortfolio} = this.props.portfolioData
     return (
-      <ScrollView style={styles.container}>
-        <PortfolioCard currentPortfolio={portfolios[currentPortfolio]}/>
-      </ScrollView>
+      <View style={styles.container}>
+        <PortfolioCardSlider
+          portfolioData={this.props.portfolioData}
+          switchPortfolio={this.props.switchPortfolio}
+        />
+      </View>
     );
   }
 }
@@ -41,4 +45,7 @@ export default connect(
   state => ({
     portfolioData: state.portfolio
   }),
+  {
+    switchPortfolio
+  }
 )(PortfolioScreen)

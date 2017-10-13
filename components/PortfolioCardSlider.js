@@ -9,30 +9,28 @@ import {
 } from 'react-native';
 import { TabViewAnimated, TabViewPagerPan } from 'react-native-tab-view';
 
+import PortfolioCard from './PortfolioCard'
 
-const COLORS = {
-  'Abbey Road': "red",
-  'Bat Out of Hell': "orange",
-  'Number of the Beast': "yellow",
-  "It's Blitz": "green",
-  'The Man-Machine': "blue",
-  'The Score': "purple",
-  'Lost Horizons': "red",
-};
 
 const initialLayout = {
   height: 0,
   width: Dimensions.get('window').width,
 };
 
-export default class CoverflowExample extends PureComponent {
+export default class PortfolioCardSlider extends PureComponent {
   static title = 'Coverflow';
   static appbarElevation = 0;
 
-  state = {
-    index: 2,
-    routes: Object.keys(COLORS).map(key => ({ key })),
-  };
+  constructor(props) {
+    super(props)
+    const { selectedIndex, portfolios } = props.portfolioData
+    console.log("PortfolioData", props.portfolioData)
+
+    this.state = {
+      index: selectedIndex,
+      routes: portfolios,
+    }
+  }
 
   _buildCoverFlowStyle = ({ layout, position, route, navigationState }) => {
     const { width } = layout;
@@ -81,12 +79,16 @@ export default class CoverflowExample extends PureComponent {
     this.setState({
       index,
     });
+    this.props.switchPortfolio(index)
   };
 
   _renderScene = props => {
+    console.log("Props", props)
+    // <View style={[styles.album, {backgroundColor: "red"}]}/>
+
     return (
       <Animated.View style={[styles.page, this._buildCoverFlowStyle(props)]}>
-        <View style={[styles.album, {backgroundColor:COLORS[props.route.key]}]}/>
+        <PortfolioCard portfolio={props.route} index={props.index}/>
       </Animated.View>
     );
   };
@@ -98,7 +100,7 @@ export default class CoverflowExample extends PureComponent {
   render() {
     return (
       <TabViewAnimated
-        style={[styles.container, this.props.style]}
+        style={this.props.style}
         navigationState={this.state}
         renderPager={this._renderPager}
         renderScene={this._renderScene}
@@ -110,27 +112,9 @@ export default class CoverflowExample extends PureComponent {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#222',
-  },
   page: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  album: {
-    backgroundColor: '#000',
-    width: initialLayout.width - 50,
-    height: 200,
-    elevation: 12,
-    borderRadius: 3,
-    shadowColor: '#000000',
-    shadowOpacity: 0.5,
-    shadowRadius: 8,
-    shadowOffset: {
-      height: 8,
-    },
   },
   label: {
     margin: 16,

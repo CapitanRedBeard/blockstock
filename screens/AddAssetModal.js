@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 export default connect(
   state => ({
     tickers: state.market.tickers,
-    portfolioAssets: state.portfolio.portfolios[state.portfolio.currentPortfolio].assets
+    portfolioAssets: state.portfolio.portfolios[state.portfolio.selectedIndex].assets
   }),
   {
     addAsset

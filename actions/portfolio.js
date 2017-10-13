@@ -10,3 +10,10 @@ export function addAsset(symbol): Action {
       symbol: symbol,
     }
 }
+
+export function switchPortfolio(index): Action {
+  return {
+      type: ActionTypes.SWITCH_PORTFOLIO,
+      index: index,
+    }
+}

@@ -4,6 +4,7 @@ export const ActionTypes = {
   TOGGLE_FAVORITE: "TOGGLE_FAVORITE",
 
   ADD_ASSET: "ADD_ASSET",
+  SWITCH_PORTFOLIO: "SWITCH_PORTFOLIO",
 }
 
 
