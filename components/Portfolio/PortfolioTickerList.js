@@ -19,7 +19,6 @@ export default class PortfolioCard extends React.PureComponent {
       <View style={styles.touchableWrapper} >
         <TouchableOpacity style={styles.touchableWrapper} onPress={this._onPress}>
           <View style={styles.listItemRowContainer}>
-            <BaseText style={styles.rank}>{tickerData.rank}</BaseText>
             <View key="NameContainer" style={styles.nameContainer}>
               <BaseText style={styles.name}>{tickerData.name}</BaseText>
               <BaseText style={styles.ticker}>{tickerData.symbol}</BaseText>

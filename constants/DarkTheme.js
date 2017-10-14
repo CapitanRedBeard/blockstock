@@ -9,6 +9,7 @@ export default {
 
   loaderColor: Colors.loaderColorDark,
 
+
   canvas: Colors.canvasDark,
   cardBackground: Colors.cardBackgroundDark,
   labelText: Colors.labelTextDark,
@@ -22,6 +23,10 @@ export default {
   favorited: Colors.favorited,
   notFavorited: Colors.labelTextDark,
 
+  //Top Tab Bar
+  topTabBarIndicator: Colors.tintColor,
+
+  //Bottom Tab Bar
   tabBar: '#fefefe',
   errorBackground: 'red',
   errorText: '#fff',

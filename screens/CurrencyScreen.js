@@ -9,18 +9,10 @@ import { TimeFrames } from '../constants/Types'
 import { formatMoney, formatSupply, getLowHighPrice, getChange } from '../helpers'
 import { fetchChart } from '../actions/market'
 import BaseText from '../components/BaseText'
-import CurrencyHeader from '../components/CurrencyHeader'
 import LineChart from '../components/Charts/LineChart';
 import TimeFrameSwitch from '../components/TimeFrameSwitch';
-import FavoriteButton from '../components/FavoriteButton';
 
 class CurrencyScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: CurrencyHeader(navigation.state.params),
-    headerRight: <FavoriteButton symbol={navigation.state.params.symbol}/>,
-    ...DarkTheme.navigationOptions
-  })
-
   constructor(props) {
     super(props)
     this.state = {
@@ -29,22 +21,22 @@ class CurrencyScreen extends React.Component {
   }
 
   selectTimeFrame = (value) => {
-    const { params } = this.props.navigation.state
-    params && this.props.fetchChart(params.name, TimeFrames[value].label)
+    const { ticker } = this.props
+    ticker && this.props.fetchChart(ticker.name, TimeFrames[value].label)
     this.setState({selectedTimeFrame: value})
   }
 
   componentWillMount() {
-    const { params } = this.props.navigation.state
-    params && this.props.fetchChart(params.name, TimeFrames[this.state.selectedTimeFrame].label)
+    const { ticker } = this.props
+    ticker && this.props.fetchChart(ticker.name, TimeFrames[this.state.selectedTimeFrame].label)
   }
 
   render() {
-    const { params } = this.props.navigation.state
+    const { ticker } = this.props
 
-    const scopedChartData = this.props.chartData[params.name] && this.props.chartData[params.name][TimeFrames[this.state.selectedTimeFrame].label]
+    const scopedChartData = this.props.chartData[ticker.name] && this.props.chartData[ticker.name][TimeFrames[this.state.selectedTimeFrame].label]
     const change = getChange(scopedChartData && scopedChartData.price_usd)
-    const currentPrice = formatMoney(params.price_usd)
+    const currentPrice = formatMoney(ticker.price_usd)
     const {lowPrice, highPrice} = getLowHighPrice(scopedChartData && scopedChartData.price_usd)
     const percentColor = getInTheBlackOrRedColor(change)
 
@@ -92,7 +84,7 @@ class CurrencyScreen extends React.Component {
             {"MARKET CAP"}
           </BaseText>
           <BaseText style={styles.statValue}>
-            {formatMoney(params.market_cap_usd)}
+            {formatMoney(ticker.market_cap_usd)}
           </BaseText>
         </View>
 
@@ -101,7 +93,7 @@ class CurrencyScreen extends React.Component {
             {"24HOUR VOLUME"}
           </BaseText>
           <BaseText style={styles.statValue}>
-            {formatMoney(params["24h_volume_usd"])}
+            {formatMoney(ticker["24h_volume_usd"])}
           </BaseText>
         </View>
 
@@ -110,7 +102,7 @@ class CurrencyScreen extends React.Component {
             {"AVAILABLE SUPPLY"}
           </BaseText>
           <BaseText style={styles.statValue}>
-            {formatSupply(params.available_supply, params.symbol)}
+            {formatSupply(ticker.available_supply, ticker.symbol)}
           </BaseText>
         </View>
       </ScrollView>

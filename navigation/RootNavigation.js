@@ -3,7 +3,7 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
-import CurrencyScreen from '../screens/CurrencyScreen';
+import AssetScreen from '../screens/AssetScreen';
 import AddAssetModal from '../screens/AddAssetModal';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 import DarkTheme from '../constants/DarkTheme';
@@ -13,8 +13,8 @@ const RootStackNavigator = StackNavigator(
     Main: {
       screen: MainTabNavigator,
     },
-    Currency: {
-      screen: CurrencyScreen,
+    Asset: {
+      screen: AssetScreen,
     },
     AddAssetModal: {
       screen: AddAssetModal
