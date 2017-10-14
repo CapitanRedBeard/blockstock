@@ -17,11 +17,11 @@ const width = Dimensions.get('window').width
 const TABS = {
   holding: {
     key: 'holding',
-    title: 'Holdings'
+    title: 'Holding'
   },
   currency: {
     key: 'currency',
-    title: 'General'
+    title: 'Stats'
   },
   books: {
     key: 'books',
@@ -71,13 +71,14 @@ export default class AssetScreen extends PureComponent {
   };
 
   _renderHeader = props => {
+    const tabLength = this.state.routes.length
     return (
       <TabBar
         {...props}
         scrollEnabled
         indicatorStyle={styles.indicator}
         style={styles.tabbar}
-        tabStyle={styles.tab}
+        tabStyle={{width: width/tabLength}}
         labelStyle={styles.label}
       />
     );
@@ -120,9 +121,6 @@ const styles = StyleSheet.create({
   tabbar: {
     marginHorizontal: 8,
     backgroundColor: DarkTheme.canvas,
-  },
-  tab: {
-    width: width/4,
   },
   indicator: {
     backgroundColor: DarkTheme.cardBackground,
