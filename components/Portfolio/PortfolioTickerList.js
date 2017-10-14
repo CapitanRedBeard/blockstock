@@ -12,16 +12,22 @@ export default class PortfolioCard extends React.PureComponent {
   _keyExtractor = (item, index) => index;
 
   _renderListItem = ({item}) => {
+    const {symbol, quantity} = item
     const tickerData = this.props.tickers.find(t => t.symbol === item.symbol)
     const percentColor = getInTheBlackOrRedColor(tickerData.percent_change_24h)
+
+    const amountGained = quantity ? `$${tickerData.price_usd * quantity}` : "-"
 
     return (
       <View style={styles.touchableWrapper} >
         <TouchableOpacity style={styles.touchableWrapper} onPress={this._onPress}>
           <View style={styles.listItemRowContainer}>
             <View key="NameContainer" style={styles.nameContainer}>
-              <BaseText style={styles.name}>{tickerData.name}</BaseText>
               <BaseText style={styles.ticker}>{tickerData.symbol}</BaseText>
+            </View>
+            <View key="Holding" style={styles.holdingContainer}>
+              <BaseText style={styles.amountGained}>{amountGained}</BaseText>
+              <BaseText style={styles.quantity}>{quantity}</BaseText>
             </View>
             <View key="ValueContainer" style={styles.valueContainer}>
               <BaseText style={styles.price}>
@@ -123,16 +129,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexGrow: 1,
   },
+  holdingContainer: {
+    justifyContent: "center",
+    flexGrow: 1,
+  },
   valueContainer: {
     justifyContent: "center",
     alignItems: "flex-end",
     flexShrink: 0,
   },
-  name: {
+  ticker: {
     fontSize: 18,
     color: DarkTheme.valueText,
   },
-  ticker: {
+  amountGained: {
+    fontSize: 18,
+    color: DarkTheme.valueText,
+  },
+  quantity: {
     fontSize: 12,
     color: DarkTheme.labelText,
   },

@@ -54,11 +54,11 @@ const newPortfolio = {
   key: "0"
 }
 
-function createNewAsset(symbol, cost, assetPrice) {
+function createNewAsset(symbol, quantity, cost) {
   return {
     symbol,
+    quantity,
     cost,
-    assetPrice,
   }
 }
 
