@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { TabViewAnimated, TabBar } from 'react-native-tab-view';
 
 import CurrencyScreen from './CurrencyScreen';
@@ -10,6 +10,8 @@ import BooksScreen from './BooksScreen';
 import CurrencyHeader from '../components/CurrencyHeader'
 import FavoriteButton from '../components/FavoriteButton';
 import DarkTheme from "../constants/DarkTheme"
+
+const width = Dimensions.get('window').width
 
 export default class AssetScreen extends PureComponent {
   static navigationOptions = ({ navigation }) => ({
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: DarkTheme.canvas,
   },
   tab: {
-    width: 90,
+    width: width/4,
   },
   indicator: {
     backgroundColor: DarkTheme.cardBackground,
