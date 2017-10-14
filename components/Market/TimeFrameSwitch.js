@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import BaseText from './BaseText'
-import DarkTheme from '../constants/DarkTheme'
-import Colors from '../constants/Colors'
-import { TimeFrames } from '../constants/Types'
+import BaseText from '../BaseText'
+import DarkTheme from '../../constants/DarkTheme'
+import Colors from '../../constants/Colors'
+import { TimeFrames } from '../../constants/Types'
 
 export default function TimeFrameSwitch({selected , onPress}) {
   return (

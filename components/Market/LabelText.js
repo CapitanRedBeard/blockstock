@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import BaseText from './BaseText'
-import DarkTheme from '../constants/DarkTheme'
+import BaseText from '../BaseText'
+import DarkTheme from '../../constants/DarkTheme'
 
 export default function LabelText(props) {
   return (

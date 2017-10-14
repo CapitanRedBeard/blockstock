@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import DarkTheme from '../constants/DarkTheme'
-import { getInTheBlackOrRedColor } from '../constants/Colors'
+import DarkTheme from '../../constants/DarkTheme'
+import { getInTheBlackOrRedColor } from '../../constants/Colors'
 
-import BaseText from '../components/BaseText'
+import BaseText from '../../components/BaseText'
 
 export default class TickerCard extends React.PureComponent {
   _onPress = () => {

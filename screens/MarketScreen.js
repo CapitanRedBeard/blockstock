@@ -16,8 +16,8 @@ import { connect } from "react-redux"
 import DarkTheme from '../constants/DarkTheme';
 
 import { fetchTickers } from '../actions/market';
-import LabelText from '../components/LabelText';
-import TickerCard from '../components/TickerCard';
+import LabelText from '../components/Market/LabelText';
+import TickerCard from '../components/Market/TickerCard';
 import Loader from '../components/Loader';
 
 class MarketScreen extends React.Component {

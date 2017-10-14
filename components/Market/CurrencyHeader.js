@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import DarkTheme from '../constants/DarkTheme'
+import DarkTheme from '../../constants/DarkTheme'
 
-import BaseText from '../components/BaseText'
+import BaseText from '../../components/BaseText'
 
 export default function CurrencyHeader({name, symbol}) {
   return (

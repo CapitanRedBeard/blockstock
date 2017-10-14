@@ -10,7 +10,7 @@ import { formatMoney, formatSupply, getLowHighPrice, getChange } from '../helper
 import { fetchChart } from '../actions/market'
 import BaseText from '../components/BaseText'
 import LineChart from '../components/Charts/LineChart';
-import TimeFrameSwitch from '../components/TimeFrameSwitch';
+import TimeFrameSwitch from '../components/Market/TimeFrameSwitch';
 
 class CurrencyScreen extends React.Component {
   constructor(props) {

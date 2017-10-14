@@ -4,8 +4,8 @@ import { connect } from "react-redux"
 
 import { FontAwesome } from '@expo/vector-icons';
 
-import DarkTheme from '../constants/DarkTheme'
-import { favoriteCurrency } from '../actions/market'
+import DarkTheme from '../../constants/DarkTheme'
+import { favoriteCurrency } from '../../actions/market'
 
 class FavoriteButton extends React.Component {
 

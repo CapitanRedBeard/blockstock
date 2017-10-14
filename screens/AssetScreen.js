@@ -7,9 +7,9 @@ import HoldingScreen from './HoldingScreen';
 import AlertScreen from './AlertScreen';
 import BooksScreen from './BooksScreen';
 
-import CurrencyHeader from '../components/CurrencyHeader'
-import FavoriteButton from '../components/FavoriteButton';
-import RemoveButton from '../components/Portfolio/RemoveButton';
+import CurrencyHeader from '../components/Market/CurrencyHeader'
+import FavoriteButton from '../components/Market/FavoriteButton';
+import RemoveButton from '../components/Market/RemoveButton';
 import DarkTheme from "../constants/DarkTheme"
 
 const width = Dimensions.get('window').width
