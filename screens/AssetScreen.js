@@ -9,32 +9,58 @@ import BooksScreen from './BooksScreen';
 
 import CurrencyHeader from '../components/CurrencyHeader'
 import FavoriteButton from '../components/FavoriteButton';
+import RemoveButton from '../components/Portfolio/RemoveButton';
 import DarkTheme from "../constants/DarkTheme"
 
 const width = Dimensions.get('window').width
 
+const TABS = {
+  holding: {
+    key: 'holding',
+    title: 'Holdings'
+  },
+  currency: {
+    key: 'currency',
+    title: 'General'
+  },
+  books: {
+    key: 'books',
+    title: 'Books'
+  },
+  alerts: {
+    key: 'alerts',
+    title: 'Alerts'
+  }
+}
+
 export default class AssetScreen extends PureComponent {
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: CurrencyHeader(navigation.state.params),
-    headerRight: <FavoriteButton symbol={navigation.state.params.symbol}/>,
-    ...DarkTheme.navigationOptions
-  })
+  static navigationOptions = ({ navigation }) => {
+    const { portfolioView, ticker } = navigation.state.params
+    return {
+      headerTitle: CurrencyHeader(navigation.state.params),
+      headerRight: portfolioView ?
+                    <RemoveButton symbol={ticker.symbol} goBack={navigation.goBack}/> :
+                    <FavoriteButton symbol={ticker.symbol}/>,
+      ...DarkTheme.navigationOptions
+    }
+  }
 
   constructor(props) {
     super(props)
     const stateObj = {
-      index: 1,
+      index: 0,
       routes: [
-        { key: '1', title: 'General' },
-        { key: '2', title: 'Holding' },
-        { key: '3', title: 'Books' },
-        { key: '4', title: 'Alerts' },
+        TABS.currency,
+        TABS.books,
+        TABS.alerts,
       ],
     };
+    const { portfolioView } = props.navigation.state.params
 
-    if(props.profileView) {
-
+    if(portfolioView) {
+      stateObj.routes.unshift(TABS.holding)
     }
+
     this.state = stateObj
   }
 
@@ -60,13 +86,13 @@ export default class AssetScreen extends PureComponent {
   _renderScene = ({ route }) => {
     const {params} = this.props.navigation.state
     switch (route.key) {
-      case '1':
-        return <CurrencyScreen ticker={params}/>
-      case '2':
+      case TABS.currency.key:
+        return <CurrencyScreen {...params}/>
+      case TABS.holding.key:
         return <HoldingScreen/>
-      case '3':
+      case TABS.books.key:
         return <BooksScreen/>
-      case '4':
+      case TABS.alerts.key:
         return <AlertScreen/>
       default:
         return null;

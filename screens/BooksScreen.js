@@ -7,7 +7,6 @@ import BaseText from '../components/BaseText'
 
 export default class BooksScreen extends React.Component {
   render() {
-    console.log("Add assets: ", this.props.portfolioAssets)
     return (
       <View style={styles.container}>
         <BaseText style={styles.soonLabel}>

@@ -11,6 +11,12 @@ import AddAssetButton from './AddAssetButton'
 export default class PortfolioCard extends React.PureComponent {
   _keyExtractor = (item, index) => index;
 
+  onPressItem = ticker => {
+    const { navigate } = this.props;
+    navigate('Asset', {ticker: ticker, portfolioView: true})
+  }
+
+
   _renderListItem = ({item}) => {
     const {symbol, quantity} = item
     const tickerData = this.props.tickers.find(t => t.symbol === item.symbol)
@@ -20,7 +26,7 @@ export default class PortfolioCard extends React.PureComponent {
 
     return (
       <View style={styles.touchableWrapper} >
-        <TouchableOpacity style={styles.touchableWrapper} onPress={this._onPress}>
+        <TouchableOpacity style={styles.touchableWrapper} onPress={() => this.onPressItem(tickerData)}>
           <View style={styles.listItemRowContainer}>
             <View key="NameContainer" style={styles.nameContainer}>
               <BaseText style={styles.ticker}>{tickerData.symbol}</BaseText>
@@ -71,15 +77,18 @@ export default class PortfolioCard extends React.PureComponent {
                 titleColor={DarkTheme.loaderColor}
               />
             }
+            ListFooterComponent={
+              <View style={styles.listFooter}>
+                <AddAssetButton navigate={navigate} />
+              </View>
+            }
           /> :
           <View style={styles.noDataContainer}>
             <View style={styles.noDataWrapper}>
               <BaseText style={styles.noDataMessage}>
                 {"Add an asset to start this portfolio"}
               </BaseText>
-              <AddAssetButton
-                colors={portfolio.gradient}
-                navigate={navigate} />
+              <AddAssetButton navigate={navigate} />
             </View>
           </View>
         }
@@ -107,6 +116,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   noDataMessage: {
+    marginBottom: 20,
     color: DarkTheme.valueText,
     fontSize: 24,
     textAlign: "center"
@@ -124,6 +134,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: DarkTheme.cardBackground,
     borderRadius: 2,
+  },
+  listFooter: {
+    flex: 1,
+    padding: 5,
+    alignItems: "center",
+    justifyContent: "flex-start",
   },
   nameContainer: {
     justifyContent: "center",

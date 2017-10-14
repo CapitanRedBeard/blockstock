@@ -63,9 +63,9 @@ function createNewAsset(symbol, quantity, cost) {
 }
 
 export default (state = initialState, action) => {
+  const newState = JSON.parse(JSON.stringify(state))
   switch (action.type) {
     case ActionTypes.ADD_ASSET:
-      const newState = JSON.parse(JSON.stringify(state))
       const updatePortfolio = newState.portfolios[state.selectedIndex]
       const assetAlreadyExists = Boolean(updatePortfolio.assets.find(a => a.symbol === action.symbol))
 
@@ -73,12 +73,11 @@ export default (state = initialState, action) => {
         updatePortfolio.assets.push(createNewAsset(action.symbol))
       }
       newState.portfolios[state.selectedIndex] = updatePortfolio
-      // if(action.cost) {
-      //   newPortfolio[action.symbol].cost = action.cost
-      // }
-      // if(action.amount) {
-      //   newPortfolio[action.symbol].amount = action.amount
-      // }
+      return newState
+    case ActionTypes.REMOVE_ASSET:
+      const assets = newState.portfolios[state.selectedIndex].assets
+      const findSymbolIndex = assets.findIndex(a => a.symbol === action.symbol)
+      assets.splice(findSymbolIndex, 1)
       return newState
     case ActionTypes.SWITCH_PORTFOLIO:
       return {...state, selectedIndex: action.index}

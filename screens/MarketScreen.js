@@ -46,7 +46,7 @@ class MarketScreen extends React.Component {
 
   onPressItem = ticker => {
     const { navigate } = this.props.navigation;
-    navigate('Asset', {...ticker})
+    navigate('Asset', {ticker: ticker})
   }
 
   render() {

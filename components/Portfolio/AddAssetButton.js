@@ -11,7 +11,7 @@ import { modifyCurrency } from '../../actions/portfolio'
 
 export default class AddCurrencyButton extends React.Component {
   render() {
-    const { navigate, colors } = this.props
+    const { navigate } = this.props
     return (
       <View
         style={styles.container}
@@ -33,11 +33,10 @@ export default class AddCurrencyButton extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
     borderWidth: 2,
     borderColor: DarkTheme.buttonColor,
     backgroundColor: "transparent",
-    borderRadius: 25,
+    borderRadius: 3,
     width: 150,
     height: 40,
     alignItems: "center",
