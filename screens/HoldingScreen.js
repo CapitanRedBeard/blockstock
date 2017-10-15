@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: DarkTheme.canvas,
-    paddingVertical: 30
   },
 
 });

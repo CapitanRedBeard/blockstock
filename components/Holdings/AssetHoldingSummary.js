@@ -7,6 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import DarkTheme from '../../constants/DarkTheme'
 import BaseText from '../../components/BaseText'
+import { formatMoney } from '../../helpers'
 
 export default class AssetHoldingSummary extends React.Component {
   render() {
@@ -28,7 +29,7 @@ export default class AssetHoldingSummary extends React.Component {
             {"Value"}
           </BaseText>
           <BaseText style={styles.value}>
-            {currentValue}
+            {formatMoney(currentValue)}
           </BaseText>
         </View>
         <View style={styles.separator}/>
@@ -37,7 +38,7 @@ export default class AssetHoldingSummary extends React.Component {
             {"Profit"}
           </BaseText>
           <BaseText style={styles.value}>
-            {profit}
+            {formatMoney(profit)}
           </BaseText>
         </View>
       </View>
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 5,
+    paddingHorizontal: 30,
     backgroundColor: DarkTheme.cardBackground,
     marginBottom: 20,
   },
