@@ -15,7 +15,7 @@ const Colors = {
   labelTextDark: '#527B92',
   valueTextDark: '#F9F9FA',
 
-  inTheBlackColor: tintColor,
+  inTheBlackColor: '#05FB97',
   inTheRedColor: '#FC4157',
 
   tabBar: '#fefefe',

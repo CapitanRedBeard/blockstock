@@ -47,12 +47,14 @@ export default class AssetHoldingSummary extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "transparent",
     borderRadius: 3,
     alignItems: "center",
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingHorizontal: 5,
+    backgroundColor: DarkTheme.cardBackground,
+    marginBottom: 20,
   },
   separator: {
     width: StyleSheet.hairlineWidth,

@@ -54,8 +54,6 @@ export default class PortfolioCard extends React.PureComponent {
   }
 
   render() {
-    console.log("List props", this.props)
-
     const { portfolio, navigate, tickers } = this.props
     const assetsExist = Boolean(Object.keys(portfolio.assets).length)
     return (
