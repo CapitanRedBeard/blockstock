@@ -25,10 +25,12 @@ export function switchPortfolio(index): Action {
     }
 }
 
-export function addTransaction(symbol, transaction): Action {
+export function addTransaction(symbol, transactionType, quantity, tradePrice): Action {
   return {
       type: ActionTypes.ADD_TRANSACTION,
       symbol,
-      transaction
+      transactionType,
+      quantity,
+      tradePrice
     }
 }

@@ -2,7 +2,7 @@
 
 "use strict"
 
-import { ActionTypes } from "../constants/Types"
+import { ActionTypes, TransactionTypes } from "../constants/Types"
 
 const COLOR_PROFILES = [
   ['#FF4E50', '#F9D423'],
@@ -54,36 +54,54 @@ const newPortfolio = {
   key: "0"
 }
 
-function createNewAsset(symbol, quantity, cost) {
+function createNewAsset(symbol) {
   return {
     symbol,
+    transactions: []
+  }
+}
+
+function createNewTransaction( quantity, tradePrice, transactionType) {
+  return {
     quantity,
-    cost,
+    tradePrice,
+    transactionType
   }
 }
 
 export default (state = initialState, action) => {
-  const newState = JSON.parse(JSON.stringify(state))
   switch (action.type) {
-    case ActionTypes.ADD_ASSET:
-      const updatePortfolio = newState.portfolios[state.selectedIndex]
-      const assetAlreadyExists = Boolean(updatePortfolio.assets.find(a => a.symbol === action.symbol))
+    case ActionTypes.ADD_ASSET: {
+        const newState = JSON.parse(JSON.stringify(state))
+        const updatePortfolio = newState.portfolios[state.selectedIndex]
+        const assetAlreadyExists = Boolean(updatePortfolio.assets.find(a => a.symbol === action.symbol))
 
-      if(!assetAlreadyExists) {
-        updatePortfolio.assets.push(createNewAsset(action.symbol))
-      }
-      newState.portfolios[state.selectedIndex] = updatePortfolio
-      return newState
-    case ActionTypes.REMOVE_ASSET:
+        if(!assetAlreadyExists) {
+          updatePortfolio.assets.push(createNewAsset(action.symbol))
+        }
+        newState.portfolios[state.selectedIndex] = updatePortfolio
+        return newState
+    }
+    case ActionTypes.REMOVE_ASSET:{
+      const newState = JSON.parse(JSON.stringify(state))
       const assets = newState.portfolios[state.selectedIndex].assets
       const findSymbolIndex = assets.findIndex(a => a.symbol === action.symbol)
       assets.splice(findSymbolIndex, 1)
       return newState
-    case ActionTypes.ADD_TRANSACTION:
+    }
+    case ActionTypes.ADD_TRANSACTION: {
+      const newState = JSON.parse(JSON.stringify(state))
+      const {symbol, quantity, tradePrice, transactionType} = action
+      const assets = newState.portfolios[state.selectedIndex].assets
+      const findSymbolIndex = assets.findIndex(a => a.symbol === symbol)
+      assets.transactions.push(createNewTransaction(quantity, tradePrice, transactionType))
       return newState
-    case ActionTypes.SWITCH_PORTFOLIO:
+    }
+    case ActionTypes.SWITCH_PORTFOLIO: {
       return {...state, selectedIndex: action.index}
-    default:
+    }
+    default: {
       return state
+    }
   }
 }
