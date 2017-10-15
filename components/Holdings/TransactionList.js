@@ -8,6 +8,8 @@ import Colors from '../../constants/Colors'
 import BaseText from '../../components/BaseText'
 import { TransactionTypes } from '../../constants/Types'
 
+import { formatMoney, formatQuantity } from '../../helpers'
+
 export default class TransactionList extends React.PureComponent {
   _keyExtractor = (item, index) => index;
 
@@ -33,7 +35,7 @@ export default class TransactionList extends React.PureComponent {
             {"Quantity"}
           </BaseText>
           <BaseText style={styles.value}>
-            {quantity}
+            {formatQuantity(quantity)}
           </BaseText>
         </View>
         <View style={styles.section}>
@@ -41,7 +43,7 @@ export default class TransactionList extends React.PureComponent {
             {"Trade Price"}
           </BaseText>
           <BaseText style={styles.value}>
-            {tradePrice}
+            ${tradePrice}
           </BaseText>
         </View>
       </View>

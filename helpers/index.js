@@ -1,14 +1,17 @@
 import { CurrencyType } from '../constants/Currency'
 import { TransactionTypes } from '../constants/Types'
+import numeral from 'numeral'
 
 export function formatMoney(value, currencyType = 'USD') {
-  return CurrencyType[currencyType] + Number(value).toFixed(2).replace(/./g, function(c, i, a) {
-      return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
-  });
+  return numeral(Number(value)).format(`${CurrencyType[currencyType]}0.00a`).toUpperCase();
 }
 
 export function matchesFloat(value) {
   return value.match(/^(?:(?:0|[1-9][0-9]*)(?:\.[0-9]*)?|\.[0-9]+)$/g);
+}
+
+export function formatQuantity(value ) {
+  return numeral(Number(value)).format(`0.00a`).toUpperCase();
 }
 
 export function formatSupply(supply, symbol) {

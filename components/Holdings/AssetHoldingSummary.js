@@ -7,7 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import DarkTheme from '../../constants/DarkTheme'
 import BaseText from '../../components/BaseText'
-import { formatMoney } from '../../helpers'
+import { formatMoney, formatQuantity } from '../../helpers'
 
 export default class AssetHoldingSummary extends React.Component {
   render() {
@@ -20,7 +20,7 @@ export default class AssetHoldingSummary extends React.Component {
             {"Quantity"}
           </BaseText>
           <BaseText style={styles.value}>
-            {totalQuantity}
+            {formatQuantity(totalQuantity)}
           </BaseText>
         </View>
         <View style={styles.separator}/>
@@ -58,12 +58,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   separator: {
-    width: StyleSheet.hairlineWidth,
+    width: 1,
     backgroundColor: DarkTheme.labelText,
-    flex: 1,
+    height: 20,
   },
   section: {
     flex: 1,
+    flexShrink: 0,
     paddingVertical: 10,
     alignItems: "center",
     justifyContent: "center",
