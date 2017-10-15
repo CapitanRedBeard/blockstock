@@ -19,12 +19,12 @@ class HoldingScreen extends React.Component {
 
     this.state = {
       transactionType: 0,
-      quantity: 0,
+      quantity: "0",
       tradePrice: price_usd
     }
   }
 
-  submitTransaction = transaction => {
+  submitTransaction = () => {
     const { symbol } = this.props.navigation.state.params.ticker
     const { transactionType, quantity, tradePrice } = this.state
     this.props.addTransaction(symbol, transactionType, quantity, tradePrice)

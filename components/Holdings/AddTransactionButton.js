@@ -12,20 +12,17 @@ import { addTransaction } from '../../actions/portfolio'
 export default class AddTransactionButton extends React.Component {
   render() {
     return (
-      <View
+      <TouchableOpacity
         style={styles.container}
+        key="AddTransactionContainer"
+        onPress={this.props.navigateToTransaction}
       >
-        <TouchableOpacity
-          key="AddTransactionContainer"
-          onPress={this.props.navigateToTransaction}
-        >
-          <View>
-            <BaseText style={styles.addButton}>
-              {"Trade"}
-            </BaseText>
-          </View>
-        </TouchableOpacity>
-      </View>
+        <View>
+          <BaseText style={styles.addButton}>
+            {"Trade"}
+          </BaseText>
+        </View>
+      </TouchableOpacity>
     )
   }
 }
