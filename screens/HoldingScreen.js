@@ -8,9 +8,10 @@ import Switch from '../components/Switch'
 import BaseText from '../components/BaseText'
 import Input from '../components/Input'
 import AddTransactionButton from "../components/Holdings/AddTransactionButton"
+import AssetHoldingSummary from "../components/Holdings/AssetHoldingSummary"
 
 import { TransactionTypes } from '../constants/Types'
-import { matchesFloat } from '../helpers'
+import { matchesFloat, sumTransactions, calculateProfit } from '../helpers'
 
 class HoldingScreen extends React.Component {
   constructor(props) {
@@ -49,11 +50,20 @@ class HoldingScreen extends React.Component {
   render() {
     const { transactionType, quantity, tradePrice } = this.state
     const { portfolioAssets, navigation } = this.props
-    const { symbol } = navigation.state.params.ticker
+    const { symbol, price_usd } = navigation.state.params.ticker
     const portfolioData = portfolioAssets.find(a => a.symbol === symbol)
-
+    const { totalQuantity, totalCost } = sumTransactions(portfolioData.transactions)
+    const { profitPercent, profit, currentValue } = calculateProfit(price_usd, totalCost, quantity)
     return (
       <ScrollView style={styles.container}>
+        <View>
+          <AssetHoldingSummary
+            totalQuantity={totalQuantity}
+            currentValue={currentValue}
+            profitPercent={profitPercent}
+            profit={profit}
+          />
+        </View>
         <Switch
           selected={transactionType}
           onPress={this.toggleTransactionType}

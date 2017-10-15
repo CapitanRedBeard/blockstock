@@ -94,7 +94,7 @@ export default (state = initialState, action) => {
       const {symbol, quantity, tradePrice, transactionType} = action
       const assets = newState.portfolios[state.selectedIndex].assets
       const findSymbolIndex = assets.findIndex(a => a.symbol === symbol)
-      assets.transactions.push(createNewTransaction(quantity, tradePrice, transactionType))
+      assets[findSymbolIndex].transactions.push(createNewTransaction(quantity, tradePrice, transactionType))
       return newState
     }
     case ActionTypes.SWITCH_PORTFOLIO: {

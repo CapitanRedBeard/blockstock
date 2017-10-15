@@ -15,7 +15,7 @@ export default class AddTransactionButton extends React.Component {
       <TouchableOpacity
         style={styles.container}
         key="AddTransactionContainer"
-        onPress={this.props.navigateToTransaction}
+        onPress={this.props.submitTransaction}
       >
         <View>
           <BaseText style={styles.addButton}>

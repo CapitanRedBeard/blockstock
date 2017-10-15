@@ -1,4 +1,5 @@
 import { CurrencyType } from '../constants/Currency'
+import { TransactionTypes } from '../constants/Types'
 
 export function formatMoney(value, currencyType = 'USD') {
   return CurrencyType[currencyType] + Number(value).toFixed(2).replace(/./g, function(c, i, a) {
@@ -76,5 +77,38 @@ export function getHigh(data) {
 export function getChange(data) {
   if(data) {
     return (((data[data.length - 1][1] - data[0][1]) / data[0][1]) * 100).toFixed(2)
+  }
+}
+
+export function sumTransactions(transactions) {
+  const sum = {
+    totalQuantity: 0,
+    totalCost: 0,
+  }
+  transactions && transactions.forEach(transaction => {
+    const quantity = Number(transaction.quantity);
+    const tradePrice = Number(transaction.tradePrice);
+
+    if(transaction.transactionType === 0) {
+      //BUY
+      sum.totalQuantity += quantity
+      sum.totalCost += quantity * tradePrice
+    }else {
+      //SELL
+      sum.totalQuantity -= quantity
+      sum.totalCost -= quantity * tradePrice
+    }
+  })
+  return sum
+}
+
+export function calculateProfit(currentPrice, totalCost, quantity) {
+  const currentValue = (Number(currentPrice) * quantity)
+  const profit =  currentValue - totalCost
+
+  return {
+    profit,
+    profitPercent: (profit / totalCost) * 100,
+    currentValue
   }
 }
