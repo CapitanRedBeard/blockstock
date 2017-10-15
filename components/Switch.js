@@ -1,29 +1,27 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import BaseText from '../BaseText'
-import DarkTheme from '../../constants/DarkTheme'
-import Colors from '../../constants/Colors'
-import { TimeFrames } from '../../constants/Types'
+import BaseText from './BaseText'
+import DarkTheme from '../constants/DarkTheme'
+import Colors from '../constants/Colors'
 
-export default function TimeFrameSwitch({selected , onPress}) {
+export default function Switch({values, selected, onPress, labelStyle}) {
   return (
     <View style={styles.container} >
       {
-        TimeFrames.map((val, i) => {
+        values.map((val, i) => {
           const containerStyle = [styles.valueContainer]
           const valueStyle = [styles.value]
           if(i === selected) {
             valueStyle.push(styles.valueSelected)
             containerStyle.push(styles.valueContainerSelected)
           }
-
           return (
             <TouchableOpacity
               key={val.label}
               style={containerStyle}
               onPress={() => onPress(i)}
               >
-              <BaseText style={valueStyle}>
+              <BaseText style={[valueStyle, labelStyle]}>
                 {val.label}
               </BaseText>
             </TouchableOpacity>

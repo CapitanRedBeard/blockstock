@@ -17,9 +17,18 @@ export function removeAsset(symbol): Action {
       symbol
     }
 }
+
 export function switchPortfolio(index): Action {
   return {
       type: ActionTypes.SWITCH_PORTFOLIO,
       index
+    }
+}
+
+export function addTransaction(symbol, transaction): Action {
+  return {
+      type: ActionTypes.ADD_TRANSACTION,
+      symbol,
+      transaction
     }
 }

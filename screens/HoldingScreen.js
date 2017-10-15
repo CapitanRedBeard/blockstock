@@ -4,14 +4,20 @@ import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-nati
 import DarkTheme from "../constants/DarkTheme"
 
 import BaseText from '../components/BaseText'
+import AddTransactionButton from "../components/Holdings/AddTransactionButton"
 
 export default class HoldingScreen extends React.Component {
+  navigateToTransaction = () => {
+    const { navigation } = this.props
+    const { ticker } = navigation.state.params
+
+    navigation.navigate("AddTransaction", {ticker: ticker})
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <BaseText style={styles.soonLabel}>
-          Coming Soon
-        </BaseText>
+        <AddTransactionButton navigateToTransaction={this.navigateToTransaction}/>
       </View>
     );
   }
@@ -20,13 +26,9 @@ export default class HoldingScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
     backgroundColor: DarkTheme.canvas,
   },
-  soonLabel: {
-    color: DarkTheme.valueText,
-    fontSize: 18,
-    textAlign: "center",
-  }
 });
 
 

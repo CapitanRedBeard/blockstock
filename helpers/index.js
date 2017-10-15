@@ -6,6 +6,10 @@ export function formatMoney(value, currencyType = 'USD') {
   });
 }
 
+export function matchesFloat(value) {
+  return value.match(/^(?:(?:0|[1-9][0-9]*)(?:\.[0-9]*)?|\.[0-9]+)$/g);
+}
+
 export function formatSupply(supply, symbol) {
   const formattedSupply =  Number(supply).toFixed(0).replace(/./g, function(c, i, a) {
       return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;

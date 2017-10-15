@@ -1,6 +1,7 @@
 import Colors from "./Colors"
 
 export default {
+  tintColor: Colors.tintColor,
   statusBarStyle: "light-content",
   tabDefault: Colors.tabDefaultDark,
   tabSelected: Colors.tabSelectedDark,

@@ -79,6 +79,8 @@ export default (state = initialState, action) => {
       const findSymbolIndex = assets.findIndex(a => a.symbol === action.symbol)
       assets.splice(findSymbolIndex, 1)
       return newState
+    case ActionTypes.ADD_TRANSACTION:
+      return newState
     case ActionTypes.SWITCH_PORTFOLIO:
       return {...state, selectedIndex: action.index}
     default:

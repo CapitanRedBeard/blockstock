@@ -10,7 +10,7 @@ import { formatMoney, formatSupply, getLowHighPrice, getChange } from '../helper
 import { fetchChart } from '../actions/market'
 import BaseText from '../components/BaseText'
 import LineChart from '../components/Charts/LineChart';
-import TimeFrameSwitch from '../components/Market/TimeFrameSwitch';
+import Switch from '../components/Switch';
 
 class CurrencyScreen extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class CurrencyScreen extends React.Component {
     }
   }
 
-  selectTimeFrame = (value) => {
+  selectTimeFrame = value => {
     const { ticker } = this.props
     ticker && this.props.fetchChart(ticker.name, TimeFrames[value].label)
     this.setState({selectedTimeFrame: value})
@@ -48,7 +48,11 @@ class CurrencyScreen extends React.Component {
           data={scopedChartData }
         />
 
-        <TimeFrameSwitch selected={this.state.selectedTimeFrame} onPress={this.selectTimeFrame}/>
+        <Switch
+          selected={this.state.selectedTimeFrame}
+          onPress={this.selectTimeFrame}
+          values={TimeFrames}
+        />
 
         <View key="ValueContainer" style={styles.valueContainer}>
           <BaseText style={styles.price}>

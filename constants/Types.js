@@ -6,6 +6,7 @@ export const ActionTypes = {
   ADD_ASSET: "ADD_ASSET",
   REMOVE_ASSET: "REMOVE_ASSET",
   SWITCH_PORTFOLIO: "SWITCH_PORTFOLIO",
+  ADD_TRANSACTION: "ADD_TRANSACTION"
 }
 
 
@@ -31,4 +32,13 @@ export const TimeFrames = [
   {
     label: "All"
   }
+]
+
+export const TransactionTypes = [
+  {
+    label: "BUY",
+  },
+  {
+    label: "SELL",
+  },
 ]

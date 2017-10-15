@@ -37,7 +37,7 @@ export default class AssetScreen extends PureComponent {
   static navigationOptions = ({ navigation }) => {
     const { portfolioView, ticker } = navigation.state.params
     return {
-      headerTitle: CurrencyHeader(navigation.state.params),
+      headerTitle: CurrencyHeader(ticker),
       headerRight: portfolioView ?
                     <RemoveButton symbol={ticker.symbol} goBack={navigation.goBack}/> :
                     <FavoriteButton symbol={ticker.symbol}/>,
@@ -75,7 +75,6 @@ export default class AssetScreen extends PureComponent {
     return (
       <TabBar
         {...props}
-        scrollEnabled
         indicatorStyle={styles.indicator}
         style={styles.tabbar}
         tabStyle={{width: width/tabLength}}
@@ -90,7 +89,7 @@ export default class AssetScreen extends PureComponent {
       case TABS.currency.key:
         return <CurrencyScreen {...params}/>
       case TABS.holding.key:
-        return <HoldingScreen/>
+        return <HoldingScreen navigation={this.props.navigation}/>
       case TABS.books.key:
         return <BooksScreen/>
       case TABS.alerts.key:
