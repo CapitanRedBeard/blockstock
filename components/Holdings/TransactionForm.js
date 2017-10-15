@@ -82,7 +82,7 @@ export default class TransactionForm extends React.Component {
             />
           </View>
         </View>
-        <AddTransactionButton submitTransaction={this.submitTransaction}/>
+        <AddTransactionButton submitTransaction={this.onSubmit}/>
       </View>
     )
   }
