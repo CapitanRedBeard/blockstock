@@ -5,7 +5,6 @@ import { StackNavigator } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 import AssetScreen from '../screens/AssetScreen';
 import AddAssetModal from '../screens/AddAssetModal';
-import AddTransaction from '../screens/AddTransaction';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 import DarkTheme from '../constants/DarkTheme';
 
@@ -19,9 +18,6 @@ const RootStackNavigator = StackNavigator(
     },
     AddAssetModal: {
       screen: AddAssetModal
-    },
-    AddTransaction: {
-      screen: AddTransaction
     }
   },
   {

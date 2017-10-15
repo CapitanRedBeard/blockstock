@@ -21,7 +21,7 @@ export default class AddTransactionButton extends React.Component {
         >
           <View>
             <BaseText style={styles.addButton}>
-              {"Add Transaction"}
+              {"Trade"}
             </BaseText>
           </View>
         </TouchableOpacity>
