@@ -16,7 +16,7 @@ export default class PortfolioCard extends React.PureComponent {
      return (
        <LinearGradient
           style={styles.touchableWrapper}
-          colors={portfolio.gradient}
+          colors={['#93F9B9', '#1D976C']}
         >
          <View style={styles.container}>
            <BaseText style={styles.portfolioName}>{portfolio.name}</BaseText>

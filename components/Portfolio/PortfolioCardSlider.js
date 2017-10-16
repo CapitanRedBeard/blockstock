@@ -18,19 +18,6 @@ const initialLayout = {
 };
 
 export default class PortfolioCardSlider extends PureComponent {
-  static title = 'Coverflow';
-  static appbarElevation = 0;
-
-  constructor(props) {
-    super(props)
-    const { selectedIndex, portfolios } = props.portfolioData
-
-    this.state = {
-      index: selectedIndex,
-      routes: portfolios,
-    }
-  }
-
   _buildCoverFlowStyle = ({ layout, position, route, navigationState }) => {
     const { width } = layout;
     const { routes } = navigationState;
@@ -76,9 +63,6 @@ export default class PortfolioCardSlider extends PureComponent {
 
   _handleIndexChange = index => {
     this.props.switchPortfolio(index)
-    this.setState({
-      index,
-    });
   };
 
   _renderScene = props => {
@@ -94,10 +78,16 @@ export default class PortfolioCardSlider extends PureComponent {
   };
 
   render() {
+    const { selectedIndex, portfolios } = this.props.portfolioData
+
+    const navigationState = {
+      index: selectedIndex,
+      routes: portfolios,
+    }
     return (
       <View style={styles.container}>
         <TabViewAnimated
-          navigationState={this.state}
+          navigationState={navigationState}
           renderPager={this._renderPager}
           renderScene={this._renderScene}
           onIndexChange={this._handleIndexChange}

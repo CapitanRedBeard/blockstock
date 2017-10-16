@@ -4,54 +4,23 @@
 
 import { ActionTypes, TransactionTypes } from "../constants/Types"
 
-const COLOR_PROFILES = [
-  ['#FF4E50', '#F9D423'],
-  ['#93F9B9', '#1D976C'],
-  ['#C04848', '#480048'],
-  ['#5f2c82', '#49a09d'],
-  ['#283048', '#859398']
-]
-
 const initialState = {
   portfolios: [
     {
       name: "Portfolio One",
       assets: [],
-      gradient: COLOR_PROFILES[0],
       key: "0"
     },
-    {
-      name: "Portfolio Two",
-      assets: [],
-      gradient: COLOR_PROFILES[1],
-      key: "1"
-    },
-    {
-      name: "Portfolio Three",
-      assets: [],
-      gradient: COLOR_PROFILES[2],
-      key: "2"
-    },
-    {
-      name: "Portfolio Four",
-      assets: [],
-      gradient: COLOR_PROFILES[3],
-      key: "3"
-    },
-    {
-      name: "Portfolio Five",
-      assets: [],
-      gradient: COLOR_PROFILES[4],
-      key: "4"
-    }
   ],
   selectedIndex: 0
 }
 
-const newPortfolio = {
+function createNewPortfolio(key) {
+  return {
   name: "Untitled",
   assets: [],
-  key: "0"
+  key: key
+  }
 }
 
 function createNewAsset(symbol) {
@@ -80,6 +49,22 @@ export default (state = initialState, action) => {
           updatePortfolio.assets.push(createNewAsset(action.symbol))
         }
         newState.portfolios[state.selectedIndex] = updatePortfolio
+
+        let allPortfoliosAreUsed = true
+        newState.portfolios.forEach(portfolio => {
+          if(!portfolio.assets.length) {
+            allPortfoliosAreUsed = false
+          }
+          console.log("allPortfoliosAreUsed1", portfolio.assets.length)
+
+        })
+
+        if(allPortfoliosAreUsed) {
+          console.log("allPortfoliosAreUsed2", allPortfoliosAreUsed)
+
+          newState.portfolios.push(createNewPortfolio(String(newState.portfolios.length)))
+        }
+
         return newState
     }
     case ActionTypes.REMOVE_ASSET:{
