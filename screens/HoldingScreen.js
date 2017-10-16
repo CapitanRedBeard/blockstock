@@ -22,6 +22,11 @@ class HoldingScreen extends React.Component {
     const { portfolioAssets, navigation } = this.props
     const { symbol, price_usd } = navigation.state.params.ticker
     const portfolioData = portfolioAssets.find(a => a.symbol === symbol)
+
+    if(!portfolioData) {
+      return null
+    }
+
     const { totalQuantity, totalCost } = sumTransactions(portfolioData.transactions)
     const { profitPercent, profit, currentValue } = calculateProfit(price_usd, totalCost, totalQuantity)
 

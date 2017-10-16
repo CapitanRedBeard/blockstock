@@ -8,6 +8,8 @@ import { getInTheBlackOrRedColor } from '../../constants/Colors'
 import BaseText from '../../components/BaseText'
 import AddAssetButton from './AddAssetButton'
 
+import { sumTransactions, calculateProfit, formatMoney, formatQuantity } from '../../helpers'
+
 export default class PortfolioCard extends React.PureComponent {
   _keyExtractor = (item, index) => index;
 
@@ -16,13 +18,15 @@ export default class PortfolioCard extends React.PureComponent {
     navigate('Asset', {ticker: ticker, portfolioView: true})
   }
 
-
   _renderListItem = ({item}) => {
-    const {symbol, quantity} = item
+    const {symbol} = item
     const tickerData = this.props.tickers.find(t => t.symbol === item.symbol)
-    const percentColor = getInTheBlackOrRedColor(tickerData.percent_change_24h)
+    const portfolioData = this.props.portfolio.assets.find(a => a.symbol === symbol)
 
-    const amountGained = quantity ? `$${tickerData.price_usd * quantity}` : "-"
+    const { totalQuantity, totalCost } = sumTransactions(portfolioData.transactions)
+    const { profitPercent, profit, currentValue } = calculateProfit(tickerData.price_usd, totalCost, totalQuantity)
+
+    const percentColor = getInTheBlackOrRedColor(tickerData.percent_change_24h)
 
     return (
       <View style={styles.touchableWrapper} >
@@ -32,8 +36,8 @@ export default class PortfolioCard extends React.PureComponent {
               <BaseText style={styles.ticker}>{tickerData.symbol}</BaseText>
             </View>
             <View key="Holding" style={styles.holdingContainer}>
-              <BaseText style={styles.amountGained}>{amountGained}</BaseText>
-              <BaseText style={styles.quantity}>{quantity}</BaseText>
+              <BaseText style={styles.amountGained}>{formatMoney(currentValue)}</BaseText>
+              <BaseText style={styles.quantity}>{formatQuantity(totalQuantity)}</BaseText>
             </View>
             <View key="ValueContainer" style={styles.valueContainer}>
               <BaseText style={styles.price}>
@@ -101,6 +105,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "stretch",
+    marginBottom: 20,
   },
   noDataContainer: {
     marginTop: 20,
