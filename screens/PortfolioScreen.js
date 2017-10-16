@@ -27,6 +27,7 @@ class PortfolioScreen extends React.Component {
         <PortfolioCardSlider
           portfolioData={portfolioData}
           switchPortfolio={switchPortfolio}
+          tickers={tickers}
         />
         <PortfolioTickerList
           navigate={navigation.navigate}

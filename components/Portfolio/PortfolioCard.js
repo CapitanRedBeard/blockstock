@@ -8,18 +8,21 @@ import { getInTheBlackOrRedColor } from '../../constants/Colors'
 import BaseText from '../../components/BaseText'
 
 const cardWidth = Dimensions.get('window').width - 50;
+import { sumPortfolio, formatMoney } from '../../helpers'
 
 export default class PortfolioCard extends React.PureComponent {
   render() {
-     const { portfolio, index } = this.props
-     console.log("Portfolio, ", portfolio)
+     const { portfolio, index, tickers } = this.props
+     const { totalValue, totalCost } = sumPortfolio(portfolio.assets, tickers)
+
      return (
        <LinearGradient
-          style={styles.touchableWrapper}
+          style={styles.linearGradientContainer}
           colors={['#93F9B9', '#1D976C']}
         >
          <View style={styles.container}>
-           <BaseText style={styles.portfolioName}>{portfolio.name}</BaseText>
+           <BaseText style={styles.portfolioName}>{"Total Value"}</BaseText>
+           <BaseText style={styles.portfolioName}>{formatMoney(totalValue)}</BaseText>
          </View>
        </LinearGradient>
      );
@@ -27,7 +30,7 @@ export default class PortfolioCard extends React.PureComponent {
 }
 
 const styles = StyleSheet.create({
-  touchableWrapper: {
+  linearGradientContainer: {
     backgroundColor: '#000',
     width: cardWidth,
     height: 200,

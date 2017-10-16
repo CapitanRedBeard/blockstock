@@ -68,7 +68,7 @@ export default class PortfolioCardSlider extends PureComponent {
   _renderScene = props => {
     return (
       <Animated.View style={[styles.page, this._buildCoverFlowStyle(props)]}>
-        <PortfolioCard portfolio={props.route} index={props.index}/>
+        <PortfolioCard portfolio={props.route} index={props.index} tickers={this.props.tickers}/>
       </Animated.View>
     );
   };
