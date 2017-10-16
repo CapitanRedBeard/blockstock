@@ -14,7 +14,6 @@ import { fetchTickers } from '../actions/market';
 class PortfolioScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: 'Portfolio',
-    headerRight: <AddAssetHeaderButton navigate={navigation.navigate}/>,
     ...DarkTheme.navigationOptions
   })
 

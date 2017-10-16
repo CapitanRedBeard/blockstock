@@ -109,6 +109,7 @@ export function sumPortfolio(assets, tickers) {
   const sum = {
     totalValue: 0,
     totalCost: 0,
+    totalProfit: 0,
   }
 
   assets && assets.forEach(asset => {
@@ -116,11 +117,12 @@ export function sumPortfolio(assets, tickers) {
     const tickerData = tickers.find(t => t.symbol === asset.symbol)
     sum.totalCost += totalCost
     sum.totalValue += totalQuantity * tickerData.price_usd
+    sum.totalProfit += calculateProfite(tickerData.price_usd, totalCost, totalQuantity).profit
   })
   return sum
 }
 
-export function calculateProfit(currentPrice, totalCost, quantity) {
+export function calculateProfite(currentPrice, totalCost, quantity) {
   const currentValue = (Number(currentPrice) * quantity)
   const profit =  currentValue - totalCost
 

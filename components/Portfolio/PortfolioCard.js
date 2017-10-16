@@ -12,19 +12,31 @@ import { sumPortfolio, formatMoney } from '../../helpers'
 
 export default class PortfolioCard extends React.PureComponent {
   render() {
-     const { portfolio, index, tickers } = this.props
-     const { totalValue, totalCost } = sumPortfolio(portfolio.assets, tickers)
+    const { portfolio, index, tickers } = this.props
+    const { totalValue, totalCost, totalProfit } = sumPortfolio(portfolio.assets, tickers)
 
-     return (
-       <LinearGradient
-          style={styles.linearGradientContainer}
-          colors={['#93F9B9', '#1D976C']}
-        >
-         <View style={styles.container}>
-           <BaseText style={styles.portfolioName}>{"Total Value"}</BaseText>
-           <BaseText style={styles.portfolioName}>{formatMoney(totalValue)}</BaseText>
-         </View>
-       </LinearGradient>
+    return (
+      <LinearGradient
+        style={styles.linearGradientContainer}
+        colors={['#93F9B9', '#1D976C']}
+      >
+        <View style={styles.container}>
+          <View style={styles.section}>
+            <BaseText style={styles.valueLabel}>{"Value"}</BaseText>
+            <BaseText style={styles.value}>{formatMoney(totalValue)}</BaseText>
+          </View>
+          <View style={styles.detailSection}>
+            <View style={styles.section}>
+              <BaseText style={styles.costLabel}>{"Cost"}</BaseText>
+              <BaseText style={styles.cost}>{formatMoney(totalCost)}</BaseText>
+            </View>
+            <View style={styles.section}>
+              <BaseText style={styles.profitLabel}>{"Profit"}</BaseText>
+              <BaseText style={styles.profit}>{formatMoney(totalProfit)}</BaseText>
+            </View>
+          </View>
+        </View>
+      </LinearGradient>
      );
   }
 }
@@ -33,7 +45,7 @@ const styles = StyleSheet.create({
   linearGradientContainer: {
     backgroundColor: '#000',
     width: cardWidth,
-    height: 200,
+    height: 170,
     elevation: 12,
     borderRadius: 3,
     shadowColor: '#000000',
@@ -52,8 +64,39 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderRadius: 3,
   },
-  portfolioName: {
+  valueLabel: {
     color: DarkTheme.valueText,
     fontSize: 24,
   },
+  value: {
+    color: DarkTheme.valueText,
+    fontSize: 30,
+  },
+  costLabel: {
+    color: DarkTheme.valueText,
+    fontSize: 16,
+  },
+  cost: {
+    color: DarkTheme.valueText,
+    fontSize: 20,
+  },
+  profitLabel: {
+    color: DarkTheme.valueText,
+    fontSize: 16,
+  },
+  profit: {
+    color: DarkTheme.valueText,
+    fontSize: 20,
+  },
+  section: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  detailSection: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  }
 })

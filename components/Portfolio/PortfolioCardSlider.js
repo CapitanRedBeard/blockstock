@@ -100,7 +100,7 @@ export default class PortfolioCardSlider extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    height: 200,
+    height: 170,
     marginBottom: 20,
   },
   page: {
