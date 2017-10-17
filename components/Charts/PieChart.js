@@ -5,25 +5,11 @@ import {
 } from "victory-native";
 
 import DarkTheme from "../../constants/DarkTheme"
-import { CryptoColors } from "../../constants/Colors"
 
 const graphWidth = Dimensions.get('window').width - 50
+const innerRadius = 105
 
-function formatData(portfolio, tickers) {
-
-  return portfolio.assets.map(asset => {
-    const tickerData = tickers.find(t => t.symbol === asset.symbol)
-
-    return {
-      x: asset.totalQuantity ? asset.symbol : " ",
-      y: asset.totalQuantity,
-      fill: CryptoColors[tickerData.symbol],
-    }
-  })
-}
-
-export default function PieChart({portfolio, tickers}) {
-  const data = formatData(portfolio, tickers)
+export default function PieChart({data}) {
   return (
     <View style={styles.container}>
       <VictoryPie
@@ -34,8 +20,9 @@ export default function PieChart({portfolio, tickers}) {
             fontFamily: DarkTheme.fontFamily
           }
         }}
+        padAngle={1}
         data={data}
-        innerRadius={50}
+        innerRadius={innerRadius}
         height={graphWidth}
       />
     </View>
@@ -45,7 +32,6 @@ export default function PieChart({portfolio, tickers}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 60,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: 'transparent',

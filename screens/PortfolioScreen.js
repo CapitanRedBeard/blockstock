@@ -7,8 +7,7 @@ import BaseText from '../components/BaseText'
 import AddAssetHeaderButton from '../components/Portfolio/AddAssetHeaderButton'
 import PortfolioCardSlider from '../components/Portfolio/PortfolioCardSlider'
 import PortfolioTickerList from '../components/Portfolio/PortfolioTickerList'
-
-import PieChart from '../components/Charts/PieChart'
+import PortfolioPieChart from '../components/Portfolio/PortfolioPieChart'
 
 import { switchPortfolio } from '../actions/portfolio';
 import { fetchTickers } from '../actions/market';
@@ -31,7 +30,7 @@ class PortfolioScreen extends React.Component {
           tickers={tickers}
         />
 
-        <PieChart
+        <PortfolioPieChart
           tickers={tickers}
           portfolio={selectedPortfolio}
         />
