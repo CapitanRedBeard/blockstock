@@ -4,25 +4,39 @@ import {
   VictoryPie,
 } from "victory-native";
 
-import Loader from '../Loader'
+import DarkTheme from "../../constants/DarkTheme"
+import { CryptoColors } from "../../constants/Colors"
 
 const graphWidth = Dimensions.get('window').width - 50
 
+function formatData(portfolio, tickers) {
 
-function formatData(portfolio) {
+  return portfolio.assets.map(asset => {
+    const tickerData = tickers.find(t => t.symbol === asset.symbol)
+    console.log("Ticker: ", tickerData)
 
-  return portfolio.assets.map(asset => ({
-    x: portfolio.symbol,
-    y: point[1],
-  }))
+    return {
+      x: asset.totalQuantity ? asset.symbol : " ",
+      y: asset.totalQuantity,
+      fill: CryptoColors[tickerData.symbol],
+    }
+  })
 }
 
 export default function PieChart({portfolio, tickers}) {
+  const data = formatData(portfolio, tickers)
+  console.log("Data", data)
   return (
     <View style={styles.container}>
       <VictoryPie
-        style={{ labels: styles.labels}}
-        data={}
+        style={{
+          labels: {
+            fill: "white",
+            fontSize: 12,
+            fontFamily: DarkTheme.fontFamily
+          }
+        }}
+        data={data}
         innerRadius={50}
         height={graphWidth}
       />
@@ -33,15 +47,9 @@ export default function PieChart({portfolio, tickers}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: graphWidth,
-    width: graphWidth,
+    paddingVertical: 60,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: 'transparent',
-  },
-  labels: {
-    fill: "white",
-    fontSize: 12,
-    fontFamily: DarkTheme.fontFamily
   },
 });

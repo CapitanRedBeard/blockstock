@@ -8,6 +8,8 @@ import AddAssetHeaderButton from '../components/Portfolio/AddAssetHeaderButton'
 import PortfolioCardSlider from '../components/Portfolio/PortfolioCardSlider'
 import PortfolioTickerList from '../components/Portfolio/PortfolioTickerList'
 
+import PieChart from '../components/Charts/PieChart'
+
 import { switchPortfolio } from '../actions/portfolio';
 import { fetchTickers } from '../actions/market';
 
@@ -28,6 +30,12 @@ class PortfolioScreen extends React.Component {
           switchPortfolio={switchPortfolio}
           tickers={tickers}
         />
+
+        <PieChart
+          tickers={tickers}
+          portfolio={selectedPortfolio}
+        />
+
         <PortfolioTickerList
           navigate={navigation.navigate}
           portfolio={selectedPortfolio}
