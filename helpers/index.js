@@ -83,28 +83,6 @@ export function getChange(data) {
   }
 }
 
-export function sumTransactions(transactions) {
-  const sum = {
-    totalQuantity: 0,
-    totalCost: 0,
-  }
-  transactions && transactions.forEach(transaction => {
-    const quantity = Number(transaction.quantity);
-    const tradePrice = Number(transaction.tradePrice);
-
-    if(transaction.transactionType === 0) {
-      //BUY
-      sum.totalQuantity += quantity
-      sum.totalCost += quantity * tradePrice
-    }else {
-      //SELL
-      sum.totalQuantity -= quantity
-      sum.totalCost -= quantity * tradePrice
-    }
-  })
-  return sum
-}
-
 export function sumPortfolio(assets, tickers) {
   const sum = {
     totalValue: 0,
@@ -113,7 +91,7 @@ export function sumPortfolio(assets, tickers) {
   }
 
   assets && assets.forEach(asset => {
-    const { totalQuantity, totalCost } = sumTransactions(asset.transactions)
+    const { totalQuantity, totalCost } = asset
     const tickerData = tickers.find(t => t.symbol === asset.symbol)
     sum.totalCost += totalCost
     sum.totalValue += totalQuantity * tickerData.price_usd

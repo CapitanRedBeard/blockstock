@@ -15,10 +15,37 @@ const initialState = {
   selectedIndex: 0
 }
 
+function sumTransactions(transactions) {
+  const sum = {
+    totalQuantity: 0,
+    totalCost: 0,
+  }
+  transactions && transactions.forEach(transaction => {
+    const quantity = Number(transaction.quantity);
+    const tradePrice = Number(transaction.tradePrice);
+
+    if(transaction.transactionType === 0) {
+      //BUY
+      sum.totalQuantity += quantity
+      sum.totalCost += quantity * tradePrice
+    }else {
+      //SELL
+      sum.totalQuantity -= quantity
+      sum.totalCost -= quantity * tradePrice
+    }
+  })
+  console.log("Transactions", transactions, sum)
+  return sum
+}
+
 function createNewPortfolio(key) {
   return {
   name: "Untitled",
   assets: [],
+  portfolioValue: null,
+  portfolioCost: null,
+  portfolioProfit: null,
+  portfolioProfitPercent: null,
   key: key
   }
 }
@@ -26,6 +53,8 @@ function createNewPortfolio(key) {
 function createNewAsset(symbol) {
   return {
     symbol,
+    totalQuantity: 0,
+    totalCost: 0,
     transactions: []
   }
 }
@@ -55,13 +84,9 @@ export default (state = initialState, action) => {
           if(!portfolio.assets.length) {
             allPortfoliosAreUsed = false
           }
-          console.log("allPortfoliosAreUsed1", portfolio.assets.length)
-
         })
 
         if(allPortfoliosAreUsed) {
-          console.log("allPortfoliosAreUsed2", allPortfoliosAreUsed)
-
           newState.portfolios.push(createNewPortfolio(String(newState.portfolios.length)))
         }
 
@@ -77,9 +102,15 @@ export default (state = initialState, action) => {
     case ActionTypes.ADD_TRANSACTION: {
       const newState = JSON.parse(JSON.stringify(state))
       const {symbol, quantity, tradePrice, transactionType} = action
-      const assets = newState.portfolios[state.selectedIndex].assets
-      const findSymbolIndex = assets.findIndex(a => a.symbol === symbol)
-      assets[findSymbolIndex].transactions.push(createNewTransaction(quantity, tradePrice, transactionType))
+      const { assets } = newState.portfolios[state.selectedIndex]
+      const asset = assets[assets.findIndex(a => a.symbol === symbol)]
+      asset.transactions.push(createNewTransaction(quantity, tradePrice, transactionType))
+
+      const { totalQuantity, totalCost } = sumTransactions(asset.transactions)
+
+      asset.totalQuantity = totalQuantity
+      asset.totalCost = totalCost
+
       return newState
     }
     case ActionTypes.SWITCH_PORTFOLIO: {

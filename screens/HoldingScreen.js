@@ -10,7 +10,7 @@ import AssetHoldingSummary from "../components/Holdings/AssetHoldingSummary"
 import TransactionForm from "../components/Holdings/TransactionForm"
 import TransactionList from "../components/Holdings/TransactionList"
 
-import { sumTransactions, calculateProfite } from '../helpers'
+import { calculateProfite } from '../helpers'
 
 class HoldingScreen extends React.Component {
   submitTransaction = (transactionType, quantity, tradePrice) => {
@@ -27,7 +27,7 @@ class HoldingScreen extends React.Component {
       return null
     }
 
-    const { totalQuantity, totalCost } = sumTransactions(portfolioData.transactions)
+    const { totalQuantity, totalCost } = portfolioData
     const { profitPercent, profit, currentValue } = calculateProfite(price_usd, totalCost, totalQuantity)
 
     return (

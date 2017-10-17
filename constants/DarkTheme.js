@@ -41,5 +41,7 @@ export default {
       backgroundColor: Colors.canvasDark,
     },
     headerTintColor: Colors.valueTextDark
-  }
+  },
+
+  fontFamily: "DINPro",
 };
