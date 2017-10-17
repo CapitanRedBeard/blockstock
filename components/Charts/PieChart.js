@@ -13,7 +13,6 @@ function formatData(portfolio, tickers) {
 
   return portfolio.assets.map(asset => {
     const tickerData = tickers.find(t => t.symbol === asset.symbol)
-    console.log("Ticker: ", tickerData)
 
     return {
       x: asset.totalQuantity ? asset.symbol : " ",
@@ -25,7 +24,6 @@ function formatData(portfolio, tickers) {
 
 export default function PieChart({portfolio, tickers}) {
   const data = formatData(portfolio, tickers)
-  console.log("Data", data)
   return (
     <View style={styles.container}>
       <VictoryPie
