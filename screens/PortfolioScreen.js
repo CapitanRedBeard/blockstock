@@ -30,11 +30,6 @@ class PortfolioScreen extends React.Component {
           tickers={tickers}
         />
 
-        <PortfolioPieChart
-          tickers={tickers}
-          portfolio={selectedPortfolio}
-        />
-
         <PortfolioTickerList
           navigate={navigation.navigate}
           portfolio={selectedPortfolio}

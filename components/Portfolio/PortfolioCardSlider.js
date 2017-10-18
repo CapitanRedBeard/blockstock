@@ -10,6 +10,7 @@ import {
 import { TabViewAnimated, TabViewPagerPan } from 'react-native-tab-view';
 
 import PortfolioCard from './PortfolioCard'
+import PortfolioPieChart from './PortfolioPieChart'
 
 
 const initialLayout = {
@@ -25,7 +26,7 @@ export default class PortfolioCardSlider extends PureComponent {
     // Prepend '-1', so there are always at least 2 items in inputRange
     const inputRange = [-1, ...routes.map((x, i) => i)];
     const translateOutputRange = inputRange.map(i => {
-      return width / 4 * (currentIndex - i) * -1;
+      return width / 3 * (currentIndex - i) * -1;
     });
     const scaleOutputRange = inputRange.map(i => {
       if (currentIndex === i) {
@@ -68,7 +69,7 @@ export default class PortfolioCardSlider extends PureComponent {
   _renderScene = props => {
     return (
       <Animated.View style={[styles.page, this._buildCoverFlowStyle(props)]}>
-        <PortfolioCard portfolio={props.route} index={props.index} tickers={this.props.tickers}/>
+        <PortfolioPieChart portfolio={props.route} index={props.index} tickers={this.props.tickers}/>
       </Animated.View>
     );
   };
@@ -100,10 +101,10 @@ export default class PortfolioCardSlider extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    height: 170,
-    marginBottom: 20,
+    flex: 1,
   },
   page: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -57,6 +57,5 @@ export default class PortfolioPieChart extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 60,
   },
 })
