@@ -7,6 +7,7 @@ import DarkTheme from '../../constants/DarkTheme'
 import PieChart from '../Charts/PieChart'
 import { CryptoColors } from "../../constants/Colors"
 
+const width = Dimensions.get('window').width
 
 function formatData(portfolio, tickers) {
 
@@ -46,6 +47,11 @@ export default class PortfolioPieChart extends React.PureComponent {
         style={styles.container}
         onPress={this._toggleChartData}
       >
+        <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.detialsContainer}>
+
+          </View>
+        </View>
         <PieChart
           data={data}
         />
@@ -58,4 +64,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  absoluteWrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  detialsContainer: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    backgroundColor: DarkTheme.cardBackground,
+  }
 })

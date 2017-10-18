@@ -7,7 +7,7 @@ import {
 import DarkTheme from "../../constants/DarkTheme"
 
 const graphWidth = Dimensions.get('window').width - 20
-const innerRadius = 105
+const innerRadius = 115
 
 export default function PieChart({data}) {
   return (
