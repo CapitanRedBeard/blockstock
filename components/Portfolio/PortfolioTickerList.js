@@ -129,7 +129,8 @@ const styles = StyleSheet.create({
   },
   listItemRowContainer: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
     marginTop: 5,
     flexDirection: "row",
     alignItems: "center",
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
     color: DarkTheme.valueText,
   },
   amountGained: {
-    fontSize: 18,
+    fontSize: 14,
     color: DarkTheme.valueText,
   },
   quantity: {
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
     color: DarkTheme.labelText,
   },
   price: {
-    fontSize: 18,
+    fontSize: 14,
     color: DarkTheme.valueText,
   },
   change: {

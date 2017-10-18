@@ -5,7 +5,10 @@ import { LinearGradient } from 'expo';
 import DarkTheme from '../../constants/DarkTheme'
 
 import PieChart from '../Charts/PieChart'
+import BaseText from '../../components/BaseText'
+
 import { CryptoColors } from "../../constants/Colors"
+import { sumPortfolio, formatMoney } from '../../helpers'
 
 const width = Dimensions.get('window').width
 
@@ -31,11 +34,29 @@ const ChartDataTypes = [
 
 export default class PortfolioPieChart extends React.PureComponent {
   state = {
-    pieChartTypeIndex: 0
+    chartDetailIndex: 0
   }
 
-  _toggleChartData = () => {
+  _toggleChartDetails = () => {
 
+  }
+
+  _renderValueDetails = (totalValue, totalCost) => {
+    return (
+      <View style={styles.section}>
+        <BaseText style={styles.valueLabel}>{"Value"}</BaseText>
+        <BaseText style={styles.value}>{formatMoney(totalValue)}</BaseText>
+        <BaseText style={styles.costLabel}>{"Cost"}</BaseText>
+        <BaseText style={styles.cost}>{formatMoney(totalCost)}</BaseText>
+      </View>
+    )
+  }
+
+  _renderChartDetails = ({ totalValue, totalCost, totalProfit }) => {
+    const { chartDetailIndex } = this.state
+    if(chartDetailIndex === 0) {
+      return this._renderValueDetails(totalValue, totalCost)
+    }
   }
 
   render() {
@@ -45,11 +66,11 @@ export default class PortfolioPieChart extends React.PureComponent {
     return (
       <TouchableOpacity
         style={styles.container}
-        onPress={this._toggleChartData}
+        onPress={this._toggleChartDetails}
       >
         <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
           <View style={styles.detialsContainer}>
-
+            {this._renderChartDetails(sumPortfolio(portfolio.assets, tickers))}
           </View>
         </View>
         <PieChart
@@ -78,5 +99,28 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 100,
     backgroundColor: DarkTheme.cardBackground,
-  }
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  section: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',    
+  },
+  valueLabel: {
+    color: DarkTheme.valueText,
+    fontSize: 24,
+  },
+  value: {
+    color: DarkTheme.valueText,
+    fontSize: 30,
+  },
+  costLabel: {
+    color: DarkTheme.valueText,
+    fontSize: 16,
+  },
+  cost: {
+    color: DarkTheme.valueText,
+    fontSize: 20,
+  },
 })
