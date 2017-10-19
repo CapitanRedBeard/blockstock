@@ -12,6 +12,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "cryptocoins-icons": "^2.6.0",
     "expo": "^21.0.0",
     "fuse.js": "^3.2.0",
     "numeral": "^2.0.6",

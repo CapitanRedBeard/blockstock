@@ -1,4 +1,4 @@
-const tintColor = '#05FB97';
+const tintColor = '#59CAFA'; //#05FB97;
 const alertColor = '#EF853E';
 
 const Colors = {
@@ -9,6 +9,8 @@ const Colors = {
   tabBackgroundSelectedDark: '#0F1C25',
 
   loaderColorDark: tintColor,
+
+  blankSymbolColorDark: '#FFFFFF',
 
   canvasDark: '#11202D',
   cardBackgroundDark: '#162A3A',
@@ -39,6 +41,7 @@ export const CryptoColors = {
   BAT: '#9e1f63',
   BAY: '#584ba1',
   BC: '#202121',
+  BCC: '#EB8D38',
   BCN: '#964F51',
   BFT: '#4fc3f7',
   BRK: '#194fa0',
@@ -85,6 +88,7 @@ export const CryptoColors = {
   INCNT: '#f2932f',
   IOC: '#2fa3de',
   IOTA: '#FFFFFF',
+  MIOTA: '#FFFFFF',
   JBS: '#1A8BCD',
   KMD: '#326464',
   KOBO: '#80C342',

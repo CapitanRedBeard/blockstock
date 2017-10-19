@@ -6,6 +6,7 @@ import DarkTheme from '../../constants/DarkTheme'
 import { getInTheBlackOrRedColor } from '../../constants/Colors'
 
 import BaseText from '../../components/BaseText'
+import CryptoIcon from '../../components/CryptoIcon'
 import AddAssetButton from './AddAssetButton'
 
 import { calculateProfite, formatMoney, formatQuantity } from '../../helpers'
@@ -32,6 +33,7 @@ export default class PortfolioCard extends React.PureComponent {
         <TouchableOpacity style={styles.touchableWrapper} onPress={() => this.onPressItem(tickerData)}>
           <View style={styles.listItemRowContainer}>
             <View key="NameContainer" style={styles.nameContainer}>
+              <CryptoIcon symbol={tickerData.symbol} />
               <BaseText style={styles.ticker}>{tickerData.symbol}</BaseText>
             </View>
             <View key="Holding" style={styles.holdingContainer}>
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
   listItemRowContainer: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingVertical: 5,
+    paddingVertical: 10,
     marginTop: 5,
     flexDirection: "row",
     alignItems: "center",
@@ -146,8 +148,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   nameContainer: {
-    justifyContent: "center",
+    alignItems: "center",
     flexGrow: 1,
+    flexDirection: "row",
   },
   holdingContainer: {
     justifyContent: "center",
@@ -160,6 +163,7 @@ const styles = StyleSheet.create({
   },
   ticker: {
     fontSize: 18,
+    paddingLeft: 10,
     color: DarkTheme.valueText,
   },
   amountGained: {

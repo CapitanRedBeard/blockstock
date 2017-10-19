@@ -24,6 +24,8 @@ export default {
   favorited: Colors.favorited,
   notFavorited: Colors.labelTextDark,
 
+  blankSymbolColor: Colors.blankSymbolColorDark,
+
   //Top Tab Bar
   topTabBarIndicator: Colors.tintColor,
 
