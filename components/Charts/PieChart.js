@@ -20,7 +20,6 @@ export default function PieChart({data}) {
             fontFamily: DarkTheme.fontFamily
           }
         }}
-        padAngle={1}
         data={data}
         innerRadius={innerRadius}
         height={graphWidth}

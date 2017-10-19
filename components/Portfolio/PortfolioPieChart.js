@@ -7,8 +7,8 @@ import DarkTheme from '../../constants/DarkTheme'
 import PieChart from '../Charts/PieChart'
 import BaseText from '../../components/BaseText'
 
-import { CryptoColors } from "../../constants/Colors"
-import { sumPortfolio, formatMoney } from '../../helpers'
+import { CryptoColors, getInTheBlackOrRedColor } from "../../constants/Colors"
+import { sumPortfolio, formatMoney, formatPercent } from '../../helpers'
 
 const width = Dimensions.get('window').width
 
@@ -17,9 +17,10 @@ function formatData(portfolio, tickers) {
   return portfolio.assets.map(asset => {
     const tickerData = tickers.find(t => t.symbol === asset.symbol)
 
+
     return {
       x: asset.totalQuantity ? asset.symbol : " ",
-      y: asset.totalQuantity,
+      y: asset.totalQuantity ? asset.totalQuantity * tickerData.price_usd : asset.totalQuantity,
       fill: CryptoColors[tickerData.symbol],
     }
   })
@@ -41,13 +42,25 @@ export default class PortfolioPieChart extends React.PureComponent {
 
   }
 
-  _renderValueDetails = (totalValue, totalCost) => {
+  _renderValueDetails = (totalValue, totalCost, totalProfit) => {
+    const profit = totalProfit / totalCost
     return (
-      <View style={styles.section}>
+      <View style={styles.statsWrapper}>
         <BaseText style={styles.valueLabel}>{"Value"}</BaseText>
         <BaseText style={styles.value}>{formatMoney(totalValue)}</BaseText>
-        <BaseText style={styles.costLabel}>{"Cost"}</BaseText>
-        <BaseText style={styles.cost}>{formatMoney(totalCost)}</BaseText>
+        <View style={styles.detailsWrapper}>
+          <View style={styles.detailWrapper}>
+            <BaseText style={styles.detailsLabel}>{"Cost"}</BaseText>
+            <BaseText style={styles.details}>{formatMoney(totalCost)}</BaseText>
+          </View>
+          <View style={styles.detailWrapper}>
+            <BaseText style={styles.detailsLabel}>{"Profit"}</BaseText>
+            <BaseText style={styles.details}>{formatMoney(totalProfit)}</BaseText>
+          </View>
+        </View>
+        <BaseText style={[styles.profitPercent, {color: getInTheBlackOrRedColor(profit)}]}>
+          {formatPercent(profit)}
+        </BaseText>
       </View>
     )
   }
@@ -55,7 +68,7 @@ export default class PortfolioPieChart extends React.PureComponent {
   _renderChartDetails = ({ totalValue, totalCost, totalProfit }) => {
     const { chartDetailIndex } = this.state
     if(chartDetailIndex === 0) {
-      return this._renderValueDetails(totalValue, totalCost)
+      return this._renderValueDetails(totalValue, totalCost, totalProfit)
     }
   }
 
@@ -69,7 +82,7 @@ export default class PortfolioPieChart extends React.PureComponent {
         onPress={this._toggleChartDetails}
       >
         <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-          <View style={styles.detialsContainer}>
+          <View style={styles.statsContainer}>
             {this._renderChartDetails(sumPortfolio(portfolio.assets, tickers))}
           </View>
         </View>
@@ -94,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  detialsContainer: {
+  statsContainer: {
     width: 200,
     height: 200,
     borderRadius: 100,
@@ -102,10 +115,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  section: {
+  detailsWrapper: {
+    marginVertical: 10,
+    flexDirection: "row",
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  detailWrapper: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',    
+    alignItems: 'center',
+  },
+  statsWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   valueLabel: {
     color: DarkTheme.valueText,
@@ -115,11 +139,15 @@ const styles = StyleSheet.create({
     color: DarkTheme.valueText,
     fontSize: 30,
   },
-  costLabel: {
+  detailsLabel: {
     color: DarkTheme.valueText,
     fontSize: 16,
   },
-  cost: {
+  details: {
+    color: DarkTheme.valueText,
+    fontSize: 20,
+  },
+  profitPercent: {
     color: DarkTheme.valueText,
     fontSize: 20,
   },

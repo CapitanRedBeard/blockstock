@@ -9,7 +9,7 @@ import BaseText from '../../components/BaseText'
 import CryptoIcon from '../../components/CryptoIcon'
 import AddAssetButton from './AddAssetButton'
 
-import { calculateProfite, formatMoney, formatQuantity } from '../../helpers'
+import { calculateProfit, formatMoney, formatQuantity } from '../../helpers'
 
 export default class PortfolioCard extends React.PureComponent {
   _keyExtractor = (item, index) => index;
@@ -24,7 +24,7 @@ export default class PortfolioCard extends React.PureComponent {
     const tickerData = this.props.tickers.find(t => t.symbol === item.symbol)
     const portfolioData = this.props.portfolio.assets.find(a => a.symbol === symbol)
     const { totalQuantity, totalCost } = portfolioData
-    const { profitPercent, profit, currentValue } = calculateProfite(tickerData.price_usd, totalCost, totalQuantity)
+    const { profitPercent, profit, currentValue } = calculateProfit(tickerData.price_usd, totalCost, totalQuantity)
 
     const percentColor = getInTheBlackOrRedColor(tickerData.percent_change_24h)
 

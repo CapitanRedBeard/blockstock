@@ -1,11 +1,18 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 export default function BaseText(props) {
   return (
     <Text
       {...props}
-      style={[{ fontFamily: 'DINPro' }, props.style]}
+      style={[styles.baseText, props.style]}
     />
   );
 }
+
+const styles = StyleSheet.create({
+  baseText: {
+    fontFamily: 'DINPro',
+    backgroundColor: "transparent",
+  },
+});

@@ -42,10 +42,6 @@ function createNewPortfolio(key) {
   return {
   name: "Untitled",
   assets: [],
-  portfolioValue: null,
-  portfolioCost: null,
-  portfolioProfit: null,
-  portfolioProfitPercent: null,
   key: key
   }
 }

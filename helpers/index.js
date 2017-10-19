@@ -10,6 +10,10 @@ export function matchesFloat(value) {
   return value.match(/^(?:(?:0|[1-9][0-9]*)(?:\.[0-9]*)?|\.[0-9]+)$/g);
 }
 
+export function formatPercent(value ) {
+  return numeral(Number(value)).format('0.00%')
+}
+
 export function formatQuantity(value ) {
   return numeral(Number(value)).format(`0.00a`).toUpperCase();
 }
@@ -19,8 +23,9 @@ export function formatSupply(supply, symbol) {
       return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
   });
   return `${formattedSupply} ${symbol}`
-
 }
+
+
 
 const dayInMilli = 1000 * 60 * 60 * 24
 const weekInMilli = dayInMilli * 7
@@ -95,12 +100,12 @@ export function sumPortfolio(assets, tickers) {
     const tickerData = tickers.find(t => t.symbol === asset.symbol)
     sum.totalCost += totalCost
     sum.totalValue += totalQuantity * tickerData.price_usd
-    sum.totalProfit += calculateProfite(tickerData.price_usd, totalCost, totalQuantity).profit
+    sum.totalProfit += sum.totalValue - sum.totalCost
   })
   return sum
 }
 
-export function calculateProfite(currentPrice, totalCost, quantity) {
+export function calculateProfit(currentPrice, totalCost, quantity) {
   const currentValue = (Number(currentPrice) * quantity)
   const profit =  currentValue - totalCost
 
