@@ -22,7 +22,7 @@ export default class TickerSearchList extends React.Component {
     return (
       <TouchableOpacity
         style={styles.listItem}
-        onPress={() => onSelect(item.symbol)}>
+        onPress={() => onSelect(item, assetExists)}>
         <View style={styles.listItemContainer}>
           <View key="NameContainer" style={styles.listItemNameContainer}>
             <BaseText style={styles.listItemName}>

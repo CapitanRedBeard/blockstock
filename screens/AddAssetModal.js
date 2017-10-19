@@ -18,8 +18,12 @@ class AddAssetModal extends React.Component {
     headerTitle: 'Add Asset',
   })
 
-  onSelect = (symbol) => {
-    this.props.addAsset(symbol)
+  onSelect = (ticker, added) => {
+    if(added) {
+      this.props.navigation.navigate('Asset', {ticker: ticker, portfolioView: true})
+    }else {
+      this.props.addAsset(ticker.symbol)
+    }
   }
 
   filterList = (text) => {
