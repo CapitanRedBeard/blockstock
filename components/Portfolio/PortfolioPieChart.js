@@ -11,12 +11,16 @@ import { CryptoColors, getInTheBlackOrRedColor } from "../../constants/Colors"
 import { sumPortfolio, formatMoney, formatPercent } from '../../helpers'
 
 const width = Dimensions.get('window').width
+const emptyDataPieChartFill = [{x: " ", y: 1, fill: DarkTheme.tintColor}]
 
 function formatData(portfolio, tickers) {
-
-  return portfolio.assets.map(asset => {
+  let emptyData = true
+  const data = portfolio.assets.map(asset => {
     const tickerData = tickers.find(t => t.symbol === asset.symbol)
 
+    if(asset.totalQuantity) {
+      emptyData = false
+    }
 
     return {
       x: asset.totalQuantity ? asset.symbol : " ",
@@ -24,6 +28,7 @@ function formatData(portfolio, tickers) {
       fill: CryptoColors[tickerData.symbol],
     }
   })
+  return emptyData ? emptyDataPieChartFill : data
 }
 
 const ChartDataTypes = [
@@ -46,7 +51,7 @@ export default class PortfolioPieChart extends React.PureComponent {
     const profit = totalProfit / totalCost
     return (
       <View style={styles.statsWrapper}>
-        <BaseText style={styles.valueLabel}>{"Value"}</BaseText>
+        <BaseText style={styles.valueLabel}>{"Net Value"}</BaseText>
         <BaseText style={styles.value}>{formatMoney(totalValue)}</BaseText>
         <View style={styles.detailsWrapper}>
           <View style={styles.detailWrapper}>
@@ -58,9 +63,12 @@ export default class PortfolioPieChart extends React.PureComponent {
             <BaseText style={styles.details}>{formatMoney(totalProfit)}</BaseText>
           </View>
         </View>
-        <BaseText style={[styles.profitPercent, {color: getInTheBlackOrRedColor(profit)}]}>
-          {formatPercent(profit)}
-        </BaseText>
+        {
+          Boolean(profit) &&
+          <BaseText style={[styles.profitPercent, {color: getInTheBlackOrRedColor(profit)}]}>
+            {formatPercent(profit)}
+          </BaseText>
+        }
       </View>
     )
   }
@@ -108,8 +116,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   statsContainer: {
-    width: 200,
-    height: 200,
+    width: 210,
+    height: 210,
     borderRadius: 100,
     backgroundColor: DarkTheme.cardBackground,
     justifyContent: 'center',

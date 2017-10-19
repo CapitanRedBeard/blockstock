@@ -45,7 +45,6 @@ class AddAssetModal extends React.Component {
   }
 
   render() {
-    console.log("Add assets: ", this.props.portfolioAssets)
     return (
       <View style={styles.container}>
         <TickerSearchList

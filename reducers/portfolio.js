@@ -34,7 +34,7 @@ function sumTransactions(transactions) {
       sum.totalCost -= quantity * tradePrice
     }
   })
-  console.log("Transactions", transactions, sum)
+
   return sum
 }
 

@@ -58,8 +58,8 @@ export default class TickerSearchList extends React.Component {
 
   render() {
     const {filterList, portfolioAssets} = this.props
-    console.log("New portfolioAssets: ", portfolioAssets)
     const data = filterList(this.state.inputValue)
+
     return (
       <View style={styles.container}>
         <View style={styles.searchContainer}>

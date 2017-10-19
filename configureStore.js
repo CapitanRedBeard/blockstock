@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import reducers from './reducers'
 const middlewares = [thunk]
 
-middlewares.push(logger)
+// middlewares.push(logger)
 
 export default function configureStore() {
   let store = createStore(reducers, {}, compose(applyMiddleware(...middlewares), autoRehydrate()))
