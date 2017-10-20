@@ -11,7 +11,7 @@ export function matchesFloat(value) {
 }
 
 export function formatPercent(value ) {
-  if(Math.abs(value) === 1 || isNaN(value)) {
+  if(isNaN(value)) {
     return ""
   }
   return numeral(Number(value)).format('0.00%')
