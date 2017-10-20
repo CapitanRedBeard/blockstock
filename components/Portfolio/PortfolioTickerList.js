@@ -3,14 +3,10 @@ import { View, StyleSheet, TouchableOpacity, FlatList, RefreshControl } from 're
 import { LinearGradient } from 'expo';
 
 import DarkTheme from '../../constants/DarkTheme'
-import { getInTheBlackOrRedColor } from '../../constants/Colors'
 
-import BaseText from '../../components/BaseText'
-import CryptoIcon from '../../components/CryptoIcon'
 import TickerListSorter from './TickerListSorter'
 import AddAssetButton from './AddAssetButton'
-
-import { calculateProfit, formatMoney, formatQuantity, formatPercent } from '../../helpers'
+import PortfolioTickerListItem from './PortfolioTickerListItem'
 
 function sort(a, b) {
   if (a < b) {
@@ -33,37 +29,6 @@ export default class PortfolioCard extends React.PureComponent {
   onPressItem = ticker => {
     const { navigate } = this.props;
     navigate('Asset', {ticker: ticker, portfolioView: true})
-  }
-
-  _renderListItem = ({item}) => {
-    const {symbol} = item
-    const tickerData = this.props.tickers.find(t => t.symbol === item.symbol)
-    const portfolioData = this.props.portfolio.assets.find(a => a.symbol === symbol)
-    const { totalQuantity, totalCost } = portfolioData
-    const { profitPercent, profit, currentValue } = calculateProfit(tickerData.price_usd, totalCost, totalQuantity)
-
-    const percentColor = getInTheBlackOrRedColor(profitPercent)
-
-    return (
-      <View style={styles.touchableWrapper} >
-        <TouchableOpacity style={styles.touchableWrapper} onPress={() => this.onPressItem(tickerData)}>
-          <View style={styles.listItemRowContainer}>
-            <View key="NameContainer" style={styles.nameContainer}>
-              <CryptoIcon symbol={tickerData.symbol} />
-              <BaseText style={styles.ticker}>{tickerData.symbol}</BaseText>
-            </View>
-            <View key="Holding" style={styles.holdingContainer}>
-              <BaseText style={styles.amountGained}>{formatMoney(currentValue)}</BaseText>
-              <BaseText style={styles.quantity}>{formatQuantity(totalQuantity)}</BaseText>
-            </View>
-            <View key="ProfitContainer" style={styles.profitContainer}>
-              <BaseText style={styles.profit}>{formatMoney(profit)}</BaseText>
-              <BaseText style={[styles.profitPercent, {color: percentColor}]}>{formatPercent(profitPercent)}</BaseText>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </View>
-    )
   }
 
   _onRefresh = () => {
@@ -115,7 +80,11 @@ export default class PortfolioCard extends React.PureComponent {
           keyExtractor={this._keyExtractor}
           data={this._ascendingData(this._sortData(portfolio.assets))}
           extraData={tickers}
-          renderItem={this._renderListItem}
+          renderItem={({item}) => <PortfolioTickerListItem
+                                  item={item}
+                                  portfolio={portfolio}
+                                  tickers={tickers}
+                                />}
           initialNumToRender={20}
           refreshControl={
             <RefreshControl
@@ -144,20 +113,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "stretch",
   },
-  touchableWrapper: {
-    flex: 1,
-    flexGrow: 1,
-  },
-  listItemRowContainer: {
-    flex: 1,
-    paddingVertical: 10,
-    marginTop: 5,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: DarkTheme.cardBackground,
-    borderRadius: 2,
-  },
+
   listFooter: {
     flex: 1,
     padding: 5,
@@ -165,48 +121,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
   },
-  nameContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
-    flexDirection: "row",
-  },
-  holdingContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
-  },
-  profitContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
-  },
-  ticker: {
-    fontSize: 18,
-    paddingLeft: 10,
-    color: DarkTheme.valueText,
-  },
-  amountGained: {
-    fontSize: 14,
-    color: DarkTheme.valueText,
-  },
-  quantity: {
-    fontSize: 12,
-    color: DarkTheme.labelText,
-  },
-  profit: {
-    fontSize: 14,
-    color: DarkTheme.valueText,
-  },
-  profitPercent: {
-    fontSize: 12,
-    color: DarkTheme.labelText,
-  },
-  rank: {
-    flexShrink: 1,
-    marginLeft: -10,
-    marginRight: 5,
-    fontSize: 12,
-    color: DarkTheme.valueText,
-  }
 })

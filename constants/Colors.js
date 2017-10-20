@@ -14,15 +14,14 @@ const Colors = {
   blankSymbolColorDark: '#FFF',
   blankSymbolColorLight: '#000',
 
-  canvasDark: '#FBFBFF', // ''#11202D',
-  cardBackgroundDark: '#D0D1D5', //'#162A3A',
-  labelTextDark: '#928B93', //'#527B92',
+  canvasDark: '#161930', // ''#11202D',
+  cardBackgroundDark: '#212540', //'#162A3A',
+  labelTextDark: '#92ABDC', //'#527B92',
   valueTextDark: '#FFF', //'#F9F9FA',
 
-
-  canvasLight: '#161930',
-  cardBackgroundLight: '#212540',
-  labelTextLight: '#92ABDC',
+  canvasLight: '#FBFBFF',
+  cardBackgroundLight: '#D0D1D5',
+  labelTextLight: '#928B93',
   valueTextLight: '#363438',
 
   inTheBlackColor: '#05FB97',
