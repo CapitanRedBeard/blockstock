@@ -21,7 +21,7 @@ function sort(a, b) {
 
 export default class PortfolioCard extends React.PureComponent {
   state = {
-    sortIndex: 0,
+    sortIndex: 1,
     ascending: true,
   }
 
