@@ -84,6 +84,7 @@ export default class PortfolioCard extends React.PureComponent {
                                   item={item}
                                   portfolio={portfolio}
                                   tickers={tickers}
+                                  onPressItem={this.onPressItem}
                                 />}
           initialNumToRender={20}
           refreshControl={

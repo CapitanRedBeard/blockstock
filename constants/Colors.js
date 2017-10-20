@@ -3,10 +3,10 @@ const alertColor = '#EF853E';
 
 const Colors = {
   tintColor,
-  tabDefaultDark: '#D9D9D9',
+  tabDefaultDark: '#92ABDC',
   tabSelectedDark: tintColor,
-  tabBackgroundDark: '#0F1C25',
-  tabBackgroundSelectedDark: '#0F1C25',
+  tabBackgroundDark: '#161930',
+  tabBackgroundSelectedDark: '#161930',
 
   loaderColorDark: tintColor,
   loaderColorLight: tintColor,

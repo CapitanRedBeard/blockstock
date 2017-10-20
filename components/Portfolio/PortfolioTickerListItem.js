@@ -9,7 +9,7 @@ import CryptoIcon from '../../components/CryptoIcon'
 
 import { calculateProfit, formatMoney, formatQuantity, formatPercent } from '../../helpers'
 
-export default function PortfolioTickerListItem({item, tickers, portfolio}) {
+export default function PortfolioTickerListItem({item, tickers, portfolio, onPressItem}) {
   const {symbol} = item
   const tickerData = tickers.find(t => t.symbol === item.symbol)
   const portfolioData = portfolio.assets.find(a => a.symbol === symbol)
@@ -20,7 +20,7 @@ export default function PortfolioTickerListItem({item, tickers, portfolio}) {
 
   return (
     <View style={styles.touchableWrapper} >
-      <TouchableOpacity style={styles.touchableWrapper} onPress={() => this.onPressItem(tickerData)}>
+      <TouchableOpacity style={styles.touchableWrapper} onPress={() => onPressItem(tickerData)}>
         <View style={styles.listItemRowContainer}>
           <View key="NameContainer" style={styles.nameContainer}>
             <CryptoIcon symbol={tickerData.symbol} />
