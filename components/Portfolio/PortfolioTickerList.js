@@ -7,11 +7,27 @@ import { getInTheBlackOrRedColor } from '../../constants/Colors'
 
 import BaseText from '../../components/BaseText'
 import CryptoIcon from '../../components/CryptoIcon'
+import TickerListSorter from './TickerListSorter'
 import AddAssetButton from './AddAssetButton'
 
 import { calculateProfit, formatMoney, formatQuantity } from '../../helpers'
 
+function sort(a, b) {
+  if (a < b) {
+    return -1;
+  }
+  if (a > b) {
+    return 1;
+  }
+  return 0;
+}
+
 export default class PortfolioCard extends React.PureComponent {
+  state = {
+    sortIndex: 0,
+    ascending: true,
+  }
+
   _keyExtractor = (item, index) => index;
 
   onPressItem = ticker => {
@@ -58,43 +74,70 @@ export default class PortfolioCard extends React.PureComponent {
     this.props.fetchTickers()
   }
 
+  sortBy = index => {
+    const {ascending, sortIndex} = this.state
+    console.log("sortBy", ascending, sortIndex)
+    if(index === sortIndex) {
+      this.setState({ascending: !ascending})
+    }else {
+      this.setState({sortIndex: index, ascending: true})
+    }
+  }
+
+  _sortData = data => {
+    const { sortIndex } = this.state
+    if(sortIndex === 0) {
+      return data.sort((a, b) => sort(a.symbol.toUpperCase(), b.symbol.toUpperCase()))
+    } else if(sortIndex === 1) {
+      return data.sort((a, b) => {
+        const {price_usd: aPrice} = this.props.tickers.find(t => t.symbol === a.symbol)
+        const {price_usd: bPrice} = this.props.tickers.find(t => t.symbol === b.symbol)
+        return sort(a.totalQuantity * aPrice, b.totalQuantity * bPrice)
+      }).reverse()
+    } else if(sortIndex === 2) {
+      return data.sort((a, b) => {
+        const {price_usd: aPrice} = this.props.tickers.find(t => t.symbol === a.symbol)
+        const {price_usd: bPrice} = this.props.tickers.find(t => t.symbol === b.symbol)
+        const aProfit = (a.totalQuantity * aPrice) - a.totalCost
+        const bProfit = (b.totalQuantity * bPrice) - b.totalCost
+        return sort(aProfit, bProfit)
+      }).reverse()
+    }
+    return data
+  }
+
+  _ascendingData = data => {
+    return this.state.ascending ? data : data.reverse()
+  }
+
   render() {
     const { portfolio, navigate, tickers } = this.props
-    const assetsExist = Boolean(Object.keys(portfolio.assets).length)
+    console.log("SortIndex", this.state.sortIndex, "_sortData", this._ascendingData(this._sortData(portfolio.assets)))
+
     return (
       <View style={styles.container}>
-        {
-          assetsExist ?
-          <FlatList
-            keyExtractor={this._keyExtractor}
-            data={portfolio.assets}
-            extraData={tickers}
-            renderItem={this._renderListItem}
-            initialNumToRender={20}
-            refreshControl={
-              <RefreshControl
-                onRefresh={this._onRefresh}
-                refreshing={false}
-                title="Refreshing Assets"
-                tintColor={DarkTheme.loaderColor}
-                titleColor={DarkTheme.loaderColor}
-              />
-            }
-            ListFooterComponent={
-              <View style={styles.listFooter}>
-                <AddAssetButton navigate={navigate} />
-              </View>
-            }
-          /> :
-          <View style={styles.noDataContainer}>
-            <View style={styles.noDataWrapper}>
-              <BaseText style={styles.noDataMessage}>
-                {"Add an asset to start this portfolio"}
-              </BaseText>
+        <TickerListSorter sortBy={this.sortBy} ascending={this.state.ascending}/>
+        <FlatList
+          keyExtractor={this._keyExtractor}
+          data={this._ascendingData(this._sortData(portfolio.assets))}
+          extraData={tickers}
+          renderItem={this._renderListItem}
+          initialNumToRender={20}
+          refreshControl={
+            <RefreshControl
+              onRefresh={this._onRefresh}
+              refreshing={false}
+              title="Refreshing Assets"
+              tintColor={DarkTheme.loaderColor}
+              titleColor={DarkTheme.loaderColor}
+            />
+          }
+          ListFooterComponent={
+            <View style={styles.listFooter}>
               <AddAssetButton navigate={navigate} />
             </View>
-          </View>
-        }
+          }
+        />
       </View>
     );
   }
@@ -106,24 +149,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "stretch",
-    marginBottom: 20,
-  },
-  noDataContainer: {
-    marginTop: 20,
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
-  noDataWrapper: {
-    width: 200,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  noDataMessage: {
-    marginBottom: 20,
-    color: DarkTheme.valueText,
-    fontSize: 24,
-    textAlign: "center"
   },
   touchableWrapper: {
     flex: 1,
