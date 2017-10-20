@@ -150,7 +150,6 @@ const styles = StyleSheet.create({
   },
   listItemRowContainer: {
     flex: 1,
-    paddingHorizontal: 20,
     paddingVertical: 10,
     marginTop: 5,
     flexDirection: "row",
