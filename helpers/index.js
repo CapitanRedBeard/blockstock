@@ -104,7 +104,7 @@ export function sumPortfolio(assets, tickers) {
     const tickerData = tickers.find(t => t.symbol === asset.symbol)
     sum.totalCost += totalCost
     sum.totalValue += totalQuantity * tickerData.price_usd
-    sum.totalProfit += sum.totalValue - sum.totalCost
+    sum.totalProfit = sum.totalValue - sum.totalCost
     if(sum.highestValue < totalQuantity * tickerData.price_usd) {
       sum.highestValue = totalQuantity * tickerData.price_usd
     }
