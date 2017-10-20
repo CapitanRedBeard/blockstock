@@ -7,6 +7,7 @@ import DarkTheme from '../../constants/DarkTheme'
 import TickerListSorter from './TickerListSorter'
 import AddAssetButton from './AddAssetButton'
 import PortfolioTickerListItem from './PortfolioTickerListItem'
+import { sumPortfolio } from '../../helpers'
 
 function sort(a, b) {
   if (a < b) {
@@ -73,6 +74,8 @@ export default class PortfolioCard extends React.PureComponent {
   render() {
     const { portfolio, navigate, tickers } = this.props
 
+    const {totalValue, highestValue} = sumPortfolio(portfolio.assets, tickers)
+
     return (
       <View style={styles.container}>
         <TickerListSorter sortBy={this.sortBy} ascending={this.state.ascending}/>
@@ -85,6 +88,8 @@ export default class PortfolioCard extends React.PureComponent {
                                   portfolio={portfolio}
                                   tickers={tickers}
                                   onPressItem={this.onPressItem}
+                                  totalValue={totalValue}
+                                  highestValue={highestValue}
                                 />}
           initialNumToRender={20}
           refreshControl={

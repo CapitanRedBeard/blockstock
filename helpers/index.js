@@ -96,6 +96,7 @@ export function sumPortfolio(assets, tickers) {
     totalValue: 0,
     totalCost: 0,
     totalProfit: 0,
+    highestValue: 0
   }
 
   assets && assets.forEach(asset => {
@@ -104,6 +105,9 @@ export function sumPortfolio(assets, tickers) {
     sum.totalCost += totalCost
     sum.totalValue += totalQuantity * tickerData.price_usd
     sum.totalProfit += sum.totalValue - sum.totalCost
+    if(sum.highestValue < totalQuantity * tickerData.price_usd) {
+      sum.highestValue = totalQuantity * tickerData.price_usd
+    }
   })
   return sum
 }

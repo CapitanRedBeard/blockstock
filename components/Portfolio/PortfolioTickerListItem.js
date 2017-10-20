@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { getInTheBlackOrRedColor } from '../../constants/Colors'
+import { getInTheBlackOrRedColor, CryptoColors } from '../../constants/Colors'
 import DarkTheme from '../../constants/DarkTheme'
 
 import BaseText from '../../components/BaseText'
 import CryptoIcon from '../../components/CryptoIcon'
-
+import ValueBar from './ValueBar'
 import { calculateProfit, formatMoney, formatQuantity, formatPercent } from '../../helpers'
 
-export default function PortfolioTickerListItem({item, tickers, portfolio, onPressItem}) {
+export default function PortfolioTickerListItem({item, tickers, portfolio, onPressItem, totalValue, highestValue}) {
   const {symbol} = item
   const tickerData = tickers.find(t => t.symbol === item.symbol)
   const portfolioData = portfolio.assets.find(a => a.symbol === symbol)
@@ -17,6 +17,8 @@ export default function PortfolioTickerListItem({item, tickers, portfolio, onPre
   const { profitPercent, profit, currentValue } = calculateProfit(tickerData.price_usd, totalCost, totalQuantity)
 
   const percentColor = getInTheBlackOrRedColor(profitPercent)
+  const percentValue = currentValue / totalValue
+  const percentOutOfHighestValue = currentValue / highestValue
 
   return (
     <View style={styles.touchableWrapper} >
@@ -26,13 +28,15 @@ export default function PortfolioTickerListItem({item, tickers, portfolio, onPre
             <CryptoIcon symbol={tickerData.symbol} />
             <BaseText style={styles.ticker}>{tickerData.symbol}</BaseText>
           </View>
-          <View key="Holding" style={styles.holdingContainer}>
-            <BaseText style={styles.amountGained}>{formatMoney(currentValue)}</BaseText>
-            <BaseText style={styles.quantity}>{formatQuantity(totalQuantity)}</BaseText>
+
+          <View key="PercentValueContainer" style={styles.percentValueContainer}>
+            <ValueBar percentFill={percentOutOfHighestValue} fillColor={CryptoColors[tickerData.symbol]}/>
+            <BaseText style={styles.percentValue}>{formatPercent(percentValue)}</BaseText>
           </View>
-          <View key="ProfitContainer" style={styles.profitContainer}>
-            <BaseText style={styles.profit}>{formatMoney(profit)}</BaseText>
-            <BaseText style={[styles.profitPercent, {color: percentColor}]}>{formatPercent(profitPercent)}</BaseText>
+
+          <View key="Value" style={styles.valueContainer}>
+            <BaseText style={styles.value}>{formatMoney(currentValue)}</BaseText>
+            <BaseText style={styles.quantity}>{formatQuantity(totalQuantity)}</BaseText>
           </View>
         </View>
       </TouchableOpacity>
@@ -61,12 +65,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
-  holdingContainer: {
+  valueContainer: {
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
   },
-  profitContainer: {
+  percentValueContainer: {
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: DarkTheme.valueText,
   },
-  amountGained: {
+  value: {
     fontSize: 14,
     color: DarkTheme.valueText,
   },
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: DarkTheme.valueText,
   },
-  profitPercent: {
+  percentValue: {
     fontSize: 12,
     color: DarkTheme.labelText,
   },

@@ -8,14 +8,11 @@ export default function TickerListSorter({sortBy}) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.headerLabelContainer} onPress={() => sortBy(0)}>
+      <TouchableOpacity style={styles.nameContainer} onPress={() => sortBy(0)}>
         <BaseText style={styles.headerLabel}>{"NAME"}</BaseText>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.headerLabelContainer} onPress={() => sortBy(1)}>
+      <TouchableOpacity style={styles.valueContainer} onPress={() => sortBy(1)}>
         <BaseText style={styles.headerLabel}>{"VALUE"}</BaseText>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.headerLabelContainer} onPress={() => sortBy(2)}>
-        <BaseText style={styles.headerLabel}>{"PROFIT"}</BaseText>
       </TouchableOpacity>
     </View>
    );
@@ -25,8 +22,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
   },
-  headerLabelContainer: {
+  nameContainer: {
     flex: 1,
+  },
+  valueContainer: {
+    flex: 2,
   },
   headerLabel: {
     textAlign: "center",
