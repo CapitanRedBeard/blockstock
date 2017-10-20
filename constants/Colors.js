@@ -1,4 +1,4 @@
-const tintColor = '#59CAFA'; //#05FB97;
+const tintColor = '#FF0083'; //green - #05FB97; blue - #59CAFA;
 const alertColor = '#EF853E';
 
 const Colors = {
@@ -9,13 +9,21 @@ const Colors = {
   tabBackgroundSelectedDark: '#0F1C25',
 
   loaderColorDark: tintColor,
+  loaderColorLight: tintColor,
 
-  blankSymbolColorDark: '#FFFFFF',
+  blankSymbolColorDark: '#FFF',
+  blankSymbolColorLight: '#000',
 
-  canvasDark: '#11202D',
-  cardBackgroundDark: '#162A3A',
-  labelTextDark: '#527B92',
-  valueTextDark: '#F9F9FA',
+  canvasDark: '#FBFBFF', // ''#11202D',
+  cardBackgroundDark: '#D0D1D5', //'#162A3A',
+  labelTextDark: '#928B93', //'#527B92',
+  valueTextDark: '#FFF', //'#F9F9FA',
+
+
+  canvasLight: '#161930',
+  cardBackgroundLight: '#212540',
+  labelTextLight: '#92ABDC',
+  valueTextLight: '#363438',
 
   inTheBlackColor: '#05FB97',
   inTheRedColor: '#FC4157',
