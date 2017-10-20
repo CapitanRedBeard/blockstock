@@ -10,20 +10,25 @@ import BaseText from '../../components/BaseText'
 import { CryptoColors, getInTheBlackOrRedColor } from "../../constants/Colors"
 import { sumPortfolio, formatMoney, formatPercent } from '../../helpers'
 
+const LABEL_THRESHOLD = 36
 const width = Dimensions.get('window').width
 const emptyDataPieChartFill = [{x: " ", y: 1, fill: DarkTheme.tintColor}]
 
-function formatData(portfolio, tickers) {
+function formatData(portfolio, tickers, totalValue) {
   let emptyData = true
   const data = portfolio.assets.map(asset => {
     const tickerData = tickers.find(t => t.symbol === asset.symbol)
-
+    let dataLabel = " "
     if(asset.totalQuantity) {
       emptyData = false
     }
 
+    if( asset.totalQuantity && asset.totalQuantity * tickerData.price_usd > totalValue / LABEL_THRESHOLD) {
+      dataLabel = asset.symbol
+    }
+
     return {
-      x: asset.totalQuantity ? asset.symbol : " ",
+      x: dataLabel,
       y: asset.totalQuantity ? asset.totalQuantity * tickerData.price_usd : asset.totalQuantity,
       fill: CryptoColors[tickerData.symbol],
     }
@@ -73,7 +78,7 @@ export default class PortfolioPieChart extends React.PureComponent {
     )
   }
 
-  _renderChartDetails = ({ totalValue, totalCost, totalProfit }) => {
+  _renderChartDetails = (totalValue, totalCost, totalProfit ) => {
     const { chartDetailIndex } = this.state
     if(chartDetailIndex === 0) {
       return this._renderValueDetails(totalValue, totalCost, totalProfit)
@@ -82,7 +87,8 @@ export default class PortfolioPieChart extends React.PureComponent {
 
   render() {
     const { portfolio, tickers } = this.props
-    const data = formatData(portfolio, tickers)
+    const { totalValue, totalCost, totalProfit } = sumPortfolio(portfolio.assets, tickers)
+    const data = formatData(portfolio, tickers, totalValue)
 
     return (
       <TouchableOpacity
@@ -91,7 +97,7 @@ export default class PortfolioPieChart extends React.PureComponent {
       >
         <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
           <View style={styles.statsContainer}>
-            {this._renderChartDetails(sumPortfolio(portfolio.assets, tickers))}
+            {this._renderChartDetails(totalValue, totalCost, totalProfit)}
           </View>
         </View>
         <PieChart
