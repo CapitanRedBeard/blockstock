@@ -11,6 +11,9 @@ export function matchesFloat(value) {
 }
 
 export function formatPercent(value ) {
+  if(Math.abs(value) === 1 || isNaN(value)) {
+    return ""
+  }
   return numeral(Number(value)).format('0.00%')
 }
 
@@ -111,7 +114,7 @@ export function calculateProfit(currentPrice, totalCost, quantity) {
 
   return {
     profit,
-    profitPercent: (profit / totalCost) * 100,
+    profitPercent: profit / totalCost,
     currentValue
   }
 }

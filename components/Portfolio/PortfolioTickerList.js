@@ -10,7 +10,7 @@ import CryptoIcon from '../../components/CryptoIcon'
 import TickerListSorter from './TickerListSorter'
 import AddAssetButton from './AddAssetButton'
 
-import { calculateProfit, formatMoney, formatQuantity } from '../../helpers'
+import { calculateProfit, formatMoney, formatQuantity, formatPercent } from '../../helpers'
 
 function sort(a, b) {
   if (a < b) {
@@ -42,7 +42,7 @@ export default class PortfolioCard extends React.PureComponent {
     const { totalQuantity, totalCost } = portfolioData
     const { profitPercent, profit, currentValue } = calculateProfit(tickerData.price_usd, totalCost, totalQuantity)
 
-    const percentColor = getInTheBlackOrRedColor(tickerData.percent_change_24h)
+    const percentColor = getInTheBlackOrRedColor(profitPercent)
 
     return (
       <View style={styles.touchableWrapper} >
@@ -56,13 +56,9 @@ export default class PortfolioCard extends React.PureComponent {
               <BaseText style={styles.amountGained}>{formatMoney(currentValue)}</BaseText>
               <BaseText style={styles.quantity}>{formatQuantity(totalQuantity)}</BaseText>
             </View>
-            <View key="ValueContainer" style={styles.valueContainer}>
-              <BaseText style={styles.price}>
-                ${tickerData.price_usd}
-              </BaseText>
-              <BaseText style={[styles.change, {color: percentColor}]}>
-                {tickerData.percent_change_24h}%
-              </BaseText>
+            <View key="ProfitContainer" style={styles.profitContainer}>
+              <BaseText style={styles.profit}>{formatMoney(profit)}</BaseText>
+              <BaseText style={[styles.profitPercent, {color: percentColor}]}>{formatPercent(profitPercent)}</BaseText>
             </View>
           </View>
         </TouchableOpacity>
@@ -111,7 +107,6 @@ export default class PortfolioCard extends React.PureComponent {
 
   render() {
     const { portfolio, navigate, tickers } = this.props
-    console.log("SortIndex", this.state.sortIndex, "_sortData", this._ascendingData(this._sortData(portfolio.assets)))
 
     return (
       <View style={styles.container}>
@@ -172,18 +167,20 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   nameContainer: {
+    justifyContent: "center",
     alignItems: "center",
-    flexGrow: 1,
+    flex: 1,
     flexDirection: "row",
   },
   holdingContainer: {
     justifyContent: "center",
-    flexGrow: 1,
+    alignItems: "center",
+    flex: 1,
   },
-  valueContainer: {
+  profitContainer: {
     justifyContent: "center",
-    alignItems: "flex-end",
-    flexShrink: 0,
+    alignItems: "center",
+    flex: 1,
   },
   ticker: {
     fontSize: 18,
@@ -198,12 +195,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: DarkTheme.labelText,
   },
-  price: {
+  profit: {
     fontSize: 14,
     color: DarkTheme.valueText,
   },
-  change: {
+  profitPercent: {
     fontSize: 12,
+    color: DarkTheme.labelText,
   },
   rank: {
     flexShrink: 1,
