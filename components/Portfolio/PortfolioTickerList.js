@@ -76,7 +76,6 @@ export default class PortfolioCard extends React.PureComponent {
 
   sortBy = index => {
     const {ascending, sortIndex} = this.state
-    console.log("sortBy", ascending, sortIndex)
     if(index === sortIndex) {
       this.setState({ascending: !ascending})
     }else {
