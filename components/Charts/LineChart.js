@@ -45,6 +45,14 @@ export default function LineChart({lineColor, gridColor, data}) {
               data: { stroke: lineColor },
             }}
             data={formatData(data)}
+            events={[{
+              target: "parent",
+              eventHandlers: {
+                onPress: () => {
+                  console.log("GUHHH")
+                }
+              }
+            }]}
           /> :
           <Loader/>
         }

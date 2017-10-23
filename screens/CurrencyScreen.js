@@ -45,16 +45,6 @@ class CurrencyScreen extends React.Component {
     return (
       <ScrollView
         style={styles.container} contentContainerStyle={styles.containerContent}>
-        <LineChart
-          lineColor={DarkTheme.chartLine} gridColor={DarkTheme.chartGrid}
-          data={scopedChartData }
-        />
-
-        <Switch
-          selected={this.state.selectedTimeFrame}
-          onPress={this.selectTimeFrame}
-          values={TimeFrames}
-        />
 
         <View key="ValueContainer" style={styles.valueContainer}>
           <BaseText style={styles.price}>
@@ -65,6 +55,16 @@ class CurrencyScreen extends React.Component {
           </BaseText>
         </View>
 
+        <LineChart
+          lineColor={DarkTheme.chartLine} gridColor={DarkTheme.chartGrid}
+          data={scopedChartData }
+        />
+
+        <Switch
+          selected={this.state.selectedTimeFrame}
+          onPress={this.selectTimeFrame}
+          values={TimeFrames}
+        />
 
         <View key="HighLowContainer" style={styles.highLowContainer}>
           <View>
@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 20,
     width: 250,
+    marginVertical: 20,
     justifyContent: "space-between"
   },
   highLowLabel: {
@@ -158,7 +159,6 @@ const styles = StyleSheet.create({
   highLowValue: {
     fontSize: 16,
     textAlign: "center",
-
     // textAlign: "left",
     // flexGrow: 1,
     color: DarkTheme.valueText,
@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
   statsContainer: {
     flex: 1,
     flexDirection: "row",
-    marginBottom: 10,
     width: 300,
   },
   statLabel: {
