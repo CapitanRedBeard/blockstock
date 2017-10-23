@@ -6,7 +6,7 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import DarkTheme from "../constants/DarkTheme"
 import { getInTheBlackOrRedColor } from '../constants/Colors'
 import { TimeFrames } from '../constants/Types'
-import { formatMoney, formatSupply, getLowHighPrice, getChange } from '../helpers'
+import { formatMoney, formatPercent, formatSupply, getLowHighPrice, getChange } from '../helpers'
 import { fetchChart } from '../actions/market'
 import BaseText from '../components/BaseText'
 import LineChart from '../components/Charts/LineChart';
@@ -35,11 +35,12 @@ class CurrencyScreen extends React.Component {
     const { ticker } = this.props
 
     const scopedChartData = this.props.chartData[ticker.symbol] && this.props.chartData[ticker.symbol][TimeFrames[this.state.selectedTimeFrame].label]
-    console.log("scopedChartData", this.props.chartData)
-    const change = getChange(scopedChartData && scopedChartData.price_usd)
+    const change = getChange(scopedChartData)
     const currentPrice = formatMoney(ticker.price_usd)
-    const {lowPrice, highPrice} = getLowHighPrice(scopedChartData && scopedChartData.price_usd)
+    const {lowPrice, highPrice} = getLowHighPrice(scopedChartData)
     const percentColor = getInTheBlackOrRedColor(change)
+
+    console.log("scopedChartData", lowPrice, highPrice, change)
 
     return (
       <ScrollView
@@ -60,7 +61,7 @@ class CurrencyScreen extends React.Component {
             {currentPrice}
           </BaseText>
           <BaseText style={[styles.change, percentColor ? {color: percentColor} : null]}>
-            {change ? change + "%" : "-"}
+            {formatPercent(change)}
           </BaseText>
         </View>
 

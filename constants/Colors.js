@@ -19,8 +19,8 @@ const Colors = {
   labelTextDark: '#92ABDC', //'#527B92',
   valueTextDark: '#FFF', //'#F9F9FA',
 
-  canvasLight: '#FBFBFF',
-  cardBackgroundLight: '#D0D1D5',
+  canvasLight: '#E2E6F8',
+  cardBackgroundLight: '#D5DAF0',
   labelTextLight: '#928B93',
   valueTextLight: '#363438',
 

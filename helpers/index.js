@@ -12,7 +12,7 @@ export function matchesFloat(value) {
 
 export function formatPercent(value ) {
   if(isNaN(value)) {
-    return ""
+    return "-"
   }
   return numeral(Number(value)).format('0.00%')
 }
@@ -35,7 +35,7 @@ export function getLowHighPrice(data) {
     highPrice = Number.NEGATIVE_INFINITY;
 
     for (let i=data.length-1; i>=0; i--) {
-        tmp = data[i][1];
+        tmp = data[i].close;
         if (tmp < lowPrice) lowPrice = tmp;
         if (tmp > highPrice) highPrice = tmp;
     }
@@ -54,7 +54,7 @@ export function getHigh(data) {
 
 export function getChange(data) {
   if(data) {
-    return (((data[data.length - 1][1] - data[0][1]) / data[0][1]) * 100).toFixed(2)
+    return (((data[data.length - 1].close - data[0].open) / data[0].open))
   }
 }
 
