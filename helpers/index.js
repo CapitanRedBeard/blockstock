@@ -28,39 +28,6 @@ export function formatSupply(supply, symbol) {
   return `${formattedSupply} ${symbol}`
 }
 
-
-
-const dayInMilli = 1000 * 60 * 60 * 24
-const weekInMilli = dayInMilli * 7
-const monthInMilli = weekInMilli * 4
-const threeMonthsInMilli = monthInMilli * 3
-const yearInMilli = threeMonthsInMilli * 4
-
-
-export function getTimeStampFrame(timeFrame) {
-  const currentDate = new Date()
-  const currentTime = currentDate.getTime()
-  const currentYear = currentDate.getFullYear()
-
-  switch (timeFrame) {
-    case '1D':
-      return `${currentTime - dayInMilli}/${currentTime}`
-    case '1W':
-      return `${currentTime - weekInMilli}/${currentTime}`
-    case '1M':
-      return `${currentTime - monthInMilli}/${currentTime}`
-    case '3M':
-      return `${currentTime - threeMonthsInMilli}/${currentTime}`
-    case '1Y':
-      return `${currentTime - yearInMilli}/${currentTime}`
-    case 'YTD':
-      return `${new Date(currentYear, 0).getTime()}/${currentTime}`
-    case 'All':
-    default:
-      return ""
-  }
-}
-
 export function getLowHighPrice(data) {
   let lowPrice, highPrice, tmp
   if(data) {

@@ -5,6 +5,7 @@ import DarkTheme from '../../constants/DarkTheme'
 import { getInTheBlackOrRedColor } from '../../constants/Colors'
 
 import BaseText from '../../components/BaseText'
+import CryptoIcon from '../../components/CryptoIcon'
 
 export default class TickerCard extends React.PureComponent {
   _onPress = () => {
@@ -23,6 +24,7 @@ export default class TickerCard extends React.PureComponent {
          <TouchableOpacity style={styles.touchableWrapper} onPress={this._onPress}>
            <View style={styles.container}>
              <BaseText style={styles.rank}>{ticker.rank}</BaseText>
+             <CryptoIcon symbol={ticker.symbol} />
              <View key="NameContainer" style={styles.nameContainer}>
                <BaseText style={styles.name}>{ticker.name}</BaseText>
                <BaseText style={styles.ticker}>{ticker.symbol}</BaseText>
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
   nameContainer: {
     justifyContent: "center",
     flexGrow: 1,
+    marginLeft: 10,
   },
   valueContainer: {
     justifyContent: "center",

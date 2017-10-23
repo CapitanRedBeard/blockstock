@@ -22,13 +22,12 @@ function getMaxY(data) {
 
 function formatData(data) {
   return data.map(point => ({
-    x: point[0],
-    y: point[1],
+    x: point.time,
+    y: point.close,
   }))
 }
 
 export default function LineChart({lineColor, gridColor, data}) {
-
   return (
     <View style={styles.container}>
         <View key="line0" style={[styles.line, {backgroundColor: gridColor, top: 0, opacity: 0.25}]}/>
@@ -45,7 +44,7 @@ export default function LineChart({lineColor, gridColor, data}) {
             style={{
               data: { stroke: lineColor },
             }}
-            data={formatData(data.price_usd)}
+            data={formatData(data)}
           /> :
           <Loader/>
         }

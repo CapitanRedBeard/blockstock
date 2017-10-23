@@ -11,11 +11,11 @@ import SettingsScreen from '../screens/SettingsScreen';
 
 export default TabNavigator(
   {
-    Portfolio: {
-      screen: PortfolioScreen,
-    },
     Market: {
       screen: MarketScreen,
+    },
+    Portfolio: {
+      screen: PortfolioScreen,
     },
     Settings: {
       screen: SettingsScreen,

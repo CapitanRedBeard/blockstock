@@ -20,10 +20,10 @@ export default (state = initialState, action) => {
       const chartData = {
         ...state.chartData,
       }
-      if(!chartData[action.coinName]) {
-        chartData[action.coinName] = {}
+      if(!chartData[action.symbol]) {
+        chartData[action.symbol] = {}
       }
-      chartData[action.coinName][action.timeFrame] = action.chartData
+      chartData[action.symbol][action.timeFrame] = action.chartData
       return {...state, chartData: chartData}
     case ActionTypes.TOGGLE_FAVORITE:
       const toggledFavoites = {...state.favorites}

@@ -22,19 +22,20 @@ class CurrencyScreen extends React.Component {
 
   selectTimeFrame = value => {
     const { ticker } = this.props
-    ticker && this.props.fetchChart(ticker.name, TimeFrames[value].label)
+    ticker && this.props.fetchChart(ticker.symbol, TimeFrames[value].label)
     this.setState({selectedTimeFrame: value})
   }
 
   componentWillMount() {
     const { ticker } = this.props
-    ticker && this.props.fetchChart(ticker.name, TimeFrames[this.state.selectedTimeFrame].label)
+    ticker && this.props.fetchChart(ticker.symbol, TimeFrames[this.state.selectedTimeFrame].label)
   }
 
   render() {
     const { ticker } = this.props
 
-    const scopedChartData = this.props.chartData[ticker.name] && this.props.chartData[ticker.name][TimeFrames[this.state.selectedTimeFrame].label]
+    const scopedChartData = this.props.chartData[ticker.symbol] && this.props.chartData[ticker.symbol][TimeFrames[this.state.selectedTimeFrame].label]
+    console.log("scopedChartData", this.props.chartData)
     const change = getChange(scopedChartData && scopedChartData.price_usd)
     const currentPrice = formatMoney(ticker.price_usd)
     const {lowPrice, highPrice} = getLowHighPrice(scopedChartData && scopedChartData.price_usd)

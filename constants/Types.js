@@ -25,12 +25,6 @@ export const TimeFrames = [
   },
   {
     label: "1Y"
-  },
-  {
-    label: "YTD"
-  },
-  {
-    label: "All"
   }
 ]
 
