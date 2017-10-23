@@ -5,15 +5,15 @@ const RESPONSE_STATUS = {
 export function getTimeFrame(timeFrame) {
   switch (timeFrame) {
     case '1D':
-      return 'histohour?limit=12&aggregate=2'
+      return 'histominute?limit=96&aggregate=15'
     case '1W':
-      return 'histohour?limit=14&aggregate=12'
+      return 'histohour?limit=72&aggregate=2'
     case '1M':
-      return 'histoday?limit=15&aggregate=2'
+      return 'histohour?limit=90&aggregate=8'
     case '3M':
-      return 'histoday?limit=15&aggregate=6'
+      return 'histoday?limit=90&aggregate=1'
     case '1Y':
-      return 'histoday?limit=15&aggregate=24'
+      return 'histoday?limit=73&aggregate=5'
   }
 }
 
