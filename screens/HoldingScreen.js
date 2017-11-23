@@ -5,7 +5,6 @@ import DarkTheme from "../constants/DarkTheme"
 
 import { addTransaction } from '../actions/portfolio'
 import BaseText from '../components/BaseText'
-import AddTransactionButton from "../components/Holdings/AddTransactionButton"
 import AssetHoldingSummary from "../components/Holdings/AssetHoldingSummary"
 import TransactionForm from "../components/Holdings/TransactionForm"
 import TransactionList from "../components/Holdings/TransactionList"

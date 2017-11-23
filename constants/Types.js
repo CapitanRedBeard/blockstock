@@ -6,7 +6,9 @@ export const ActionTypes = {
   ADD_ASSET: "ADD_ASSET",
   REMOVE_ASSET: "REMOVE_ASSET",
   SWITCH_PORTFOLIO: "SWITCH_PORTFOLIO",
-  ADD_TRANSACTION: "ADD_TRANSACTION"
+  ADD_TRANSACTION: "ADD_TRANSACTION",
+
+  ADD_NOTIFICATION: "ADD_NOTIFICATION"
 }
 
 
@@ -34,5 +36,14 @@ export const TransactionTypes = [
   },
   {
     label: "SELL",
+  },
+]
+
+export const AlertTypes = [
+  {
+    label: "ONCE",
+  },
+  {
+    label: "PERSIST",
   },
 ]

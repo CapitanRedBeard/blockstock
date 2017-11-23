@@ -43,7 +43,9 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     paddingHorizontal: 7,
     marginHorizontal: 5,
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+    justifyContent: "center",
+    alignItems: "center"
   },
   value: {
     fontSize: 12,

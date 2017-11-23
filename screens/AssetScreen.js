@@ -23,10 +23,10 @@ const TABS = {
     key: 'currency',
     title: 'Stats'
   },
-  books: {
-    key: 'books',
-    title: 'Books'
-  },
+  // books: {
+  //   key: 'books',
+  //   title: 'Books'
+  // },
   alerts: {
     key: 'alerts',
     title: 'Alerts'
@@ -51,7 +51,7 @@ export default class AssetScreen extends PureComponent {
       index: 0,
       routes: [
         TABS.currency,
-        TABS.books,
+        // TABS.books,
         TABS.alerts,
       ],
     };
@@ -90,10 +90,10 @@ export default class AssetScreen extends PureComponent {
         return <CurrencyScreen {...params}/>
       case TABS.holding.key:
         return <HoldingScreen navigation={this.props.navigation}/>
-      case TABS.books.key:
-        return <BooksScreen/>
+      // case TABS.books.key:
+      //   return <BooksScreen/>
       case TABS.alerts.key:
-        return <AlertScreen/>
+        return <AlertScreen {...params}/>
       default:
         return null;
     }

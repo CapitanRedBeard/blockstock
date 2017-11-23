@@ -7,7 +7,6 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import DarkTheme from '../../constants/DarkTheme'
 import BaseText from '../../components/BaseText'
-import { addTransaction } from '../../actions/portfolio'
 
 export default class AddTransactionButton extends React.Component {
   render() {
@@ -15,11 +14,11 @@ export default class AddTransactionButton extends React.Component {
       <TouchableOpacity
         style={styles.container}
         key="AddTransactionContainer"
-        onPress={this.props.submitTransaction}
+        onPress={this.props.onPress}
       >
         <View>
           <BaseText style={styles.addButton}>
-            {"Trade"}
+            {this.props.value}
           </BaseText>
         </View>
       </TouchableOpacity>

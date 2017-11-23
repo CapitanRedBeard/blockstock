@@ -3,9 +3,9 @@ import { View, TextInput, Text, StyleSheet } from 'react-native';
 import BaseText from './BaseText'
 import DarkTheme from '../constants/DarkTheme'
 
-export default function Input({label, value, onChange, placeholder}) {
+export default function Input({label, value, onChange, placeholder, containerStyle}) {
   return (
-    <View style={styles.container} >
+    <View style={[styles.container, styles.containerStyle]} >
       <BaseText style={styles.labelStyle}>
         {label}
       </BaseText>
