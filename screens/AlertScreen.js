@@ -97,7 +97,7 @@ class AlertScreen extends React.Component {
   render() {
     const { ticker, notifications } = this.props
     const {below, above, alertType} = this.state
-    console.log("notifications", notifications)
+
     return (
       <View style={styles.container}>
         <View style={styles.alertHeader}>
