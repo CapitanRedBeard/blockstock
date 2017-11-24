@@ -4,11 +4,20 @@
 
 import { ActionTypes } from "../constants/Types"
 
-export function submitNotification(below, above, alertType): Action {
+export function submitNotification(below, above, alertType, symbol): Action {
   return {
       type: ActionTypes.ADD_NOTIFICATION,
       below,
       above,
-      alertType
+      alertType,
+      symbol
+    }
+}
+
+export function removeNotification(index, symbol): Action {
+  return {
+      type: ActionTypes.REMOVE_NOTIFICATION,
+      index,
+      symbol
     }
 }
