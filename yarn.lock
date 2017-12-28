@@ -1341,9 +1341,9 @@ cryptiles@3.x.x:
   dependencies:
     boom "5.x.x"
 
-cryptocoins-icons@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/cryptocoins-icons/-/cryptocoins-icons-2.6.0.tgz#415b5f16330d3aa675cbb41e5dfa3765422a4bcb"
+cryptocoins-icons@~2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/cryptocoins-icons/-/cryptocoins-icons-2.7.0.tgz#53e455f367bd3add9e91a611366957edcf60e3b3"
 
 csrf@~3.0.0:
   version "3.0.6"
