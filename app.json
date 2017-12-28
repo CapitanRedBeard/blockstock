@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "blockstock",
-    "description": "No description",
+    "name": "Blockstock",
+    "description": "A cryptocurrency portfolio tracker ",
     "slug": "blockstock",
-    "privacy": "unlisted",
+    "privacy": "public",
     "sdkVersion": "21.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,8 +24,11 @@
       "assetExts": ["ttf"]
     },
     "ios": {
-      "bundleIdentifier": "com.sk3vy.new-project-template",
+      "bundleIdentifier": "com.capitanredbeard.blockstock",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.capitanredbeard.blockstock"
     }
   }
 }
