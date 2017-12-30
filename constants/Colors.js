@@ -8,11 +8,17 @@ const Colors = {
   tabBackgroundDark: '#161930',
   tabBackgroundSelectedDark: '#161930',
 
+  tabDefaultLight: '#92ABDC',
+  tabSelectedLight: tintColor,
+  tabBackgroundLight: '#161930',
+  tabBackgroundSelectedLight: '#161930',
+
   loaderColorDark: tintColor,
   loaderColorLight: tintColor,
 
   blankSymbolColorDark: '#FFF',
   blankSymbolColorLight: '#000',
+  
 
   canvasDark: '#161930', // ''#11202D',
   cardBackgroundDark: '#212540', //'#162A3A',

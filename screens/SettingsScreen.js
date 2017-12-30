@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Switch, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StyleSheet, Switch, TouchableOpacity, Image } from 'react-native';
 import { connect } from "react-redux"
 import { Ionicons } from '@expo/vector-icons';
 
@@ -21,25 +21,24 @@ class SettingsScreen extends React.Component {
     const { darkTheme } = this.props
     return (
       <ScrollView style={styles.container}>
-        <View key="theme" style={styles.row}>
+        {
+          // <View key="theme" style={styles.row}>
+          //   <BaseText style={styles.label}>
+          //     {"Dark Theme"}
+          //   </BaseText>
+              
+          //   <Switch onTintColor={DarkTheme.tintColor} value={darkTheme} onValueChange={this.toggleTheme}/>
+          // </View>
+        }
+        <View key="donate" style={styles.donateContainer}>
           <BaseText style={styles.label}>
-            {"Dark Theme"}
+            {"Donate (ETH Address)"}
           </BaseText>
-            
-          <Switch onTintColor={DarkTheme.tintColor} value={darkTheme} onValueChange={this.toggleTheme}/>
-        </View>
-        <TouchableOpacity key="donate" style={styles.row} >
-          <BaseText style={styles.label}>
-            {"Donate"}
-          </BaseText>
-          
-          <Ionicons
-            name="ios-arrow-forward"
-            size={20}
-            style={styles.itemIcon}
-            color={DarkTheme.valueText}
+          <Image
+            style={{width: 200, height: 200}}
+            source={require('../assets/images/ethDonationQR.png')}
           />
-        </TouchableOpacity>
+        </View>
       </ScrollView>
     );
   }
@@ -65,7 +64,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     flex: 1,
     textAlign: 'left',
+    marginBottom: 20,
   },
+  donateContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });
 
 export default connect(
