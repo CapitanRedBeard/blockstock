@@ -12,3 +12,4 @@ Blockstock allows users to:
  - Monitor the market
  - View portfolio value, profits, and cost
 
+**Block stock is and always will be free and opensource. No information is stored on a server, all of your portfolio data is stored on the app. Deleting the app will delete your portfolio(s).**
